@@ -14,57 +14,7 @@
 
 <body>
     <section id="top-nav">
-        <div class="top-nav-wrapper">
-            <div class="top-nav-container">
-                <div class="top-nav-content-wrapper">
-                    <div class="burger">
-                        <a class="left-sidebar-burger" id="left-sidebar-burger" href="javascript:void(0)" onclick="closeNav()">
-                            <img src="img/burger.svg" alt="">
-                        </a>
-                    </div>
-                    <div class="logo-wrapper">
-                        <img class="logo" src="img/logo.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-wrapper-mobile">
-                        <img class="logo" src="img/logo.png" alt="">
-                    </div>
-                <div class="top-nav-search">
-                    <div class="search-wrapper">
-                        <form class="search-bar-1" method="post" action="">
-                            <input class="search-bar-input" type="text" placeholder="Search for items">
-                            <span>
-                                <img src="img/search.svg" alt="">
-                            </span>
-                        </form>
-                    </div>
-                </div>
-                <div class="account-actions">
-                    <div class="cart-wrapper">
-                        <div class="cart-svg">
-                            <img src="img/cart.svg" alt="">
-                            <span class="cart-label">Cart</span>
-                        </div>
-                    </div>
-                    <div class="account-wrapper">
-                        <div class="acc-svg">
-                            <img src="img/account.svg" alt="">
-                            <span>Account</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="top-nav-search-mobile">
-                <div class="search-wrapper-mobile">
-                    <form class="search-bar-2" method="post" action="">
-                        <input class="search-bar-input" type="text" placeholder="Search for items">
-                        <span>
-                            <img src="img/search.svg" alt="">
-                        </span>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <?php include_once "modules/top-nav.php"; ?>
     </section>
     <section id="main-content">
         <div class="main-content-wrapper">
@@ -72,17 +22,95 @@
                 <?php include_once "modules/right-sidebar.php"; ?>
             </div>
             <div id="main-content-div" class="main-content">
-                <?php include_once "modules/main-content.php" ?>
+                <?php include_once "modules/main-content.php"; ?>
             </div>
             <div class="d-none d-sm-none d-lg-block d-md-none">
                 <?php include_once "modules/left-sidebar.php"; ?>
             </div>
         </div>
     </section>
-    <script src="js/index.js"></script>
-    <script>
+        <footer id="footer" class="footer">
+            <div class="footer__addr">
+                <img src="img/logo.png" class="footer__logo" alt="">
+                <h2>Contact</h2>
+                <address>
+                    5534 Somewhere In. The World 22193-10212<br>
 
-    </script>
+                    <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+                </address>
+            </div>
+
+            <ul class="footer__nav">
+                <li class="nav__item">
+                    <h2 class="nav__title">Media</h2>
+
+                    <ul class="nav__ul">
+                        <li>
+                            <a href="#">Online</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Print</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Alternative Ads</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav__item nav__item--extra">
+                    <h2 class="nav__title">Technology</h2>
+
+                    <ul class="nav__ul nav__ul--extra">
+                        <li>
+                            <a href="#">Hardware Design</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Software Design</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Digital Signage</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Automation</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Artificial Intelligence</a>
+                        </li>
+
+                        <li>
+                            <a href="#">IoT</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav__item">
+                    <h2 class="nav__title">Legal</h2>
+                    <ul class="nav__ul">
+                        <li>
+                            <a href="#">Privacy Policy</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Terms of Use</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Sitemap</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="legal">
+                <p>&copy; 2024. All rights reserved.</p>
+            </div>
+        </footer>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
