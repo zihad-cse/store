@@ -7,6 +7,7 @@ function openNav() {
     if (!view830px.matches){
         document.getElementById("content-wrapper-div").style.marginLeft = "300px";
         document.getElementById("footer").style.marginLeft ="300px";
+        document.getElementById("mc-cat-wrapper").style.marginLeft ="300px";
     }
     document.querySelector(".left-sidebar-burger").setAttribute("onclick", "closeNav()");
 }
@@ -17,6 +18,7 @@ function closeNav() {
     sidebar.style.visibility = "hidden";
     document.getElementById("content-wrapper-div").style.marginLeft = "0px";
     document.getElementById("footer").style.marginLeft ="0px";
+    document.getElementById("mc-cat-wrapper").style.marginLeft ="0px";
     document.querySelector(".left-sidebar-burger").setAttribute("onclick", "openNav()");
 }
 
