@@ -7,7 +7,9 @@
                 </a>
             </div>
             <div class="logo-wrapper">
-                <img class="logo" src="img/logo.png" alt="">
+                <a href="/store/">
+                    <img class="logo" src="img/logo.png" alt="">
+                </a>
             </div>
         </div>
         <div class="logo-wrapper-mobile">

@@ -23,11 +23,11 @@
         <address>
             5534 Somewhere In. The World 22193-10212<br>
             <a class="footer__btn" href="#">Contact Us</a>
-            <a href=""><img src="img/facebook.svg" alt=""></a>
-            <a href=""><img src="img/instagram.svg" alt=""></a>
-            <a href=""><img src="img/youtube.svg" alt=""></a>
-            <a href=""><img src="img/twitter.svg" alt=""></a>
-            <a href=""><img src="img/linkedin.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/facebook.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/instagram.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/youtube.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/twitter.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/linkedin.svg" alt=""></a>
         </address>
     </div>
     
