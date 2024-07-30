@@ -144,12 +144,28 @@
     padding: 0rem var(--size-value-4);
 }
 
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-grid {
+    display: grid;
+}
+
 .text-decoration-none {
     text-decoration: none;
 }
 
 .text-dark {
     color: #111;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .active-primary {
@@ -162,7 +178,40 @@
     color: var(--dark-color);
 }
 
+.btn{
+    background: none;
+    border: none;
+}
 
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: light;
+    border: none;
+}
+
+.btn-primary:active {
+    background-color: var(--secondary-color);
+}
+
+.btn-primary-outline {
+    background-color: var(--light-color);
+    border: 1px var(--primary-color) solid;
+    border-radius: 10px;
+    color: var(--dark-color);
+}
+
+.btn-primary-outline:active {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.color-primary {
+    color: var(--primary-color);
+}
 
 body {
     margin: 0;
@@ -516,7 +565,6 @@ body {
 /* w3schools sidebar end here */
 
 .content-wrapper {
-    display: grid;
     grid-template-columns: repeat(auto-fill, 202px);
     gap: 4px;
     justify-content: center;
@@ -961,10 +1009,11 @@ body {
 }
 
 .product-desc-cart-qnty {
+    -webkit-appearance: textfield;
     -moz-appearance: textfield;
+    appearance: textfield;
     height: 20px;
     width: 50px;
-    padding: 15px;
     border: 1px var(--primary-color) solid;
     border-radius: 10px;
     outline: none;
@@ -972,7 +1021,6 @@ body {
 
 .qnty-increment,
 .qnty-decrement {
-    padding: 15px;
     background-color: var(--light-color);
     border: 1px var(--primary-color) solid;
     border-radius: 10px;

@@ -73,12 +73,6 @@ for (i = 0; i < subDropdown.length; i++) {
 }
 
 
-
-// dropdownButton.addEventListener("click", function(){
-//     dropdownCaret.classList.toggle("expanded");
-// })
-
-
 // Product Image Zoom
 
 
@@ -111,20 +105,59 @@ const thumbnails = document.querySelectorAll('.product-img-thumbnail img');
 
 thumbnails.forEach(thumbnail => {
     thumbnail.addEventListener('click', () => {
-        // Update the main image source
         mainImage.src = thumbnail.src;
         mainImage.style.transformOrigin = 'center center';
         mainImage.style.transform = 'scale(1)';
         mainImage.style.zIndex = '1';
 
-        // Remove "active" class from all thumbnails
         thumbnails.forEach(th => th.parentElement.classList.remove('product-img-thumbnail-active'));
 
-        // Add "active" class to the clicked thumbnail
         thumbnail.parentElement.classList.add('product-img-thumbnail-active');
     });
 });
 
-function openImage(imgurl){
+//Opening image in new tab on click
+
+function openImage(imgurl) {
     window.open(imgurl, '_blank');
 }
+
+//Product Viewing
+
+
+document.querySelector('.content-wrapper').addEventListener('click', function (event) {
+    if (event.target && event.target.closest('.content-wrapper')) {
+        event.preventDefault();
+
+        const item = event.target.closest('.item');
+        const imageSection = item.querySelector('.item-picture');
+        const itemDesc = item.querySelector('.item-desc');
+        const imageSrc = imageSection.querySelector('img').src; 
+        const itemCategory = itemDesc.querySelector('.item-desc-category');
+        const itemTitle = itemDesc.querySelector('.item-desc-title');
+        const itemPrice = itemDesc.querySelector('.item-desc-price');
+
+        const listWrapper = document.querySelector('.content-wrapper');
+        const productDetails = document.querySelector('.product-wrapper');
+
+        listWrapper.classList.remove('d-grid');
+        listWrapper.classList.add('d-none');
+        productDetails.classList.remove('d-none');
+
+        document.querySelector('.product-img').src = imageSrc;
+        document.querySelector('.product-desc-title h2').innerHTML = `${itemTitle}`;
+        document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${itemCategory}</a>`;
+        document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
+
+    };
+
+
+});
+
+document.querySelector('.product-wrapper').addEventListener('click', function(event){
+    if(event.target && event.target.closest('.product-back-button')){
+        document.querySelector('.content-wrapper').classList.remove('d-none');
+        document.querySelector('.content-wrapper').classList.add('d-grid');
+        document.querySelector('.product-wrapper').classList.add('d-none');
+    }
+})
