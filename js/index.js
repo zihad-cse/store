@@ -46,46 +46,58 @@ view830px.addEventListener("change", function () {
 
 
 // dropdown buttons in sidenav
-const sidebarWrapper = document.getElementById('sidenav');
-const dropdownBtnClasses = '.dropdown-btn';
-const dropdownButton = document.querySelectorAll(dropdownBtnClasses);
+// const sidebarWrapper = document.getElementById('sidenav');
+// const dropdownBtnClasses = '.dropdown-btn';
+// const dropdownButton = document.querySelectorAll(dropdownBtnClasses);
 
-dropdownButton.forEach((dropdownButton) => {
-    const dropdownIcon = dropdownButton.querySelector('.fa-caret-down');
-    if (dropdownIcon) {
-        const observer = new MutationObserver(mutations => {
-            mutations.forEach(mutation => {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    const target = mutation.target;
-                    if (target.classList.contains('expanded-rotate')) {
-                        dropdownButton.classList.add('active');
-                    } else {
-                        dropdownButton.classList.remove('active');
-                    }
-                }
-            })
-        })
-        const config = {
-            attributes: true,
-            subtree: true,
-            attributeFilter: ['class']
-        }
+// dropdownButton.forEach((dropdownButton) => {
+//     const dropdownIcon = dropdownButton.querySelector('.fa-caret-down');
+//     if (dropdownIcon) {
+//         const observer = new MutationObserver(mutations => {
+//             mutations.forEach(mutation => {
+//                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+//                     const target = mutation.target;
+//                     if (target.classList.contains('expanded-rotate')) {
+//                         dropdownButton.classList.add('active');
+//                     } else {
+//                         dropdownButton.classList.remove('active');
+//                     }
+//                 }
+//             })
+//         })
+//         const config = {
+//             attributes: true,
+//             subtree: true,
+//             attributeFilter: ['class']
+//         }
     
-        observer.observe(dropdownIcon, config);
-    }
-})
+//         observer.observe(dropdownIcon, config);
+//     }
+// })
 
 
 
-
+var sideNavWrapper = document.getElementById('sidenav');
 var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
 
+let currentOpenDropdown = null;
+
 for (i = 0; i < dropdown.length; i++) {
     dropdown[i].addEventListener("click", function () {
+        for (j=0; j < dropdown.length; j++){
+            if(dropdown[j] !== this){
+                let otherDropdownContent = dropdown[j].nextElementSibling;
+                let otherDropdownCaret = dropdown[j].querySelector(".fa-caret-down");
+                dropdown[j].classList.remove('active');
+                otherDropdownCaret.classList.remove('.expanded-rotate');
+                otherDropdownContent.classList.remove('visible');
+            }
+        }
         var dropdownContent = this.nextElementSibling;
-        dropdownContent.classList.toggle("visible");
         var dropdownCaret = this.querySelector(".fa-caret-down");
+        this.classList.toggle ('active')
+        dropdownContent.classList.toggle("visible");
         dropdownCaret.classList.toggle("expanded-rotate");
     });
 }
@@ -97,8 +109,9 @@ var i;
 for (i = 0; i < subDropdown.length; i++) {
     subDropdown[i].addEventListener("click", function () {
         var dropdownContent = this.nextElementSibling;
-        dropdownContent.classList.toggle("visible");
         var dropdownCaret = this.querySelector(".fa-caret-down");
+        this.classList.toggle('active')
+        dropdownContent.classList.toggle("visible");
         dropdownCaret.classList.toggle("expanded-rotate");
     });
 }
