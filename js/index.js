@@ -46,6 +46,37 @@ view830px.addEventListener("change", function () {
 
 
 // dropdown buttons in sidenav
+const sidebarWrapper = document.getElementById('sidenav');
+const dropdownBtnClasses = '.dropdown-btn';
+const dropdownButton = document.querySelectorAll(dropdownBtnClasses);
+
+dropdownButton.forEach((dropdownButton) => {
+    const dropdownIcon = dropdownButton.querySelector('.fa-caret-down');
+    if (dropdownIcon) {
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.classList.contains('expanded-rotate')) {
+                        dropdownButton.classList.add('active');
+                    } else {
+                        dropdownButton.classList.remove('active');
+                    }
+                }
+            })
+        })
+        const config = {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['class']
+        }
+    
+        observer.observe(dropdownIcon, config);
+    }
+})
+
+
+
 
 var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
@@ -55,7 +86,7 @@ for (i = 0; i < dropdown.length; i++) {
         var dropdownContent = this.nextElementSibling;
         dropdownContent.classList.toggle("visible");
         var dropdownCaret = this.querySelector(".fa-caret-down");
-        dropdownCaret.classList.toggle("expanded");
+        dropdownCaret.classList.toggle("expanded-rotate");
     });
 }
 
@@ -68,9 +99,11 @@ for (i = 0; i < subDropdown.length; i++) {
         var dropdownContent = this.nextElementSibling;
         dropdownContent.classList.toggle("visible");
         var dropdownCaret = this.querySelector(".fa-caret-down");
-        dropdownCaret.classList.toggle("expanded");
+        dropdownCaret.classList.toggle("expanded-rotate");
     });
 }
+
+
 
 
 // Product Image Zoom
@@ -132,7 +165,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         const item = event.target.closest('.item');
         const imageSection = item.querySelector('.item-picture');
         const itemDesc = item.querySelector('.item-desc');
-        const imageSrc = imageSection.querySelector('img').src; 
+        const imageSrc = imageSection.querySelector('img').src;
         const itemCategory = itemDesc.querySelector('.item-desc-category');
         const itemTitle = itemDesc.querySelector('.item-desc-title');
         const itemPrice = itemDesc.querySelector('.item-desc-price');
@@ -145,6 +178,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         productDetails.classList.remove('d-none');
 
         document.querySelector('.product-img').src = imageSrc;
+        document.querySelector('.product-img-thumbnail img').src = imageSrc;
         document.querySelector('.product-desc-title h2').innerHTML = `${itemTitle}`;
         document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${itemCategory}</a>`;
         document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
@@ -154,8 +188,8 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
 
 });
 
-document.querySelector('.product-wrapper').addEventListener('click', function(event){
-    if(event.target && event.target.closest('.product-back-button')){
+document.querySelector('.product-wrapper').addEventListener('click', function (event) {
+    if (event.target && event.target.closest('.product-back-button')) {
         document.querySelector('.content-wrapper').classList.remove('d-none');
         document.querySelector('.content-wrapper').classList.add('d-grid');
         document.querySelector('.product-wrapper').classList.add('d-none');

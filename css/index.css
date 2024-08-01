@@ -168,7 +168,7 @@
     text-align: center;
 }
 
-.active-primary {
+.active-primary-btn {
     background-color: var(--primary-color);
     color: var(--light-color);
 }
@@ -515,6 +515,9 @@ body {
     width: 100%;
 }
 
+.dropdown-btn.active {
+    color: var(--primary-color);
+}
 
 .sidenav a:hover,
 .dropdown-btn:hover {
@@ -528,12 +531,10 @@ body {
 }
 
 .active {
-    background-color: var(--primary-color);
-    color: white;
+    color: var(--primary-color);
 }
-
 .active:hover {
-    color: white;
+    color: var(--secondary-color);
 }
 
 .dropdown-container {
@@ -558,7 +559,7 @@ body {
 
 }
 
-.fa-caret-down.expanded {
+.fa-caret-down.expanded-rotate {
     transform: rotate(-90deg);
 }
 
@@ -1012,19 +1013,22 @@ body {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
-    height: 20px;
+    height: 50px;
     width: 50px;
     border: 1px var(--primary-color) solid;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
+    padding: 0;
 }
 
 .qnty-increment,
 .qnty-decrement {
     background-color: var(--light-color);
     border: 1px var(--primary-color) solid;
-    border-radius: 10px;
+    border-radius: 5px;
     transition: var(--fast-transition);
+    height: 50px;
+    width: 50px;
 }
 
 .qnty-increment:hover,

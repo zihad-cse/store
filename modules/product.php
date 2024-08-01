@@ -13,7 +13,7 @@
                         <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/1.jpeg" alt="">
                     </div>
                 </div>
-                <div class="product-img-thumbnail-container">
+                <!-- <div class="product-img-thumbnail-container">
                     <div class="product-img-thumbnail">
                         <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/2.jpeg" alt="">
                     </div>
@@ -22,7 +22,7 @@
                     <div class="product-img-thumbnail">
                         <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/3.jpeg" alt="">
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="m-4 product-desc-wrapper">
@@ -40,9 +40,9 @@
             </div>
             <div class="mx-1 product-desc-cart">
                 <div>
-                    <button class="qnty-decrement p-4" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
-                    <input id="cartQty" class="product-desc-cart-qnty p-3 text-center" type="number" value="1" min="1">
-                    <button class="qnty-increment p-4" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
+                    <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
+                    <input id="cartQty" class="product-desc-cart-qnty text-center" type="number" value="1" min="1">
+                    <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
                 </div>
                 <div class="product-desc-cart-btn">
                     <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
