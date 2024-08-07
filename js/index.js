@@ -1,6 +1,12 @@
 // dropdown burger button 
 
 
+//Scroll to top action
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
 var view830px = window.matchMedia("(max-width: 830px)")
 function openNav() {
     const sidebar = document.getElementById("sidenav");
@@ -45,37 +51,13 @@ view830px.addEventListener("change", function () {
 });
 
 
-// dropdown buttons in sidenav
-// const sidebarWrapper = document.getElementById('sidenav');
-// const dropdownBtnClasses = '.dropdown-btn';
-// const dropdownButton = document.querySelectorAll(dropdownBtnClasses);
+//Category Number Generator (Test)
 
-// dropdownButton.forEach((dropdownButton) => {
-//     const dropdownIcon = dropdownButton.querySelector('.fa-caret-down');
-//     if (dropdownIcon) {
-//         const observer = new MutationObserver(mutations => {
-//             mutations.forEach(mutation => {
-//                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-//                     const target = mutation.target;
-//                     if (target.classList.contains('expanded-rotate')) {
-//                         dropdownButton.classList.add('active');
-//                     } else {
-//                         dropdownButton.classList.remove('active');
-//                     }
-//                 }
-//             })
-//         })
-//         const config = {
-//             attributes: true,
-//             subtree: true,
-//             attributeFilter: ['class']
-//         }
-    
-//         observer.observe(dropdownIcon, config);
-//     }
-// })
+// const randomNumber = Math.floor(Math.random() * 10);
+// const categoryDiv = document.getElementById('itemCategoryDiv');
+// categoryDiv.textContent = randomNumber;
 
-
+//Sidenav button dropdowns
 
 var sideNavWrapper = document.getElementById('sidenav');
 var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -85,8 +67,8 @@ let currentOpenDropdown = null;
 
 for (i = 0; i < dropdown.length; i++) {
     dropdown[i].addEventListener("click", function () {
-        for (j=0; j < dropdown.length; j++){
-            if(dropdown[j] !== this){
+        for (j = 0; j < dropdown.length; j++) {
+            if (dropdown[j] !== this) {
                 let otherDropdownContent = dropdown[j].nextElementSibling;
                 let otherDropdownCaret = dropdown[j].querySelector(".fa-caret-down");
                 dropdown[j].classList.remove('active');
@@ -96,7 +78,7 @@ for (i = 0; i < dropdown.length; i++) {
         }
         var dropdownContent = this.nextElementSibling;
         var dropdownCaret = this.querySelector(".fa-caret-down");
-        this.classList.toggle ('active')
+        this.classList.toggle('active')
         dropdownContent.classList.toggle("visible");
         dropdownCaret.classList.toggle("expanded-rotate");
     });
@@ -172,7 +154,7 @@ function openImage(imgurl) {
 
 
 document.querySelector('.content-wrapper').addEventListener('click', function (event) {
-    if (event.target && event.target.closest('.content-wrapper')) {
+    if (event.target && event.target.closest('.item-viewing-trigger')) {
         event.preventDefault();
 
         const item = event.target.closest('.item');
@@ -195,6 +177,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         document.querySelector('.product-desc-title h2').innerHTML = `${itemTitle}`;
         document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${itemCategory}</a>`;
         document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
+        scrollToTop();
 
     };
 
@@ -208,3 +191,5 @@ document.querySelector('.product-wrapper').addEventListener('click', function (e
         document.querySelector('.product-wrapper').classList.add('d-none');
     }
 })
+
+

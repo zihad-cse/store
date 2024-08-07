@@ -1,5 +1,5 @@
 <div class="right-sidebar">
-    <div class="d-flex row">
+    <div class="d-flex flex-column">
         <div class="col-12 py-2 advert-image-container">
             <img src="img/ad-example-1.png" alt="">
         </div>

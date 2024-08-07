@@ -148,12 +148,21 @@
     display: none;
 }
 
+
 .d-block {
     display: block;
 }
 
 .d-grid {
     display: grid;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
 }
 
 .text-decoration-none {
@@ -609,7 +618,6 @@ body {
 
 
 .item {
-    display: flex;
     flex-direction: column;
     background-color: #fff;
     padding: 10px;
@@ -1107,3 +1115,4 @@ body {
     font-size: 15px;
     color: #333;
 }
+
