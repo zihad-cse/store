@@ -26,12 +26,12 @@
             </div>
         </div>
         <div class="account-actions">
-            <div class="cart-wrapper">
+            <div onclick="cartAppear()" class="cart-wrapper">
                 <div class="cart-svg">
-                    <a class="text-decoration-none text-dark" href="">
+                    <p class="text-decoration-none text-dark" href="">
                         <img src="img/cart.svg" alt="">
                         <span class="cart-label">Cart</span>
-                    </a>
+                    </p>
                 </div>
             </div>
             <div class="account-wrapper">

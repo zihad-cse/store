@@ -6,6 +6,8 @@
 
 <div id="content-wrapper-div" class="content-wrapper d-grid"></div>
 
+
+
 <!-- Selected Product Section -->
 
 <?php include_once "product.php" ?>

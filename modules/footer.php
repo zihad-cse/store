@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-<div class="footer-main">
+<!-- <div class="footer-main">
     <div class="footer__addr">
         <img src="img/logo.png" class="footer__logo" alt="">
         <h2>Contact</h2>
@@ -100,4 +100,46 @@
     <div class="legal">
         <p>&copy; 2024. All rights reserved.</p>
     </div>
-</div>
+</div> -->
+
+
+<footer class="footer-distributed">
+    <div class="footer-left">
+        <img src="img/logo.png" alt="" width="auto">
+        <p class="footer-links">
+            <a href="#">Home</a> ·
+            <a href="#">About</a> ·
+            <a href="#">Pricing</a> ·
+            <a href="#">About</a> ·
+            <a href="#">Faq</a> ·
+            <a href="#">Contact</a>
+        </p>
+        <p class="footer-company-name">Metrosoft &copy; 2024</p>
+    </div>
+    <div class="footer-center">
+        <div>
+            <i class="fa fa-map-marker"></i>
+            <p><span>32 Shahjalal Ave, Sector 4</span> Uttara, Dhaka</p>
+        </div>
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>911</p>
+        </div>
+        <div>
+            <i class="fa fa-envelope"></i>
+            <p><a href="">support@company.com</a></p>
+        </div>
+    </div>
+    <div class="footer-right">
+        <p class="footer-company-about">
+            <span>Contact Us:</span>
+        </p>
+        <div class="footer-icons">
+            <a class="footer_links" href=""><img src="img/facebook.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/instagram.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/youtube.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/twitter.svg" alt=""></a>
+            <a class="footer_links" href=""><img src="img/linkedin.svg" alt=""></a>
+        </div>
+    </div>
+</footer>

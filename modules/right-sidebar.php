@@ -1,3 +1,49 @@
+<div class="right-sidebar-cart-wrapper d-none">
+    <div class="right-sidebar-cart-dismiss">
+        <div onclick="cartDisappear()" class="right-sidebar-cart-dismiss-btn">
+            <i class="fa-regular fa-circle-xmark"></i>
+        </div>
+    </div>
+    <div class="no-items-in-cart">
+        <div class="no-items-in-cart-img">
+            <img style="width: 250px;" src="img/shopping.png" alt="">
+        </div>
+        <div class="no-items-in-cart-desc">
+            <h3>Your cart is empty.</h3>
+            <strong onclick="cartDisappear()">Continue Shopping</strong>
+        </div>
+    </div>
+    <div class="items-in-cart d-none">
+        <div class="cart-items-list">
+            <div class="cart-item-wrapper">
+                <div class="cart-item-img">
+                    <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/1.jpeg" alt="">
+                </div>
+                <div class="cart-item-desc">
+                    <div class="cart-item-title">
+                        <p>Item</p>
+                    </div>
+                    <div class="cart-item-price">
+                        <p>250</p>
+                    </div>
+                    <div class="cart-item-qty">
+                        <p>x1</p>
+                    </div>
+                </div>
+                <div class="cart-item-remove">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar-cart-checkout d-flex flex-center">
+        <button>
+            Checkout
+        </button>
+    </div>
+</div>
+
+
 <div class="right-sidebar">
     <div class="d-flex flex-column">
         <div class="col-12 py-2 advert-image-container">

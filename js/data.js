@@ -21,7 +21,7 @@ function fetchData() {
                                     <a class="text-decoration-none item-desc-category-link" href="">${randomCatName}</a>
                                 </div>
                                 <div class="item-desc-title">
-                                    <a class="text-decoration-none item-desc-title-link" href="">USB Cable A </a>
+                                    <p class="text-decoration-none item-desc-title-link" href="">Placeholder Item Title </p>
                                 </div>
                                 <div class="item-desc-price">
                                     <span class:"item-desc-price-inner">৳250</span>
@@ -32,9 +32,9 @@ function fetchData() {
                                 </div>
                             </div>
                         </div>
-                            <div class="item-desc-add">
-                                <button>Add to Cart</button>
-                            </div>
+                        <div class="item-desc-add">
+                            <button>Add to Cart</button>
+                        </div>
                     </div>
                 `;
             });

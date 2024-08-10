@@ -165,6 +165,34 @@
     flex-direction: column;
 }
 
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.flex-center {
+    justify-content: center;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-around {
+    justify-content: space-around;
+}
+
+.flex-evenly {
+    justify-content: space-evenly;
+}
+
 .text-decoration-none {
     text-decoration: none;
 }
@@ -254,10 +282,6 @@ body {
         padding: 40px;
     }
 
-    .footer__logo {
-        width: auto;
-        max-width: 340px;
-    }
 }
 
 @media screen and (max-width: 830px) {
@@ -298,6 +322,10 @@ body {
         max-width: 250px;
     }
 
+    .mc-cat-inner {
+        width: auto;
+        max-width: 300px;
+    }
 
 }
 
@@ -464,20 +492,15 @@ body {
     padding: 0 10px;
 }
 
+.cart-wrapper:hover, .socials-wrapper:hover {
+    cursor: pointer;
+}
+
+
 .socials-wrapper {
     margin-left: 10px;
 }
 
-/* 
-#left-sidebar {
-    position: fixed;
-    overflow-x: hidden;
-    background-color: #ccc;
-    top: 60px;
-    max-width: 300px;
-    padding: 5px;
-    transition: all 0.5s ease;
-} */
 
 .right-sidebar {
     background-color: #fff;
@@ -487,6 +510,103 @@ body {
     width: 290px;
     box-shadow: -1px 0px 3px rgba(0, 0, 0, 0.09);
 }
+
+
+.right-sidebar-cart-wrapper {
+    z-index: 2;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    width: 300px;
+    top: 65px;
+    background-color: var(--tertiary-color);
+    height: max-content;
+    box-shadow: -1px 0px 3px rgba(0, 0, 0, 0.09);
+}
+
+.right-sidebar-cart-checkout button {
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border-radius: 15px;
+    font-size: 20px;
+    padding: 15px;
+    margin-top: 10px;
+    transition: var(--medium-transition);
+}
+
+.right-sidebar-cart-checkout button:hover {
+    cursor: pointer;
+    background-color: var(--primary-color);
+}
+
+/* .no-items-in-cart {
+    transition: var(--slow-transition);
+} */
+
+.no-items-in-cart-img {
+    margin: 20px;
+    height: 300px;
+}
+
+.no-items-in-cart-desc {
+    text-align: center;
+}
+
+.no-items-in-cart-desc strong {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+.no-items-in-cart-desc strong:hover {
+    cursor: pointer;
+}
+
+.right-sidebar-cart-dismiss {
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+}
+.right-sidebar-cart-dismiss-btn {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.right-sidebar-cart-dismiss-btn:hover {
+    cursor: pointer;
+}
+
+.right-sidebar-cart-dismiss-btn .fa-regular {
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.cart-item-wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--light-color);
+}
+
+.cart-item-img {
+    height: 50px;
+    width: 50px;
+    background-color: red;
+}
+
+.cart-item-img img {
+    height: 75px;
+}
+
+.cart-item-desc {
+}
+
+.cart-item-remove {
+    height: 50px;
+    width: 50px;
+    background-color: blue;
+}
+
 
 /* w3schools sidebar start here */
 
@@ -661,7 +781,7 @@ body {
     color: var(--secondary-color);
 }
 
-.item-desc-title a {
+.item-desc-title p {
     text-decoration: none;
     font-size: 16px;
     font-weight: 700;
@@ -696,6 +816,7 @@ body {
 }
 
 .item-desc-add button:hover {
+    cursor: pointer;
     background-color: var(--primary-color);
 }
 
@@ -705,7 +826,7 @@ body {
 
 
 
-.footer {
+/* .footer {
     display: flex;
     margin-left: 300px;
     flex-flow: row wrap;
@@ -826,6 +947,175 @@ body {
 .legal__links {
     display: flex;
     align-items: center;
+} */
+.footer-distributed {
+    background-color: var(--tertiary-color);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    font: bold 16px sans-serif;
+
+    padding: 55px 50px;
+    margin-top: 80px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left {
+    width: 40%;
+}
+
+.footer-distributed .footer-left img {
+    max-width: 340px;
+}
+
+/* The company logo */
+
+.footer-distributed h3 {
+    color: #111;
+    font: normal 36px "Cookie", cursive;
+    margin: 0;
+}
+
+.footer-distributed h3 span {
+    color: #5383d3;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links {
+    color: #111;
+    margin: 20px 0 12px;
+    padding: 0;
+}
+
+.footer-distributed .footer-links a {
+    display: inline-block;
+    line-height: 1.8;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer-distributed .footer-company-name {
+    color: #8f9296;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center {
+    width: 35%;
+}
+
+.footer-distributed .footer-center i {
+    background-color: var(--tertiary-color);
+    color: var(--secondary-color);
+    font-size: 25px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 42px;
+    margin: 10px 15px;
+    vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope {
+    font-size: 17px;
+    line-height: 38px;
+}
+
+.footer-distributed .footer-center p {
+    display: inline-block;
+    color: #111;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.footer-distributed .footer-center p span {
+    display: block;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.footer-distributed .footer-center p a {
+    color: #5383d3;
+    text-decoration: none;
+}
+
+/* Footer Right */
+
+.footer-distributed .footer-right {
+    width: 20%;
+}
+
+.footer-distributed .footer-company-about {
+    line-height: 20px;
+    color: #92999f;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.footer-distributed .footer-company-about span {
+    display: block;
+    color: #111;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons {
+    margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: var(--tertiary-color);
+    border-radius: 2px;
+
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 1214px) {
+    .footer-distributed {
+        font: bold 14px sans-serif;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .footer-distributed .footer-center i {
+        margin-left: 0;
+    }
 }
 
 .heart {
@@ -1115,4 +1405,3 @@ body {
     font-size: 15px;
     color: #333;
 }
-
