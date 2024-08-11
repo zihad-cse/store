@@ -1,12 +1,14 @@
 <!-- Products list -->
 
-<?php 
+<?php
 
 ?>
 
-<div id="content-wrapper-div" class="content-wrapper d-grid"></div>
+<div id="content-wrapper-div" class="content-wrapper d-none"></div>
 
+<!-- Cart section -->
 
+<?php include_once "cart.php" ?>
 
 <!-- Selected Product Section -->
 

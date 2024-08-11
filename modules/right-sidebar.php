@@ -4,7 +4,7 @@
             <i class="fa-regular fa-circle-xmark"></i>
         </div>
     </div>
-    <div class="no-items-in-cart">
+    <div class="no-items-in-cart d-none">
         <div class="no-items-in-cart-img">
             <img style="width: 250px;" src="img/shopping.png" alt="">
         </div>
@@ -13,7 +13,7 @@
             <strong onclick="cartDisappear()">Continue Shopping</strong>
         </div>
     </div>
-    <div class="items-in-cart d-none">
+    <div class="items-in-cart d-block">
         <div class="cart-items-list">
             <div class="cart-item-wrapper">
                 <div class="cart-item-img">
@@ -21,17 +21,17 @@
                 </div>
                 <div class="cart-item-desc">
                     <div class="cart-item-title">
-                        <p>Item</p>
+                        <p>USB Cable A</p>
                     </div>
                     <div class="cart-item-price">
-                        <p>250</p>
+                        <p>৳250</p>
                     </div>
                     <div class="cart-item-qty">
                         <p>x1</p>
                     </div>
                 </div>
                 <div class="cart-item-remove">
-
+                    <img src="img/remove-button.svg" alt="">
                 </div>
             </div>
         </div>
@@ -39,6 +39,11 @@
     <div class="right-sidebar-cart-checkout d-flex flex-center">
         <button>
             Checkout
+        </button>
+    </div>
+    <div class="right-sidebar-cart-view d-flex flex-center d-none">
+        <button>
+            View Cart
         </button>
     </div>
 </div>
