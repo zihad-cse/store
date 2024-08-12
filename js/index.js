@@ -232,3 +232,45 @@ function cartDisappear() {
     cartSidebar.classList.add('d-none');
     cartIcon.setAttribute('onclick', 'cartAppear()');
 }
+
+function openCartDetails() {
+    const listWrapper = document.querySelector('.content-wrapper');
+    const cartDetails = document.getElementById('cart-detail-view-wrap');
+    listWrapper.classList.remove('d-grid');
+    listWrapper.classList.add('d-none');
+    cartDetails.classList.remove('d-none');
+    cartDetails.classList.add('d-block');
+}
+
+function closeCartDetails() {
+    const listWrapper = document.querySelector('.content-wrapper');
+    const cartDetails = document.getElementById('cart-detail-view-wrap');
+    listWrapper.classList.remove('d-none');
+    listWrapper.classList.add('d-grid');
+    cartDetails.classList.remove('d-block');
+    cartDetails.classList.add('d-none');
+}
+
+function itemAddedToCart() {
+    const addCartBtn = document.querySelector('.item-desc-add');
+    const cartItemQty = document.querySelector('.in-cart-qty');
+    
+    addCartBtn.classList.remove('d-block');
+    addCartBtn.classList.add('d-none');
+    cartItemQty.classList.remove('d-none');
+    cartItemQty.classList.add('d-block');
+    
+}
+
+
+document.querySelector('.content-wrapper').addEventListener('click', function (event) {
+    if (event.target && event.target.classList.contains('item-desc-add')){
+        const addCartBtn = event.target;
+        const cartItemQty = addCartBtn.nextElementSibling;
+        
+        addCartBtn.classList.remove('d-block');
+        addCartBtn.classList.add('d-none');
+        cartItemQty.classList.remove('d-none');
+        cartItemQty.classList.add('d-flex');
+    }
+});

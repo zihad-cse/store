@@ -1,6 +1,8 @@
 <div id="productWrapper" class="product-wrapper d-none">
-    
-    <button class="mt-2 mb-2 p-3 btn color-primary product-back-button"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="product-page-header">
+        <button class="mt-2 mb-2 p-3 btn color-primary product-back-button"><i class="fa-solid fa-arrow-left"></i></button>
+        <p>Pathing > Goes > Here</p>
+    </div>
 
     <div class="product-container">
         <div class="product-img-wrapper">
@@ -52,7 +54,7 @@
     </div>
     <div class="product-full-desc">
         <div class="product-full-desc-buttons">
-            <button class="active-primary">Description</button>
+            <button class="active-primary-btn">Description</button>
             <button class="inactive">Tags</button>
             <button class="inactive">Questions</button>
         </div>

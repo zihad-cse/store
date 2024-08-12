@@ -7,11 +7,12 @@ function fetchData() {
         dataType: 'json',
         success: function (data) {
             let content = '';
+            let itemID = 0;
             data.forEach(function (prod) {
                 const randomCategoryNum = Math.floor(Math.random() * 10);
                 const randomCatName = catNames[randomCategoryNum];
                 content += `
-                    <div id="itemId" class="item d-flex flex-column" data-category='${randomCategoryNum}'>
+                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category='${randomCategoryNum}'>
                         <div class="item-viewing-trigger">
                             <div class="item-picture">
                                 <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${prod}" alt="">
@@ -32,11 +33,23 @@ function fetchData() {
                                 </div>
                             </div>
                         </div>
-                        <div class="item-desc-add">
-                            <button>Add to Cart</button>
+                        <div class="">
+                            <button class='d-block item-desc-add' onclick='itemAddedToCart()'>Add to Cart</button>
+                            <div class='in-cart-qty d-none'>
+                                <div class='in-cart-qty-inc'>
+                                    -
+                                </div>
+                                <div class='in-cart-qty-val'>
+                                    <input type="number" min='1' value='1'>
+                                </div>
+                                <div class='in-cart-qty-dec'>
+                                    +
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
+                itemID++;
             });
             $('#content-wrapper-div').html(content);
         }

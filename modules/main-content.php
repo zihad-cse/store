@@ -4,7 +4,7 @@
 
 ?>
 
-<div id="content-wrapper-div" class="content-wrapper d-none"></div>
+<div id="content-wrapper-div" class="content-wrapper d-grid"></div>
 
 <!-- Cart section -->
 

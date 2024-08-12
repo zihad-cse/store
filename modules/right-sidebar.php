@@ -6,7 +6,7 @@
     </div>
     <div class="no-items-in-cart d-none">
         <div class="no-items-in-cart-img">
-            <img style="width: 250px;" src="img/shopping.png" alt="">
+            <img style="width: 250px;" src="img/empty.png" alt="">
         </div>
         <div class="no-items-in-cart-desc">
             <h3>Your cart is empty.</h3>
@@ -41,14 +41,12 @@
             Checkout
         </button>
     </div>
-    <div class="right-sidebar-cart-view d-flex flex-center d-none">
+    <div onclick="openCartDetails(); cartDisappear();" class="right-sidebar-cart-view d-flex flex-center d-none">
         <button>
             View Cart
         </button>
     </div>
 </div>
-
-
 <div class="right-sidebar">
     <div class="d-flex flex-column">
         <div class="col-12 py-2 advert-image-container">
