@@ -7,7 +7,7 @@ function fetchData() {
         dataType: 'json',
         success: function (data) {
             let content = '';
-            let itemID = 0;
+            let itemID = 1;
             data.forEach(function (prod) {
                 const randomCategoryNum = Math.floor(Math.random() * 10);
                 const randomCatName = catNames[randomCategoryNum];
@@ -34,7 +34,7 @@ function fetchData() {
                             </div>
                         </div>
                         <div class="">
-                            <button class='d-block item-desc-add' onclick='itemAddedToCart()'>Add to Cart</button>
+                            <button class='d-block item-desc-add'>Add to Cart</button>
                             <div class='in-cart-qty d-none'>
                                 <div class='in-cart-qty-inc'>
                                     -
