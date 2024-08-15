@@ -197,6 +197,8 @@ document.querySelector('.product-wrapper').addEventListener('click', function (e
 
 //Cart Actions
 
+// Cart Preview Open
+
 function cartAppear() {
     var cartSidebar = document.querySelector('.right-sidebar-cart-wrapper');
     var cartIcon = document.querySelector('.cart-wrapper');
@@ -225,6 +227,8 @@ function cartAppear() {
     // }
 }
 
+// Cart Preview Close
+
 function cartDisappear() {
     var cartSidebar = document.querySelector('.right-sidebar-cart-wrapper');
     var cartIcon = document.querySelector('.cart-wrapper');
@@ -232,6 +236,8 @@ function cartDisappear() {
     cartSidebar.classList.add('d-none');
     cartIcon.setAttribute('onclick', 'cartAppear()');
 }
+
+// Cart Page Open
 
 function openCartDetails() {
     const listWrapper = document.querySelector('.content-wrapper');
@@ -242,6 +248,8 @@ function openCartDetails() {
     cartDetails.classList.add('d-block');
 }
 
+// Cart Page Close
+
 function closeCartDetails() {
     const listWrapper = document.querySelector('.content-wrapper');
     const cartDetails = document.getElementById('cart-detail-view-wrap');
@@ -251,15 +259,38 @@ function closeCartDetails() {
     cartDetails.classList.add('d-none');
 }
 
+// Checkout page Close
+
+function checkoutViewOpen() {
+    const listWrapper = document.querySelector('.content-wrapper');
+    const checkoutView = document.querySelector('.checkout-view-wrapper');
+    if (listWrapper.classList.contains('d-grid')) {
+        listWrapper.classList.remove('d-grid');
+        listWrapper.classList.add('d-none');
+    } else {
+        closeCartDetails();
+        listWrapper.classList.remove('d-grid');
+        listWrapper.classList.add('d-none');
+    }
+    checkoutView.classList.remove('d-none');
+    checkoutView.classList.add('d-block');
+}
+
+// Sets localstorage data with Cart ID and Qty
 
 document.querySelector('.content-wrapper').addEventListener('click', function (event) {
     if (event.target && event.target.classList.contains('item-desc-add')) {
         const addCartBtn = event.target;
         const cartItemQty = addCartBtn.nextElementSibling;
-
+        const itemID = addCartBtn.closest('.item').dataset.prodId;
         addCartBtn.classList.remove('d-block');
         addCartBtn.classList.add('d-none');
         cartItemQty.classList.remove('d-none');
         cartItemQty.classList.add('d-flex');
+        const inputField = cartItemQty.querySelector('.in-cart-qty-val-input');
+        if (inputField) {
+            inputField.value = 1;
+        }
+        localStorage.setItem(`item_${itemID}`, 1);
     }
 });

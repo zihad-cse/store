@@ -37,12 +37,12 @@
         </div>
     </div>
     <div class="right-sidebar-cart-checkout d-flex flex-center">
-        <button>
+        <button onclick="checkoutViewOpen()">
             Checkout
         </button>
     </div>
-    <div onclick="openCartDetails(); cartDisappear();" class="right-sidebar-cart-view d-flex flex-center d-none">
-        <button>
+    <div class="right-sidebar-cart-view d-flex flex-center d-none">
+        <button onclick="openCartDetails(); cartDisappear();">
             View Cart
         </button>
     </div>

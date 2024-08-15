@@ -36,13 +36,13 @@ function fetchData() {
                         <div class="">
                             <button class='d-block item-desc-add'>Add to Cart</button>
                             <div class='in-cart-qty d-none'>
-                                <div class='in-cart-qty-inc'>
+                                <div class='in-cart-qty-dec'>
                                     -
                                 </div>
                                 <div class='in-cart-qty-val'>
-                                    <input type="number" min='1' value='1'>
+                                    <input class='in-cart-qty-val-input' type="number" min='0' value='1'>
                                 </div>
-                                <div class='in-cart-qty-dec'>
+                                <div class='in-cart-qty-inc'>
                                     +
                                 </div>
                             </div>
@@ -52,6 +52,37 @@ function fetchData() {
                 itemID++;
             });
             $('#content-wrapper-div').html(content);
+
+            $('#content-wrapper-div').on('click', '.in-cart-qty-inc', function () {
+                const input = $(this).siblings('.in-cart-qty-val').find('input');
+                const itemID = $(this).closest('.item').data('prod-id');
+                if (input && input.attr('type') === 'number') {
+                    input[0].stepUp();
+                    localStorage.setItem(`item_${itemID}`, input.val());
+                }
+            });
+            $('#content-wrapper-div').on('click', '.in-cart-qty-dec', function () {
+                const input = $(this).siblings('.in-cart-qty-val').find('input');
+                const itemID = $(this).closest('.item').data('prod-id');
+                if (input && input.attr('type') === 'number') {
+                    input[0].stepDown();
+                    const newValue = input.val();
+                    if (newValue <= 0) {
+                        localStorage.removeItem(`item_${itemID}`);
+                        $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
+                        $(this).closest('.item').find('.item-desc-add').removeClass('d-none').addClass('d-block');
+                    } else {
+                        localStorage.setItem(`item_${itemID}`, newValue);
+                    }
+                }
+            });
+            $('#content-wrapper-div').on('input', '.in-cart-qty-val-input', function () {
+                const input = $(this);
+                const itemID = $(this).closest('.item').data('prod-id');
+                if (input && input.attr('type') === 'number') {
+                    localStorage.setItem(`item_${itemID}`, input.val());
+                }
+            });
         }
     })
 }
