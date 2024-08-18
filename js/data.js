@@ -53,12 +53,22 @@ function fetchData() {
             });
             $('#content-wrapper-div').html(content);
 
+            $('#content-wrapper-div .item').each(function(){
+                const prodID = $(this).data('prod-id');
+                if(localStorage.getItem(prodID)){
+                    const qty = localStorage.getItem(prodID);
+                    $(this).find('.in-cart-qty-val-input').val(qty);
+                    $(this).find('.item-desc-add').removeClass('d-block').addClass('d-none');
+                    $(this).find('.in-cart-qty').removeClass('d-none').addClass('d-flex');
+                }
+            })
+
             $('#content-wrapper-div').on('click', '.in-cart-qty-inc', function () {
                 const input = $(this).siblings('.in-cart-qty-val').find('input');
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
                     input[0].stepUp();
-                    localStorage.setItem(`item_${itemID}`, input.val());
+                    localStorage.setItem(`${itemID}`, input.val());
                 }
             });
             $('#content-wrapper-div').on('click', '.in-cart-qty-dec', function () {
@@ -68,11 +78,11 @@ function fetchData() {
                     input[0].stepDown();
                     const newValue = input.val();
                     if (newValue <= 0) {
-                        localStorage.removeItem(`item_${itemID}`);
+                        localStorage.removeItem(`${itemID}`);
                         $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
                         $(this).closest('.item').find('.item-desc-add').removeClass('d-none').addClass('d-block');
                     } else {
-                        localStorage.setItem(`item_${itemID}`, newValue);
+                        localStorage.setItem(`${itemID}`, newValue);
                     }
                 }
             });
@@ -80,9 +90,12 @@ function fetchData() {
                 const input = $(this);
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
-                    localStorage.setItem(`item_${itemID}`, input.val());
+                    localStorage.setItem(`${itemID}`, input.val());
                 }
             });
+        },
+        error: function(xhr, status, error){
+            console.error('AJAX request failed', status, error);
         }
     })
 }
@@ -101,3 +114,4 @@ $(document).ready(function () {
         });
     });
 })
+

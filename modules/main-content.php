@@ -14,6 +14,12 @@
 
 <?php include_once "product.php"; ?>
 
+<!-- debug button -->
+
+<?php if (isset($_GET['debug'])) { ?>
+    <button class="btn-primary" style="margin-left: 300px;" id="eraseLocalStorage">Clear Cart</button>
+<?php } ?>
+
 <!-- Featured Categories and other carousels -->
 
 <div class="main-content-categories">
