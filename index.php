@@ -11,7 +11,7 @@
     <script src="js/data.js"></script>
 </head>
 
-<body>
+<body style="overflow-x: hidden;">
     <section id="top-nav">
         <?php include_once "modules/top-nav.php"; ?>
     </section>

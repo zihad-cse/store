@@ -14,27 +14,7 @@
         </div>
     </div>
     <div class="items-in-cart d-block">
-        <div class="cart-items-list">
-            <div class="cart-item-wrapper">
-                <div class="cart-item-img">
-                    <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/1.jpeg" alt="">
-                </div>
-                <div class="cart-item-desc">
-                    <div class="cart-item-title">
-                        <p>USB Cable A</p>
-                    </div>
-                    <div class="cart-item-price">
-                        <p>৳250</p>
-                    </div>
-                    <div class="cart-item-qty">
-                        <p>x1</p>
-                    </div>
-                </div>
-                <div class="cart-item-remove">
-                    <img src="img/remove-button.svg" alt="">
-                </div>
-            </div>
-        </div>
+        <div class="cart-items-list"></div>
     </div>
     <div class="right-sidebar-cart-checkout d-flex flex-center">
         <button onclick="checkoutViewOpen()">
@@ -53,10 +33,10 @@
             <img src="img/ad-example-1.png" alt="">
         </div>
         <div class="col-12 py-2">
-            <img style="width: 300px; height: 300px; object-fit: cover;" src="img/ad-example-2.png" alt="">
+            <img style="width: 290px; height: 290px; object-fit: cover;" src="img/ad-example-2.png" alt="">
         </div>
         <div class="col-12 py-2">
-            <img style="width: 300px; height: 300px;" src="img/ad-example-3.png" alt="">
+            <img style="width: 290px; height: 290px;" src="img/ad-example-3.png" alt="">
         </div>
     </div>
 </div>

@@ -292,24 +292,15 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
             inputField.value = 1;
         }
         localStorage.setItem(`${itemID}`, 1);
+        initializeCart();
     }
 });
 
-// Localstorage value storage
-
-localStorageData = []
-
-for (let i = 0; i < localStorage.length; i++) {
-    let key = localStorage.key(i);
-    let value = localStorage.getItem(key);
-    localStorageData[key] = value;
-}
 
 //Erase Local Storage Button 
 
-document.getElementById('eraseLocalStorage').addEventListener('click', function (event) {
-    localStorage.clear();
-    console.log('localstorage cleared');
-})
+// document.getElementById('eraseLocalStorage').addEventListener('click', function (event) {
+//     localStorage.clear();
+//     console.log('localstorage cleared');
+// })
 
-// Foreach loop of localstorage

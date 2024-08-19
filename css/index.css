@@ -540,7 +540,7 @@ body {
     width: 300px;
     top: 65px;
     background-color: var(--tertiary-color);
-    height: max-content;
+    height: 100%;
     box-shadow: -1px 0px 3px rgba(0, 0, 0, 0.09);
 }
 
@@ -629,6 +629,11 @@ body {
     padding: 5px;
     border: 1px var(--primary-color) solid;
     border-radius: 15px;
+}
+
+.items-in-cart {
+    height: 75%;
+    overflow: scroll;
 }
 
 .cart-item-img {

@@ -18,6 +18,7 @@
 
 <?php if (isset($_GET['debug'])) { ?>
     <button class="btn-primary" style="margin-left: 300px;" id="eraseLocalStorage">Clear Cart</button>
+    <button class="btn-primary" style="margin-left: 300px;" id="logData">Log Local Storage</button>
 <?php } ?>
 
 <!-- Featured Categories and other carousels -->

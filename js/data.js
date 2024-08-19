@@ -53,9 +53,9 @@ function fetchData() {
             });
             $('#content-wrapper-div').html(content);
 
-            $('#content-wrapper-div .item').each(function(){
+            $('#content-wrapper-div .item').each(function () {
                 const prodID = $(this).data('prod-id');
-                if(localStorage.getItem(prodID)){
+                if (localStorage.getItem(prodID)) {
                     const qty = localStorage.getItem(prodID);
                     $(this).find('.in-cart-qty-val-input').val(qty);
                     $(this).find('.item-desc-add').removeClass('d-block').addClass('d-none');
@@ -69,6 +69,7 @@ function fetchData() {
                 if (input && input.attr('type') === 'number') {
                     input[0].stepUp();
                     localStorage.setItem(`${itemID}`, input.val());
+                    initializeCart();
                 }
             });
             $('#content-wrapper-div').on('click', '.in-cart-qty-dec', function () {
@@ -84,6 +85,7 @@ function fetchData() {
                     } else {
                         localStorage.setItem(`${itemID}`, newValue);
                     }
+                    initializeCart();
                 }
             });
             $('#content-wrapper-div').on('input', '.in-cart-qty-val-input', function () {
@@ -91,16 +93,93 @@ function fetchData() {
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
                     localStorage.setItem(`${itemID}`, input.val());
+                    initializeCart();
                 }
             });
+
         },
-        error: function(xhr, status, error){
+        error: function (xhr, status, error) {
             console.error('AJAX request failed', status, error);
         }
     })
 }
+
+
+function initializeCart() {
+    const cartWrapper = document.querySelector('.cart-items-list');
+    const nothingInCartWrapper = document.querySelector('.no-items-in-cart');
+    cartWrapper.innerHTML = '';
+
+    const localStorageData = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = localStorage.getItem(key);
+        localStorageData[key] = value;
+    }
+
+    const isEmptyCart = Object.keys(localStorageData).length === 0;
+
+    if (isEmptyCart) {
+        nothingInCartWrapper.classList.add('d-block');
+        nothingInCartWrapper.classList.remove('d-none');
+        cartWrapper.classList.add('d-none');
+        cartWrapper.classList.remove('d-block');
+    } else {
+        nothingInCartWrapper.classList.add('d-none');
+        nothingInCartWrapper.classList.remove('d-block');
+        cartWrapper.classList.add('d-block');
+        cartWrapper.classList.remove('d-none');
+
+        for (const key in localStorageData) {
+            const value = localStorageData[key];
+            const cartWrapper = document.querySelector('.cart-items-list');
+            const cartItemWrapper = document.createElement('div');
+            cartItemWrapper.classList.add('cart-item-wrapper', 'mt-3', 'mb-3');
+            cartItemWrapper.innerHTML = `
+                <div class="cart-item-img">
+                    <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/${key}.jpeg" alt="">
+                </div>
+                <div class="cart-item-desc">
+                    <div class="cart-item-title">
+                        <p>USB Cable A</p>
+                    </div>
+                    <div class="cart-item-price">
+                        <p>৳250</p>
+                    </div>
+                    <div class="cart-item-qty">
+                        <p>x${value}</p>
+                    </div>
+                </div>
+                <div class="cart-item-remove" data-prod-id="${key}">
+                    <img src="img/remove-button.svg" alt="">
+                </div>
+        `;
+            cartWrapper.appendChild(cartItemWrapper);
+        }
+    }
+    document.querySelectorAll('.cart-item-remove').forEach(button => {
+        button.addEventListener('click', function () {
+            const itemID = this.getAttribute('data-prod-id');
+            localStorage.removeItem(itemID);
+            // addToCartBtnUpdate(itemID);
+            initializeCart();
+        });
+    });
+}
+// function addToCartBtnUpdate(itemID){
+//     const items = document.querySelectorAll(`[data-prod-id='${itemID}']`);
+//     items.forEach(item => {
+//         item.querySelector('.in-cart-qty').classList.remove('d-block');
+//         item.querySelector('.in-cart-qty').classList.add('d-none');
+//         item.querySelector('.item-desc-add').classList.remove('d-none');
+//         item.querySelector('.item-desc-add').classList.add('d-block');
+//     })
+// }
+
 $(document).ready(function () {
     fetchData();
+    initializeCart();
     $('.dropdown-btn').click(function () {
         const selectedCat = $(this).data('category');
         $('.item').each(function () {
