@@ -1,5 +1,6 @@
 <div class="right-sidebar-cart-wrapper d-none">
     <div class="right-sidebar-cart-dismiss">
+        <div class="total-items-in-cart"></div>
         <div onclick="cartDisappear()" class="right-sidebar-cart-dismiss-btn">
             <i class="fa-regular fa-circle-xmark"></i>
         </div>

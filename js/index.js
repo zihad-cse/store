@@ -293,6 +293,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         }
         localStorage.setItem(`${itemID}`, 1);
         initializeCart();
+        countCart();
     }
 });
 
@@ -304,3 +305,31 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
 //     console.log('localstorage cleared');
 // })
 
+function countCart() {
+
+    let totalSum = 0;
+    let cartCounter = document.querySelector('.total-items-in-cart');
+    for (let key of Object.keys(localStorage)) {
+        let value = localStorage.getItem(key);
+        let numericValue = parseFloat(value);
+
+        if (!isNaN(numericValue)) {
+            totalSum += numericValue;
+        }
+    }
+    if (totalSum == 0) {
+        cartCounter.classList.add('d-invisible');
+    }
+    if (totalSum == 1) {
+        if (cartCounter.classList.contains('d-invisible')) {
+            cartCounter.classList.remove('d-invisible');
+        }
+        cartCounter.innerHTML = `<h4>Your cart has: ${totalSum} Item</h4>`;
+    }
+    if (totalSum > 1) {
+        if (cartCounter.classList.contains('d-invisible')) {
+            cartCounter.classList.remove('d-invisible');
+        }
+        cartCounter.innerHTML = `<h4>Your cart has: ${totalSum} Items</h4>`;
+    }
+}
