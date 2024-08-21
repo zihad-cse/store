@@ -291,7 +291,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         if (inputField) {
             inputField.value = 1;
         }
-        localStorage.setItem(`${itemID}`, 1);
+        cartItems[itemID] = 1;
         initializeCart();
         countCart();
     }
@@ -309,8 +309,9 @@ function countCart() {
 
     let totalSum = 0;
     let cartCounter = document.querySelector('.total-items-in-cart');
-    for (let key of Object.keys(localStorage)) {
-        let value = localStorage.getItem(key);
+
+    for (let key of cartItems) {
+        let value = cartItems[key];
         let numericValue = parseFloat(value);
 
         if (!isNaN(numericValue)) {
@@ -333,3 +334,49 @@ function countCart() {
         cartCounter.innerHTML = `<h4>Your cart has: ${totalSum} Items</h4>`;
     }
 }
+
+// function storeDataNow(){
+//     const testDiv = document.getElementById('testDiv');
+//     const displayDiv = document.getElementById('displayDiv');
+    
+//     const item ={
+//         id: testDiv.getAttribute('data-id'),
+//         price: testDiv.getAttribute('data-price')
+//     };
+
+//     let storedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
+
+//     storedItems.push(item);
+    
+//     localStorage.setItem('selectedItems', JSON.stringify(storedItems));
+        
+//     displayDiv.innerHTML = `Item ID: ${item.id}, Price: ${item.price}`
+//     displayDiv.classList.add('d-block');
+//     displayDiv.classList.remove('d-none');
+// }
+
+// function deleteDataNow(itemId){
+//     const displayDiv = document.getElementById('displayDiv');
+
+//     const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || {}
+
+//     const itemIndex = storedItems.findIndex(item => item.id === itemId);
+
+//     if (itemIndex !== -1){
+//         storedItems.splice(itemIndex, 1);
+
+//         localStorage.setItem('selectedItems', JSON.stringify(storedItems));
+
+//         displayDiv.innerHTML = `Item ${itemID} deleted`
+//     } else {
+//         displayDiv.innerHTML = `Item ${itemID} is not in storage.`
+        
+//     }
+//     if(displayDiv.classList.contains('d-none')){
+//         displayDiv.classList.add('d-block');
+//         displayDiv.classList.remove('d-none');
+//     }
+    
+// }
+
+// document.getElementById('testDiv').onclick = storeDataNow;

@@ -1,5 +1,16 @@
 const catNames = ['Advanced Kits', 'Antennas', 'Appliance', 'Audio', 'Automatic Light', 'Automatic Switch', 'AVR Microcontroller', 'Battery', 'Biometrics', 'Bluetooth'];
 
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
+
+function updateCartItems(itemID, quantity){
+    if (quantity > 0) {
+        cartItems [itemID] = quantity;
+    } else {
+        delete cartItems[itemID];
+    }
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
 function fetchData() {
     $.ajax({
         url: 'data/data.php',
@@ -55,8 +66,8 @@ function fetchData() {
 
             $('#content-wrapper-div .item').each(function () {
                 const prodID = $(this).data('prod-id');
-                if (localStorage.getItem(prodID)) {
-                    const qty = localStorage.getItem(prodID);
+                if (cartItems[prodID]) {
+                    const qty = cartItems[prodID];
                     $(this).find('.in-cart-qty-val-input').val(qty);
                     $(this).find('.item-desc-add').removeClass('d-block').addClass('d-none');
                     $(this).find('.in-cart-qty').removeClass('d-none').addClass('d-flex');
@@ -69,7 +80,7 @@ function fetchData() {
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
                     input[0].stepUp();
-                    localStorage.setItem(`${itemID}`, input.val());
+                    updateCartItems(itemID, input.val());
                     initializeCart();
                     countCart();
                 }
@@ -80,6 +91,7 @@ function fetchData() {
                 if (input && input.attr('type') === 'number') {
                     input[0].stepDown();
                     const newValue = input.val();
+                    updateCartItems(itemID, newValue);
                     if (newValue <= 0) {
                         localStorage.removeItem(`${itemID}`);
                         $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
@@ -95,7 +107,7 @@ function fetchData() {
                 const input = $(this);
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
-                    localStorage.setItem(`${itemID}`, input.val());
+                    updateCartItems(itemID, input.val());
                     initializeCart();
                     countCart();
                 }
@@ -114,15 +126,8 @@ function initializeCart() {
     const nothingInCartWrapper = document.querySelector('.no-items-in-cart');
     cartWrapper.innerHTML = '';
 
-    const localStorageData = {};
 
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        let value = localStorage.getItem(key);
-        localStorageData[key] = value;
-    }
-
-    const isEmptyCart = Object.keys(localStorageData).length === 0;
+    const isEmptyCart = Object.keys(cartItems).length === 0;
 
     if (isEmptyCart) {
         nothingInCartWrapper.classList.add('d-block');
@@ -135,8 +140,8 @@ function initializeCart() {
         cartWrapper.classList.add('d-block');
         cartWrapper.classList.remove('d-none');
 
-        for (const key in localStorageData) {
-            const value = localStorageData[key];
+        for (const key in cartItems) {
+            const value = cartItems[key];
             const cartWrapper = document.querySelector('.cart-items-list');
             const cartItemWrapper = document.createElement('div');
             cartItemWrapper.classList.add('cart-item-wrapper', 'mt-3', 'mb-3');
@@ -165,7 +170,7 @@ function initializeCart() {
     document.querySelectorAll('.cart-item-remove').forEach(button => {
         button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
-            localStorage.removeItem(itemID);
+            updateCartItems(itemID, 0);
             updateItemDisplay(itemID);
             initializeCart();
             countCart();

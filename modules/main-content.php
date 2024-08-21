@@ -17,8 +17,17 @@
 <!-- debug button -->
 
 <?php if (isset($_GET['debug'])) { ?>
-    <button class="btn-primary" style="margin-left: 300px;" id="eraseLocalStorage">Clear Cart</button>
-    <button class="btn-primary" style="margin-left: 300px;" id="logData">Log Local Storage</button>
+    <div>
+        <div style="width: fit-content; margin-left:320px;" id='testDiv' class="btn-primary" data-id='12' data-price='1200'>
+            Local Storage
+        </div>
+        <div style="width: fit-content; margin-left:320px;" id='removeDiv' class="btn-primary" data-id='12' class="btn-primary">
+            Delete Item
+        </div>
+        <div style="width: fit-content; margin-left:320px;" id="displayDiv" class="d-none btn-primary">
+
+        </div>
+    </div>
 <?php } ?>
 
 <!-- Featured Categories and other carousels -->
