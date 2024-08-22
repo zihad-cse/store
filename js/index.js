@@ -159,12 +159,28 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         event.preventDefault();
 
         const item = event.target.closest('.item');
+        
+        const itemDataAttributes = item.dataset;
+
+        const storedData = {
+            name: itemDataAttributes.prodName,
+            id: itemDataAttributes.prodId,
+            category: itemDataAttributes.category,
+            price: itemDataAttributes.prodPrice
+        }
+
+        const itemID = storedData.id;
+        const itemCat = storedData.category;
+        const itemName = storedData.name;
+        const itemPrice = storedData.price;
+
+        const categoryName = catNames[itemCat];
+
         const imageSection = item.querySelector('.item-picture');
         const itemDesc = item.querySelector('.item-desc');
         const imageSrc = imageSection.querySelector('img').src;
         const itemCategory = itemDesc.querySelector('.item-desc-category');
         const itemTitle = itemDesc.querySelector('.item-desc-title');
-        const itemPrice = itemDesc.querySelector('.item-desc-price');
         const adSidebar = document.querySelector('.right-sidebar');
         const listWrapper = document.querySelector('.content-wrapper');
         const productDetails = document.querySelector('.product-wrapper');
@@ -176,14 +192,14 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
 
         document.querySelector('.product-img').src = imageSrc;
         document.querySelector('.product-img-thumbnail img').src = imageSrc;
-        document.querySelector('.product-desc-title h2').innerHTML = `${itemTitle}`;
-        document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${itemCategory}</a>`;
+        document.querySelector('.product-desc-title h2').innerHTML = `${itemName}`;
+        document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${categoryName}</a>`;
+        document.querySelector('.product-page-path-cat').innerHTML = categoryName;
+        document.querySelector('.product-page-path-cat').setAttribute('data-cat',)
+        document.querySelector('.product-page-path-name').innerHTML = itemName;
         document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
         scrollToTop();
-
     };
-
-
 });
 
 document.querySelector('.product-wrapper').addEventListener('click', function (event) {
@@ -291,26 +307,20 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         if (inputField) {
             inputField.value = 1;
         }
-        cartItems[itemID] = 1;
+        updateCartItems(itemID, inputField.value);
         initializeCart();
         countCart();
     }
 });
 
 
-//Erase Local Storage Button 
-
-// document.getElementById('eraseLocalStorage').addEventListener('click', function (event) {
-//     localStorage.clear();
-//     console.log('localstorage cleared');
-// })
 
 function countCart() {
-
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? [];
     let totalSum = 0;
     let cartCounter = document.querySelector('.total-items-in-cart');
 
-    for (let key of cartItems) {
+    for (let key of Object.keys(cartItems)) {
         let value = cartItems[key];
         let numericValue = parseFloat(value);
 
@@ -320,6 +330,7 @@ function countCart() {
     }
     if (totalSum == 0) {
         cartCounter.classList.add('d-invisible');
+        localStorage.removeItem('cartItems'); 
     }
     if (totalSum == 1) {
         if (cartCounter.classList.contains('d-invisible')) {
@@ -335,48 +346,8 @@ function countCart() {
     }
 }
 
-// function storeDataNow(){
-//     const testDiv = document.getElementById('testDiv');
-//     const displayDiv = document.getElementById('displayDiv');
-    
-//     const item ={
-//         id: testDiv.getAttribute('data-id'),
-//         price: testDiv.getAttribute('data-price')
-//     };
-
-//     let storedItems = JSON.parse(localStorage.getItem('selectedItems')) || {};
-
-//     storedItems.push(item);
-    
-//     localStorage.setItem('selectedItems', JSON.stringify(storedItems));
-        
-//     displayDiv.innerHTML = `Item ID: ${item.id}, Price: ${item.price}`
-//     displayDiv.classList.add('d-block');
-//     displayDiv.classList.remove('d-none');
+// const prodPageQty = document.getElementById('cartQty');
+// const prodPageView = document.getElementById('productWrapper')
+// if (prodPageView.classList.contains('d-block')){
+//     prodPageQty
 // }
-
-// function deleteDataNow(itemId){
-//     const displayDiv = document.getElementById('displayDiv');
-
-//     const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || {}
-
-//     const itemIndex = storedItems.findIndex(item => item.id === itemId);
-
-//     if (itemIndex !== -1){
-//         storedItems.splice(itemIndex, 1);
-
-//         localStorage.setItem('selectedItems', JSON.stringify(storedItems));
-
-//         displayDiv.innerHTML = `Item ${itemID} deleted`
-//     } else {
-//         displayDiv.innerHTML = `Item ${itemID} is not in storage.`
-        
-//     }
-//     if(displayDiv.classList.contains('d-none')){
-//         displayDiv.classList.add('d-block');
-//         displayDiv.classList.remove('d-none');
-//     }
-    
-// }
-
-// document.getElementById('testDiv').onclick = storeDataNow;

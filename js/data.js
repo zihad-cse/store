@@ -1,10 +1,11 @@
 const catNames = ['Advanced Kits', 'Antennas', 'Appliance', 'Audio', 'Automatic Light', 'Automatic Switch', 'AVR Microcontroller', 'Battery', 'Biometrics', 'Bluetooth'];
+const itemNames = ['USB Cable A to B', 'ZIF Socket (40 Pin)', 'ZIF Socket (28 Pin)', 'Power Cable 2 Pin', 'USB Connector B Type', 'DC Socket', 'IC Rail', 'Female Header Connector Single Row', 'IC Base 14pin', 'IC Base 8pin', 'IC Base 16pin', 'IC Base 40pin', 'IC Base 18pin', 'DC Socket - small', 'DC Socket - Round'];
+const itemNamesLength = itemNames.length;
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? {};
 
-let cartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
-
-function updateCartItems(itemID, quantity){
+function updateCartItems(itemID, quantity) {
     if (quantity > 0) {
-        cartItems [itemID] = quantity;
+        cartItems[itemID] = quantity;
     } else {
         delete cartItems[itemID];
     }
@@ -21,9 +22,11 @@ function fetchData() {
             let itemID = 1;
             data.forEach(function (prod) {
                 const randomCategoryNum = Math.floor(Math.random() * 10);
+                const randomNameNum = Math.floor(Math.random() * itemNamesLength);
                 const randomCatName = catNames[randomCategoryNum];
+                const randomName = itemNames[randomNameNum];
                 content += `
-                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category='${randomCategoryNum}'>
+                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='250৳'>
                         <div class="item-viewing-trigger">
                             <div class="item-picture">
                                 <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${prod}" alt="">
@@ -33,7 +36,7 @@ function fetchData() {
                                     <a class="text-decoration-none item-desc-category-link" href="">${randomCatName}</a>
                                 </div>
                                 <div class="item-desc-title">
-                                    <p class="text-decoration-none item-desc-title-link" href="">Placeholder Item Title </p>
+                                    <p class="text-decoration-none item-desc-title-link" href="">${randomName} </p>
                                 </div>
                                 <div class="item-desc-price">
                                     <span class:"item-desc-price-inner">৳250</span>
@@ -91,13 +94,13 @@ function fetchData() {
                 if (input && input.attr('type') === 'number') {
                     input[0].stepDown();
                     const newValue = input.val();
-                    updateCartItems(itemID, newValue);
                     if (newValue <= 0) {
                         localStorage.removeItem(`${itemID}`);
+                        updateCartItems(itemID, input.val());
                         $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
                         $(this).closest('.item').find('.item-desc-add').removeClass('d-none').addClass('d-block');
                     } else {
-                        localStorage.setItem(`${itemID}`, newValue);
+                        updateCartItems(itemID, newValue);
                     }
                     initializeCart();
                     countCart();
@@ -126,6 +129,9 @@ function initializeCart() {
     const nothingInCartWrapper = document.querySelector('.no-items-in-cart');
     cartWrapper.innerHTML = '';
 
+    if (Object.keys(cartItems).length === 0) {
+        localStorage.removeItem('cartItems');
+    }
 
     const isEmptyCart = Object.keys(cartItems).length === 0;
 
@@ -170,6 +176,12 @@ function initializeCart() {
     document.querySelectorAll('.cart-item-remove').forEach(button => {
         button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
+            delete cartItems[itemID];
+            if (Object.keys(cartItems).length === 0) {
+                localStorage.removeItem('cartItems');
+            } else {
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            }
             updateCartItems(itemID, 0);
             updateItemDisplay(itemID);
             initializeCart();
@@ -178,21 +190,21 @@ function initializeCart() {
     });
 }
 
-function updateItemDisplay(itemID){
+function updateItemDisplay(itemID) {
     const item = document.querySelector(`.item[data-prod-id='${itemID}'`);
-    if (item){
-        const addCartBtn= item.querySelector('.item-desc-add');
+    if (item) {
+        const addCartBtn = item.querySelector('.item-desc-add');
         const cartItemQty = item.querySelector('.in-cart-qty');
-        if(addCartBtn){
+        if (addCartBtn) {
             addCartBtn.classList.remove('d-none');
             addCartBtn.classList.add('d-block');
         }
-        if(cartItemQty){
+        if (cartItemQty) {
             cartItemQty.classList.remove('d-flex');
             cartItemQty.classList.add('d-none');
         }
         const inputField = cartItemQty ? cartItemQty.querySelector('.in-cart-qty-val-input') : null;
-        if (inputField){
+        if (inputField) {
             inputField.value = 0;
         }
     }
@@ -214,5 +226,8 @@ $(document).ready(function () {
             }
         });
     });
+    $('.product-page-path-cat').click(function(){
+        const selectedCat = $(this).data('category')
+    })
 })
 

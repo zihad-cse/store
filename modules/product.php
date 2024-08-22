@@ -1,7 +1,14 @@
 <div id="productWrapper" class="product-wrapper d-none">
     <div class="product-page-header">
         <button class="mt-2 mb-2 p-3 btn color-primary product-back-button"><i class="fa-solid fa-arrow-left"></i></button>
-        <p>Pathing > Goes > Here</p>
+        <div class="product-page-path">
+            <div class="product-page-path-link">Home</div>
+            >
+            <div class="product-page-path-cat product-page-path-link"></div>
+            >
+            <div class="product-page-path-name product-page-path-link"></div>
+        </div>
+        
     </div>
 
     <div class="product-container">

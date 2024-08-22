@@ -1199,9 +1199,27 @@ body {
 
 .product-page-header {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
+.product-page-header button {
+    margin-right: 50px;
+}
+
+.product-page-path {
+    margin: 0;
+    display: flex;
+}
+
+.product-page-path-link {
+    margin: 0px 10px;
+    color: var(--secondary-color);
+    transition: var(--fast-transition);
+}
+.product-page-path-link:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+}
 
 .product-wrapper {
     margin-left: 300px;
