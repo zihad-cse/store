@@ -100,7 +100,7 @@
                             <button>Proceed to Payment</button>
                         </div>
                         <div class="checkout-back-to-cart">
-                            <button>Edit Cart</button>
+                            <button class="checkout-back-to-cart-btn">Edit Cart</button>
                         </div>
                     </div>
                 </div>

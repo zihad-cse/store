@@ -195,7 +195,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         document.querySelector('.product-desc-title h2').innerHTML = `${itemName}`;
         document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${categoryName}</a>`;
         document.querySelector('.product-page-path-cat').innerHTML = categoryName;
-        document.querySelector('.product-page-path-cat').setAttribute('data-cat',)
+        document.querySelector('.product-page-path-cat').setAttribute('data-cat', itemCat);
         document.querySelector('.product-page-path-name').innerHTML = itemName;
         document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
         scrollToTop();
@@ -291,6 +291,16 @@ function checkoutViewOpen() {
     checkoutView.classList.remove('d-none');
     checkoutView.classList.add('d-block');
 }
+
+document.querySelector('.checkout-back-to-cart-btn').addEventListener('click', function (event) {
+    const checkoutView = document.querySelector('.checkout-view-wrapper');
+    const cartDetails = document.getElementById('cart-detail-view-wrap');
+    cartDetails.classList.remove('d-none');
+    cartDetails.classList.add('d-block');
+    checkoutView.classList.remove('d-block');
+    checkoutView.classList.add('d-none');
+    initiateCartPage();
+})
 
 // Sets localstorage data with Cart ID and Qty
 

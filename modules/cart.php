@@ -26,29 +26,6 @@
                             </tr>
                         </thead>
                         <tbody class="cart-list-tbody">
-                            <tr>
-                                <td><input checked type="checkbox"></td>
-                                <td>
-                                    <div class="cart-list-tbody-prod-title">
-                                        <div class="cart-list-tbody-prod-title-img">
-                                            <img style="height: 50px;" src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/1.jpeg" alt="">
-                                        </div>
-                                        <div class="cart-list-tbody-prod-title-link">
-                                            <a href="javascript:void(0)">Product Title</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>250৳ </td>
-                                <td>
-                                    <div>
-                                        <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
-                                        <input id="cartQty" class="product-desc-cart-qnty text-center" type="number" value="1" min="1">
-                                        <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
-                                    </div>
-                                </td>
-                                <td>250৳ </td>
-                                <td><i class="cart-list-remove-item fa-solid fa-xmark"></i></td>
-                            </tr>   
                         </tbody>
                     </table>
                 </div>
@@ -86,7 +63,7 @@
         <div class="no-items-in-cart-container">
             <img style="height: 300px;" src="img/empty.png" alt="">
             <h3>There are no items in your cart.</h3>
-            <h5 onclick="closeCartDetails()">Back To Shopping</h5>
+            <h5 onclick="closeCartDetails(); initializeCart();">Back To Shopping</h5>
         </div>
     </div>
 </div>

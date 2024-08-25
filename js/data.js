@@ -147,7 +147,7 @@ function initializeCart() {
         cartWrapper.classList.remove('d-none');
 
         for (const key in cartItems) {
-            const value = cartItems[key];
+            const qty = cartItems[key];
             const cartWrapper = document.querySelector('.cart-items-list');
             const cartItemWrapper = document.createElement('div');
             cartItemWrapper.classList.add('cart-item-wrapper', 'mt-3', 'mb-3');
@@ -161,7 +161,7 @@ function initializeCart() {
                     </div>
                     <div class="cart-item-price">
                         <p>৳250</p>
-                        <p>x${value}</p>
+                        <p>x${qty}</p>
                     </div>
                     <div class="cart-item-qty">
                     </div>
@@ -190,6 +190,79 @@ function initializeCart() {
     });
 }
 
+function initiateCartPage() {
+    const cartWrapper = document.querySelector('.cart-list-tbody');
+    const cartDetailViewCont = document.querySelector('.cart-detail-view-container');
+    const nothingInCart = document.querySelector('.no-items-in-cart-wrapper');
+
+    cartWrapper.innerHTML = ``;
+
+    const isEmptyCart = Object.keys(cartItems).length === 0;
+    
+    if (isEmptyCart){
+        nothingInCart.classList.add('d-flex');
+        nothingInCart.classList.remove('d-none');
+        cartDetailViewCont.classList.remove('d-block');
+        cartDetailViewCont.classList.add('d-none');
+        console.log('empty');
+    } else {
+        nothingInCart.classList.add('d-none');
+        nothingInCart.classList.remove('d-flex');
+        cartDetailViewCont.classList.remove('d-none');
+        cartDetailViewCont.classList.add('d-block');
+        console.log('not empty')
+
+        for (const key in cartItems) {
+            const qty = cartItems[key]
+            const cartItemTr = document.createElement('tr');
+            cartItemTr.innerHTML = 
+            `
+            <td><input checked type="checkbox"></td>
+            <td>
+                <div class="cart-list-tbody-prod-title">
+                    <div class="cart-list-tbody-prod-title-img">
+                        <img style="height: 50px;" src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/${key}.jpeg" alt="">
+                    </div>
+                    <div class="cart-list-tbody-prod-title-link">
+                        <a href="javascript:void(0)">Product Title</a>
+                    </div>
+                </div>
+            </td>
+            <td>250৳ </td>
+            <td>
+                <div>
+                    <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
+                    <input id="cartQty" class="product-desc-cart-qnty text-center" type="number" value="${qty}" min="0">
+                    <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
+                </div>
+            </td>
+            <td>250৳ </td>
+            <td><i data-prod-id="${key}" class="cart-list-remove-item fa-solid fa-xmark"></i></td>
+            `;
+            cartWrapper.appendChild(cartItemTr);
+        }
+    }
+    document.querySelectorAll('.cart-list-remove-item').forEach(button => {
+        button.addEventListener('click', function(){
+            const itemID = this.getAttribute('data-prod-id');
+            delete cartItems[itemID];
+            if (Object.keys(cartItems).length === 0) {
+                localStorage.removeItem('cartItems');
+            } else {
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            }
+            updateCartItems(itemID, 0);
+            initializeCart();
+            initiateCartPage();
+        });
+    });
+};
+
+function initiateCheckoutPage(){
+    const cartItemWrapper = document.querySelector('.cart-items-list');
+    console.log('bing bong')
+}
+
 function updateItemDisplay(itemID) {
     const item = document.querySelector(`.item[data-prod-id='${itemID}'`);
     if (item) {
@@ -210,6 +283,8 @@ function updateItemDisplay(itemID) {
     }
 }
 
+
+
 $(document).ready(function () {
     fetchData();
     initializeCart();
@@ -226,7 +301,7 @@ $(document).ready(function () {
             }
         });
     });
-    $('.product-page-path-cat').click(function(){
+    $('.product-page-path-cat').click(function () {
         const selectedCat = $(this).data('category')
     })
 })

@@ -18,12 +18,12 @@
         <div class="cart-items-list"></div>
     </div>
     <div class="right-sidebar-cart-checkout d-flex flex-center">
-        <button onclick="checkoutViewOpen()">
+        <button onclick="checkoutViewOpen(); cartDisappear()">
             Checkout
         </button>
     </div>
     <div class="right-sidebar-cart-view d-flex flex-center d-none">
-        <button onclick="openCartDetails(); cartDisappear();">
+        <button onclick="openCartDetails(); cartDisappear(); initiateCartPage();">
             View Cart
         </button>
     </div>
