@@ -56,8 +56,8 @@
                     <div>
                         <h3>Your Cart:</h3>
                     </div>
-                    <div class="cart-items-list">
-                        <div class="cart-item-wrapper">
+                    <div class="checkout-cart-items-list">
+                        <!-- <div class="cart-item-wrapper">
                             <div class="cart-item-img">
                                 <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/1.jpeg" alt="">
                             </div>
@@ -67,15 +67,15 @@
                                 </div>
                                 <div class="cart-item-price">
                                     <p>৳250</p>
-                                </div>
-                                <div class="cart-item-qty">
                                     <p>x1</p>
                                 </div>
+                                <div class="cart-item-qty">
+                                </div>
                             </div>
-                            <div class="cart-item-remove">
+                            <div class="cart-item-remove" data-prod-id="1">
                                 <img src="img/remove-button.svg" alt="">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <hr style="color: #ececec;">
                     <div class="checkout-cart-prices">

@@ -53,7 +53,7 @@
                     </div>
                     <div class="cart-list-checkout-buttons">
                         <button onclick="closeCartDetails()" class="cart-list-dismiss-btn">Back to shopping</button>
-                        <button onclick="checkoutViewOpen()" class="cart-list-checkout">Checkout</button>
+                        <button onclick="checkoutViewOpen(); initiateCheckoutPage()" class="cart-list-checkout">Checkout</button>
                     </div>
                 </div>
             </div>

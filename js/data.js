@@ -23,10 +23,11 @@ function fetchData() {
             data.forEach(function (prod) {
                 const randomCategoryNum = Math.floor(Math.random() * 10);
                 const randomNameNum = Math.floor(Math.random() * itemNamesLength);
+                const randomPrice = Math.floor(Math.random() * 500);
                 const randomCatName = catNames[randomCategoryNum];
                 const randomName = itemNames[randomNameNum];
                 content += `
-                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='250৳'>
+                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}'>
                         <div class="item-viewing-trigger">
                             <div class="item-picture">
                                 <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${prod}" alt="">
@@ -39,7 +40,7 @@ function fetchData() {
                                     <p class="text-decoration-none item-desc-title-link" href="">${randomName} </p>
                                 </div>
                                 <div class="item-desc-price">
-                                    <span class:"item-desc-price-inner">৳250</span>
+                                    <span class:"item-desc-price-inner">৳${randomPrice}</span>
                                     <span class="float-end"></span>
                                 </div>
                                 <div id='itemCatNum' style="visibility:hidden;">
@@ -198,52 +199,50 @@ function initiateCartPage() {
     cartWrapper.innerHTML = ``;
 
     const isEmptyCart = Object.keys(cartItems).length === 0;
-    
-    if (isEmptyCart){
+
+    if (isEmptyCart) {
         nothingInCart.classList.add('d-flex');
         nothingInCart.classList.remove('d-none');
         cartDetailViewCont.classList.remove('d-block');
         cartDetailViewCont.classList.add('d-none');
-        console.log('empty');
     } else {
         nothingInCart.classList.add('d-none');
         nothingInCart.classList.remove('d-flex');
         cartDetailViewCont.classList.remove('d-none');
         cartDetailViewCont.classList.add('d-block');
-        console.log('not empty')
 
         for (const key in cartItems) {
             const qty = cartItems[key]
             const cartItemTr = document.createElement('tr');
-            cartItemTr.innerHTML = 
-            `
-            <td><input checked type="checkbox"></td>
-            <td>
-                <div class="cart-list-tbody-prod-title">
-                    <div class="cart-list-tbody-prod-title-img">
-                        <img style="height: 50px;" src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/${key}.jpeg" alt="">
-                    </div>
-                    <div class="cart-list-tbody-prod-title-link">
-                        <a href="javascript:void(0)">Product Title</a>
-                    </div>
-                </div>
-            </td>
-            <td>250৳ </td>
-            <td>
-                <div>
-                    <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
-                    <input id="cartQty" class="product-desc-cart-qnty text-center" type="number" value="${qty}" min="0">
-                    <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
-                </div>
-            </td>
-            <td>250৳ </td>
-            <td><i data-prod-id="${key}" class="cart-list-remove-item fa-solid fa-xmark"></i></td>
-            `;
+            cartItemTr.innerHTML =
+                `
+                    <td><input checked type="checkbox"></td>
+                    <td>
+                        <div class="cart-list-tbody-prod-title">
+                            <div class="cart-list-tbody-prod-title-img">
+                                <img style="height: 50px;" src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/${key}.jpeg" alt="">
+                            </div>
+                            <div class="cart-list-tbody-prod-title-link">
+                                <a href="javascript:void(0)">Product Title</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>250৳ </td>
+                    <td>
+                        <div>
+                            <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
+                            <input id="cartQty" class="product-desc-cart-qnty text-center" type="number" value="${qty}" min="0">
+                            <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
+                        </div>
+                    </td>
+                    <td>250৳ </td>
+                    <td><i data-prod-id="${key}" class="cart-list-remove-item fa-solid fa-xmark"></i></td>
+                `;
             cartWrapper.appendChild(cartItemTr);
         }
     }
     document.querySelectorAll('.cart-list-remove-item').forEach(button => {
-        button.addEventListener('click', function(){
+        button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
             delete cartItems[itemID];
             if (Object.keys(cartItems).length === 0) {
@@ -258,9 +257,60 @@ function initiateCartPage() {
     });
 };
 
-function initiateCheckoutPage(){
-    const cartItemWrapper = document.querySelector('.cart-items-list');
-    console.log('bing bong')
+function initiateCheckoutPage() {
+    const cartItemListWrapper = document.querySelector('.checkout-cart-items-list');
+    console.log(cartItemListWrapper);
+    cartItemListWrapper.innerHTML = ``;
+
+    const isEmptyCart = Object.keys(cartItems).length === 0;
+
+    if (isEmptyCart){
+        console.log('No Cart Items');
+    } else {
+        console.log('Items Found');
+        for (const key in cartItems) {
+            const qty = cartItems[key];
+            const cartListItem = document.createElement('div');
+            cartListItem.classList.add('cart-item-wrapper', 'mt-2', 'mb-2');
+            cartListItem.innerHTML =
+                `
+                    <div class="cart-item-img">
+                        <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/${key}.jpeg" alt="">
+                    </div>
+                    <div class="cart-item-desc">
+                        <div class="cart-item-title">
+                            <p>USB Cable A</p>
+                        </div>
+                        <div class="cart-item-price">
+                            <p>৳250</p>
+                            <p>x${qty}</p>
+                        </div>
+                        <div class="cart-item-qty">
+                        </div>
+                    </div>
+                    <div class="cart-item-remove" data-prod-id="${key}">
+                        <img src="img/remove-button.svg" alt="">
+                    </div>
+                `;
+            cartItemListWrapper.appendChild(cartListItem);
+        }
+    }
+    document.querySelectorAll('.cart-item-remove').forEach(button => {
+        button.addEventListener('click', function(){
+            const itemID = this.getAttribute('data-prod-id');
+            delete cartItems[itemID];
+            if (Object.keys(cartItems).length === 0) {
+                localStorage.removeItem('cartItems');
+            } else {
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            }
+            updateCartItems(itemID, 0);
+            initializeCart();
+            initiateCartPage();
+            initiateCheckoutPage();
+        })
+    })
+
 }
 
 function updateItemDisplay(itemID) {

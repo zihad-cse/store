@@ -18,7 +18,7 @@
         <div class="cart-items-list"></div>
     </div>
     <div class="right-sidebar-cart-checkout d-flex flex-center">
-        <button onclick="checkoutViewOpen(); cartDisappear()">
+        <button onclick="checkoutViewOpen(); cartDisappear(); initiateCheckoutPage()">
             Checkout
         </button>
     </div>

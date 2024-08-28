@@ -361,3 +361,43 @@ function countCart() {
 // if (prodPageView.classList.contains('d-block')){
 //     prodPageQty
 // }
+
+// let testParentArray = JSON.parse(localStorage.getItem('testParentArray')) ?? {};
+
+// function testUpdateItems(itemID, itemDetails) {
+//     if (itemDetails.quantity > 0) {
+//         cartItems[itemID] = itemDetails;
+//     } else {
+//         delete cartItems[itemID];
+//     }
+//     localStorage.setItem('testItem', JSON.stringify(cartItems));
+// }
+
+// document.querySelector('.testContentWrapper').addEventListener('click', function (event) {
+//     if (event.target && event.target.classList.contains('item-desc-add')) {
+//         const addCartBtn = event.target;
+//         const cartItemQty = addCartBtn.nextElementSibling;
+//         const itemID = addCartBtn.closest('.item').dataset.prodId;
+//         const itemName = addCartBtn.closest('.item').dataset.prodName;
+//         const itemPrice = addCartBtn.closest('.item').dataset.prodPrice;
+//         addCartBtn.classList.remove('d-block');
+//         addCartBtn.classList.add('d-none');
+//         cartItemQty.classList.remove('d-none');
+//         cartItemQty.classList.add('d-flex');
+//         const inputField = cartItemQty.querySelector('.in-cart-qty-val-input');
+//         if (inputField) {
+//             inputField.value = 1;
+//         }
+
+//         const itemDetails = {
+//             prodName: itemName,
+//             prodPrice: parseFloat(itemPrice),
+//             quantity: parseInt(inputField.value, 10)
+//         }
+
+//         console.log(itemDetails);
+//         testUpdateItems(itemID, itemDetails);
+//         initializeCart();
+//         countCart();
+//     }
+// });
