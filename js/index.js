@@ -258,10 +258,15 @@ function cartDisappear() {
 function openCartDetails() {
     const listWrapper = document.querySelector('.content-wrapper');
     const cartDetails = document.getElementById('cart-detail-view-wrap');
+    const checkoutView = document.querySelector('.checkout-view-wrapper');
     listWrapper.classList.remove('d-grid');
     listWrapper.classList.add('d-none');
     cartDetails.classList.remove('d-none');
     cartDetails.classList.add('d-block');
+    if(checkoutView.classList.contains('d-block')){
+        checkoutView.classList.remove('d-block');
+        checkoutView.classList.add('d-none');
+    }
 }
 
 // Cart Page Close
@@ -364,16 +369,9 @@ function countCart() {
 
 // let testParentArray = JSON.parse(localStorage.getItem('testParentArray')) ?? {};
 
-// function testUpdateItems(itemID, itemDetails) {
-//     if (itemDetails.quantity > 0) {
-//         cartItems[itemID] = itemDetails;
-//     } else {
-//         delete cartItems[itemID];
-//     }
-//     localStorage.setItem('testItem', JSON.stringify(cartItems));
-// }
 
-// document.querySelector('.testContentWrapper').addEventListener('click', function (event) {
+
+// document.querySelector('.content-wrapper').addEventListener('click', function (event) {
 //     if (event.target && event.target.classList.contains('item-desc-add')) {
 //         const addCartBtn = event.target;
 //         const cartItemQty = addCartBtn.nextElementSibling;
@@ -395,8 +393,7 @@ function countCart() {
 //             quantity: parseInt(inputField.value, 10)
 //         }
 
-//         console.log(itemDetails);
-//         testUpdateItems(itemID, itemDetails);
+//         updateCartItems(itemID, itemDetails);
 //         initializeCart();
 //         countCart();
 //     }

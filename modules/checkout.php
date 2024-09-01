@@ -82,7 +82,7 @@
                         <h3>Price:</h3>
                         <div class="mb-3 d-flex space-between">
                             <strong>Subtotal:</strong>
-                            <span>৳250</span>
+                            <span class="checkoutSumTotal"></span>
                         </div>
                         <div class="mt-3 d-flex space-between">
                             <strong>Shipping:</strong>
@@ -92,7 +92,7 @@
                     <hr style="color: #ececec;">
                     <div class="mt-3 d-flex space-between">
                         <strong>Total:</strong>
-                        <span>৳250</span>
+                        <span class="checkoutSumTotal"></span>
                     </div>
                     <hr style="color: #ececec;">
                     <div class="checkout-cart-buttons">

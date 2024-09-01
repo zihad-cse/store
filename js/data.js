@@ -12,6 +12,15 @@ function updateCartItems(itemID, quantity) {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
+// function updateCartItems(itemID, itemDetails) {
+//     if (itemDetails.quantity > 0) {
+//         cartItems[itemID] = itemDetails;
+//     } else {
+//         delete cartItems[itemID];
+//     }
+//     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+// }
+
 function fetchData() {
     $.ajax({
         url: 'data/data.php',
@@ -257,17 +266,33 @@ function initiateCartPage() {
     });
 };
 
+
+// Attempting a Sum system.
+
+function checkoutSumPrice(price, qty) {
+    return sum = price * qty;
+}
+
+console.log(cartItems);
+
+
 function initiateCheckoutPage() {
     const cartItemListWrapper = document.querySelector('.checkout-cart-items-list');
-    console.log(cartItemListWrapper);
     cartItemListWrapper.innerHTML = ``;
 
     const isEmptyCart = Object.keys(cartItems).length === 0;
-
-    if (isEmptyCart){
+    let totalCartPrice = 0;
+    if (isEmptyCart) {
         console.log('No Cart Items');
     } else {
+        let amount = 0
+        for (const key in cartItems) {
+            const value = parseInt(cartItems[key])
+            amount += value;
+        }
         console.log('Items Found');
+        price = 250;
+        console.log(amount)
         for (const key in cartItems) {
             const qty = cartItems[key];
             const cartListItem = document.createElement('div');
@@ -279,24 +304,32 @@ function initiateCheckoutPage() {
                     </div>
                     <div class="cart-item-desc">
                         <div class="cart-item-title">
-                            <p>USB Cable A</p>
+                        <p>USB Cable A</p>
                         </div>
                         <div class="cart-item-price">
-                            <p>৳250</p>
-                            <p>x${qty}</p>
+                        <p>৳250</p>
+                        <p>x${qty}</p>
                         </div>
                         <div class="cart-item-qty">
                         </div>
-                    </div>
-                    <div class="cart-item-remove" data-prod-id="${key}">
+                        </div>
+                        <div class="cart-item-remove" data-prod-id="${key}">
                         <img src="img/remove-button.svg" alt="">
-                    </div>
-                `;
+                        </div>
+                        `;
             cartItemListWrapper.appendChild(cartListItem);
         }
+        const itemTotalPrice = checkoutSumPrice(price, amount);
+        console.log(itemTotalPrice);
+        let sumInnerHtml = document.querySelectorAll('.checkoutSumTotal');
+        for (let i = 0; i < sumInnerHtml.length; i++){
+            sumInnerHtml[i].innerHTML = '৳' + itemTotalPrice;
+        }
+        // console.log(sumInnerHtml);
+        // sumInnerHtml.innerHTML = '৳' + itemTotalPrice;
     }
     document.querySelectorAll('.cart-item-remove').forEach(button => {
-        button.addEventListener('click', function(){
+        button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
             delete cartItems[itemID];
             if (Object.keys(cartItems).length === 0) {
@@ -310,7 +343,6 @@ function initiateCheckoutPage() {
             initiateCheckoutPage();
         })
     })
-
 }
 
 function updateItemDisplay(itemID) {

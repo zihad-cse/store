@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/fontawesome-free-6.6.0-web/css/all.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <title>Home</title>
+    <link rel="shortcut icon" href="assets/ds_favicon/favicon.ico" type="image/x-icon">
+    <title>Daccastore</title>
     <script src="assets/jquery-3.6.0.min.js"></script>
     <script src="js/data.js"></script>
 </head>
