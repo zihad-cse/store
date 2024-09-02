@@ -2,7 +2,7 @@ const catNames = ['Advanced Kits', 'Antennas', 'Appliance', 'Audio', 'Automatic 
 const itemNames = ['USB Cable A to B', 'ZIF Socket (40 Pin)', 'ZIF Socket (28 Pin)', 'Power Cable 2 Pin', 'USB Connector B Type', 'DC Socket', 'IC Rail', 'Female Header Connector Single Row', 'IC Base 14pin', 'IC Base 8pin', 'IC Base 16pin', 'IC Base 40pin', 'IC Base 18pin', 'DC Socket - small', 'DC Socket - Round'];
 const itemNamesLength = itemNames.length;
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? {};
-
+let cartItemsAsObj = JSON.parse(localStorage.getItem('cartItemsAsObj')) ?? {};
 function updateCartItems(itemID, quantity) {
     if (quantity > 0) {
         cartItems[itemID] = quantity;
@@ -12,14 +12,27 @@ function updateCartItems(itemID, quantity) {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-// function updateCartItems(itemID, itemDetails) {
-//     if (itemDetails.quantity > 0) {
-//         cartItems[itemID] = itemDetails;
-//     } else {
-//         delete cartItems[itemID];
-//     }
-//     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-// }
+// Attempting a Sum system.
+
+function checkoutSumPrice(price, qty) {
+    return sum = price * qty;
+}
+
+
+function updateCartItemsAsObj(itemID, itemDetails) {
+    if (itemDetails.quantity > 0) {
+        const existingItem = cartItemsAsObj[itemID];
+        if(existingItem){
+            existingItem.quantity = itemDetails.quantity;
+            cartItemsAsObj[itemID] = existingItem;
+        } else {
+            cartItemsAsObj[itemID] = itemDetails;
+        }
+    } else {
+        delete cartItemsAsObj[itemID];
+    }
+    localStorage.setItem('cartItemsAsObj', JSON.stringify(cartItemsAsObj));
+}
 
 function fetchData() {
     $.ajax({
@@ -93,6 +106,11 @@ function fetchData() {
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
                     input[0].stepUp();
+                    const newValue = input.val();
+                    const newValueObj = {
+                        quantity: newValue
+                    }
+                    updateCartItemsAsObj(itemID, newValueObj)
                     updateCartItems(itemID, input.val());
                     initializeCart();
                     countCart();
@@ -106,6 +124,10 @@ function fetchData() {
                     const newValue = input.val();
                     if (newValue <= 0) {
                         localStorage.removeItem(`${itemID}`);
+                        const newValueObj = {
+                            quantity: newValue
+                        }
+                        updateCartItemsAsObj(itemID, newValueObj);
                         updateCartItems(itemID, input.val());
                         $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
                         $(this).closest('.item').find('.item-desc-add').removeClass('d-none').addClass('d-block');
@@ -120,7 +142,12 @@ function fetchData() {
                 const input = $(this);
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
-                    updateCartItems(itemID, input.val());
+                    const newValue = input.val();
+                    updateCartItems(itemID, newValue);
+                    const newValueObj = {
+                        quantity: newValue
+                    }
+                    updateCartItemsAsObj(itemID, newValueObj);
                     initializeCart();
                     countCart();
                 }
@@ -156,8 +183,11 @@ function initializeCart() {
         cartWrapper.classList.add('d-block');
         cartWrapper.classList.remove('d-none');
 
-        for (const key in cartItems) {
-            const qty = cartItems[key];
+        for (const key in cartItemsAsObj) {
+            const itemID = cartItemsAsObj[key];
+            const qty = itemID.quantity;
+            const price = itemID.price;
+            const itemName = itemID.name;
             const cartWrapper = document.querySelector('.cart-items-list');
             const cartItemWrapper = document.createElement('div');
             cartItemWrapper.classList.add('cart-item-wrapper', 'mt-3', 'mb-3');
@@ -167,10 +197,10 @@ function initializeCart() {
                 </div>
                 <div class="cart-item-desc">
                     <div class="cart-item-title">
-                        <p>USB Cable A</p>
+                        <p>${itemName}</p>
                     </div>
                     <div class="cart-item-price">
-                        <p>৳250</p>
+                        <p>৳${price}</p>
                         <p>x${qty}</p>
                     </div>
                     <div class="cart-item-qty">
@@ -187,11 +217,13 @@ function initializeCart() {
         button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
             delete cartItems[itemID];
+            delete cartItemsAsObj[itemID];
             if (Object.keys(cartItems).length === 0) {
                 localStorage.removeItem('cartItems');
             } else {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
+            updateCartItemsAsObj(itemID, 0);
             updateCartItems(itemID, 0);
             updateItemDisplay(itemID);
             initializeCart();
@@ -206,7 +238,7 @@ function initiateCartPage() {
     const nothingInCart = document.querySelector('.no-items-in-cart-wrapper');
 
     cartWrapper.innerHTML = ``;
-
+    let amount = 0
     const isEmptyCart = Object.keys(cartItems).length === 0;
 
     if (isEmptyCart) {
@@ -215,13 +247,19 @@ function initiateCartPage() {
         cartDetailViewCont.classList.remove('d-block');
         cartDetailViewCont.classList.add('d-none');
     } else {
+
         nothingInCart.classList.add('d-none');
         nothingInCart.classList.remove('d-flex');
         cartDetailViewCont.classList.remove('d-none');
         cartDetailViewCont.classList.add('d-block');
-
-        for (const key in cartItems) {
-            const qty = cartItems[key]
+        
+        for (const key in cartItemsAsObj) {
+            cartItemDetail = cartItemsAsObj[key];
+            qty = cartItemDetail.quantity;
+            itemName = cartItemDetail.name;
+            const value = parseInt(qty)
+            amount += value;
+            price = cartItemDetail.price;
             const cartItemTr = document.createElement('tr');
             cartItemTr.innerHTML =
                 `
@@ -232,11 +270,10 @@ function initiateCartPage() {
                                 <img style="height: 50px;" src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/${key}.jpeg" alt="">
                             </div>
                             <div class="cart-list-tbody-prod-title-link">
-                                <a href="javascript:void(0)">Product Title</a>
+                                <a href="javascript:void(0)">${itemName}</a>
                             </div>
                         </div>
                     </td>
-                    <td>250৳ </td>
                     <td>
                         <div>
                             <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
@@ -244,57 +281,60 @@ function initiateCartPage() {
                             <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
                         </div>
                     </td>
-                    <td>250৳ </td>
+                    <td>${price}৳ </td>
                     <td><i data-prod-id="${key}" class="cart-list-remove-item fa-solid fa-xmark"></i></td>
                 `;
             cartWrapper.appendChild(cartItemTr);
+        }
+        const itemTotalPrice = checkoutSumPrice(price, amount);
+        console.log(itemTotalPrice);
+        let cartSumHtml = document.querySelectorAll('.cart-list-total');
+        for (let i = 0; i < cartSumHtml.length; i++){
+            cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
         }
     }
     document.querySelectorAll('.cart-list-remove-item').forEach(button => {
         button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
             delete cartItems[itemID];
+            delete cartItemsAsObj[itemID];
             if (Object.keys(cartItems).length === 0) {
                 localStorage.removeItem('cartItems');
             } else {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
             updateCartItems(itemID, 0);
+            updateCartItemsAsObj(itemID, 0);
             initializeCart();
             initiateCartPage();
+            updateItemDisplay(itemID)
         });
     });
 };
 
 
-// Attempting a Sum system.
-
-function checkoutSumPrice(price, qty) {
-    return sum = price * qty;
-}
-
-console.log(cartItems);
-
-
+let totalCartPrice = 0;
 function initiateCheckoutPage() {
     const cartItemListWrapper = document.querySelector('.checkout-cart-items-list');
     cartItemListWrapper.innerHTML = ``;
-
     const isEmptyCart = Object.keys(cartItems).length === 0;
-    let totalCartPrice = 0;
     if (isEmptyCart) {
         console.log('No Cart Items');
     } else {
         let amount = 0
-        for (const key in cartItems) {
-            const value = parseInt(cartItems[key])
+        let price = 0
+            for (const key in cartItemsAsObj) {
+            const cartItemDetail = cartItemsAsObj[key];
+            const qty = cartItemDetail.quantity;
+            const value = parseInt(qty)
+             price = cartItemDetail.price;
             amount += value;
         }
-        console.log('Items Found');
-        price = 250;
-        console.log(amount)
-        for (const key in cartItems) {
-            const qty = cartItems[key];
+        for (const key in cartItemsAsObj) {
+            const cartItemDetail = cartItemsAsObj[key];
+            const itemName = cartItemDetail.name;
+            const qty = cartItemDetail.quantity;
+            const price = cartItemDetail.price;
             const cartListItem = document.createElement('div');
             cartListItem.classList.add('cart-item-wrapper', 'mt-2', 'mb-2');
             cartListItem.innerHTML =
@@ -304,10 +344,10 @@ function initiateCheckoutPage() {
                     </div>
                     <div class="cart-item-desc">
                         <div class="cart-item-title">
-                        <p>USB Cable A</p>
+                        <p>${itemName}</p>
                         </div>
                         <div class="cart-item-price">
-                        <p>৳250</p>
+                        <p>৳${price}</p>
                         <p>x${qty}</p>
                         </div>
                         <div class="cart-item-qty">
@@ -320,13 +360,12 @@ function initiateCheckoutPage() {
             cartItemListWrapper.appendChild(cartListItem);
         }
         const itemTotalPrice = checkoutSumPrice(price, amount);
-        console.log(itemTotalPrice);
+        totalCartPrice = itemTotalPrice;
         let sumInnerHtml = document.querySelectorAll('.checkoutSumTotal');
         for (let i = 0; i < sumInnerHtml.length; i++){
             sumInnerHtml[i].innerHTML = '৳' + itemTotalPrice;
         }
-        // console.log(sumInnerHtml);
-        // sumInnerHtml.innerHTML = '৳' + itemTotalPrice;
+
     }
     document.querySelectorAll('.cart-item-remove').forEach(button => {
         button.addEventListener('click', function () {
@@ -334,17 +373,18 @@ function initiateCheckoutPage() {
             delete cartItems[itemID];
             if (Object.keys(cartItems).length === 0) {
                 localStorage.removeItem('cartItems');
+                editCartFromCheckout();
             } else {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
             updateCartItems(itemID, 0);
+            updateItemDisplay(itemID);
             initializeCart();
             initiateCartPage();
             initiateCheckoutPage();
         })
     })
 }
-
 function updateItemDisplay(itemID) {
     const item = document.querySelector(`.item[data-prod-id='${itemID}'`);
     if (item) {

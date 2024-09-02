@@ -216,6 +216,18 @@
     color: #111;
 }
 
+.text-primary {
+    color: var(--primary-color);
+}
+
+.text-secondary {
+    color: var(--secondary-color);
+}
+
+.text-secondary-dark {
+    color: var(--secondary-dark);
+}
+
 .text-center {
     text-align: center;
 }
@@ -277,10 +289,22 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 
 }
+@media screen and (min-width: 1214px) {
 
+    .checkout-form-wrapper {
+        max-width: 55%;
+    }
+}
 @media screen and (max-width: 1214px) {
     .newsletter-inner-img img {
         display: none;
+    }
+    .checkout-main-section {
+        flex-direction: column;
+    }
+
+    .checkout-form-wrapper {
+        max-width: none;
     }
 
 }
@@ -304,6 +328,11 @@ body {
         padding: 40px;
     }
 
+    .cart-list-pricing-wrapper {
+        width: 25%;
+    }
+
+
 }
 
 @media screen and (max-width: 830px) {
@@ -314,6 +343,8 @@ body {
         min-height: 100vh;
         padding: 10px;
     }
+
+
 
     .right-sidebar {
         display: none;
@@ -347,6 +378,14 @@ body {
     .mc-cat-inner {
         width: auto;
         max-width: 300px;
+    }
+
+    .cart-list-bottom-portion{
+        flex-direction: column;
+    }
+    
+    .cart-list-pricing-wrapper {
+        width: 100%;
     }
 
 }
@@ -1444,21 +1483,18 @@ body {
 /* Product page end */
 
 #cart-detail-view-wrap {
-    margin-right: 300px;
-    margin-left: 300px;
     padding: 30px;
-
+    transition: var(--slow-transition);
 }
 
 .checkout-view-wrapper {
-    margin-right: 300px;
-    margin-left: 300px;
     padding: 30px;
+    transition: var(--slow-transition);
 }
 
 .cart-detail-view-container {
     background-color: var(--tertiary-color);
-    padding: 40px;
+    padding: 40px 10px;
     border-radius: 10px;
 }
 
@@ -1533,9 +1569,11 @@ body {
 .cart-list-pricing-wrapper {
     background-color: #fff;
     border-radius: 15px;
-    padding: 20px;
+    padding: 10px 0px;
     margin: 10px 0px;
-    width: 25%;
+}
+.cart-list-pricing-inner-wrapper {
+    padding: 10px;
 }
 
 .cart-list-pricing-header {
@@ -1623,9 +1661,7 @@ body {
     background-color: var(--light-color);
     padding: 20px;
     width: auto;
-    flex: 0 0 55%;
-    max-width: 55%;
-}
+    flex: 0 0 55%;}
 
 .checkout-cart-wrapper {
     background-color: var(--light-color);

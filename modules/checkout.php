@@ -5,7 +5,7 @@
                 <h3>Checkout</h3>
             </div>
             <div class="cart-detail-view-title-path">
-                <p>Pathing > Goes > Here</p>
+                <p><a class="text-decoration-none text-primary" href="">Home</a> > Path > Path</p>
             </div>
         </div>
         <div class="checkout-main-section d-flex">
@@ -99,7 +99,7 @@
                         <div class="checkout-cart-payment">
                             <button>Proceed to Payment</button>
                         </div>
-                        <div class="checkout-back-to-cart">
+                        <div onclick="editCartFromCheckout()" class="checkout-back-to-cart">
                             <button class="checkout-back-to-cart-btn">Edit Cart</button>
                         </div>
                     </div>

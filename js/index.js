@@ -20,6 +20,10 @@ function openNav() {
         document.getElementById("mc-cat-wrapper").style.marginLeft = "300px";
         document.getElementById("productWrapper").style.marginLeft = "300px";
         document.getElementById("productWrapper").style.marginRight = "300px";
+        document.getElementById("cart-detail-view-wrap").style.marginRight = "300px";
+        document.getElementById("cart-detail-view-wrap").style.marginLeft = "300px";
+        document.querySelector(".checkout-view-wrapper").style.marginRight = "300px";
+        document.querySelector(".checkout-view-wrapper").style.marginLeft = "300px";
     }
     document.querySelector(".left-sidebar-burger").setAttribute("onclick", "closeNav()");
 }
@@ -33,6 +37,9 @@ function closeNav() {
     document.getElementById("mc-cat-wrapper").style.marginLeft = "0px";
     document.getElementById("productWrapper").style.marginLeft = "0px";
     document.getElementById("productWrapper").style.marginRight = "0px";
+    document.getElementById("cart-detail-view-wrap").style.marginLeft = "0px";
+    document.querySelector(".checkout-view-wrapper").style.marginLeft = "0px";
+    document.querySelector(".checkout-view-wrapper").style.marginRight  = "0px";
     document.querySelector(".left-sidebar-burger").setAttribute("onclick", "openNav()");
 }
 
@@ -40,8 +47,10 @@ function closeNav() {
 function navButtonAction(view830px) {
     if (view830px.matches) {
         closeNav();
+        document.getElementById("cart-detail-view-wrap").style.marginRight = "0px";
     } else {
         openNav();
+        document.getElementById("cart-detail-view-wrap").style.marginRight = "300px";
     }
 }
 
@@ -52,11 +61,6 @@ view830px.addEventListener("change", function () {
 });
 
 
-//Category Number Generator (Test)
-
-// const randomNumber = Math.floor(Math.random() * 10);
-// const categoryDiv = document.getElementById('itemCategoryDiv');
-// categoryDiv.textContent = randomNumber;
 
 //Sidenav button dropdowns
 
@@ -297,7 +301,8 @@ function checkoutViewOpen() {
     checkoutView.classList.add('d-block');
 }
 
-document.querySelector('.checkout-back-to-cart-btn').addEventListener('click', function (event) {
+
+function editCartFromCheckout(){
     const checkoutView = document.querySelector('.checkout-view-wrapper');
     const cartDetails = document.getElementById('cart-detail-view-wrap');
     cartDetails.classList.remove('d-none');
@@ -305,15 +310,17 @@ document.querySelector('.checkout-back-to-cart-btn').addEventListener('click', f
     checkoutView.classList.remove('d-block');
     checkoutView.classList.add('d-none');
     initiateCartPage();
-})
+}
 
 // Sets localstorage data with Cart ID and Qty
-
+let itemDetails = {};
 document.querySelector('.content-wrapper').addEventListener('click', function (event) {
     if (event.target && event.target.classList.contains('item-desc-add')) {
         const addCartBtn = event.target;
         const cartItemQty = addCartBtn.nextElementSibling;
         const itemID = addCartBtn.closest('.item').dataset.prodId;
+        const itemName = addCartBtn.closest('.item').dataset.prodName;
+        const itemPrice = addCartBtn.closest('.item').dataset.prodPrice;
         addCartBtn.classList.remove('d-block');
         addCartBtn.classList.add('d-none');
         cartItemQty.classList.remove('d-none');
@@ -322,6 +329,12 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         if (inputField) {
             inputField.value = 1;
         }
+        itemDetails = {
+            name: itemName,
+            price: itemPrice,
+            quantity: inputField.value
+        }
+        updateCartItemsAsObj(itemID, itemDetails);
         updateCartItems(itemID, inputField.value);
         initializeCart();
         countCart();

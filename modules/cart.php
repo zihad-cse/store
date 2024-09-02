@@ -5,7 +5,7 @@
                 <h3>Cart</h3>
             </div>
             <div class="cart-detail-view-title-path">
-                <p>Pathing > Goes > Here</p>
+                <p><a class="text-decoration-none text-primary" href="">Home</a> > Path > Path</p>
             </div>
         </div>
         <div class="cart-detail-list">
@@ -19,9 +19,8 @@
                             <tr>
                                 <th></th>
                                 <th>Product</th>
-                                <th>Price</th>
                                 <th>Quantity</th>
-                                <th>Total</th>
+                                <th>Price</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -31,23 +30,25 @@
                 </div>
                 <div class="cart-list-bottom-portion">
                     <div class="cart-list-pricing-wrapper">
-                        <div class="cart-list-pricing-header">
-                            <h3>Cart Total</h3>
-                        </div>
-                        <div class="cart-list-pricing-subtotal">
-                            <div>
-                                <p>Subtotal</p>
+                        <div class="cart-list-pricing-inner-wrapper">
+                            <div class="cart-list-pricing-header">
+                                <h3>Cart Total</h3>
                             </div>
-                            <div>
-                                <p>250৳</p>
+                            <div class="cart-list-pricing-subtotal">
+                                <div>
+                                    <p>Subtotal</p>
+                                </div>
+                                <div>
+                                    <p class="cart-list-total">250৳</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="cart-list-pricing-total">
-                            <div>
-                                <p>Total</p>
-                            </div>
-                            <div>
-                                <p>250৳</p>
+                            <div class="cart-list-pricing-total">
+                                <div>
+                                    <p>Total</p>
+                                </div>
+                                <div>
+                                    <p class="cart-list-total">250৳</p>
+                                </div>
                             </div>
                         </div>
                     </div>
