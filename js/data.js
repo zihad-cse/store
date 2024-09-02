@@ -287,7 +287,6 @@ function initiateCartPage() {
             cartWrapper.appendChild(cartItemTr);
         }
         const itemTotalPrice = checkoutSumPrice(price, amount);
-        console.log(itemTotalPrice);
         let cartSumHtml = document.querySelectorAll('.cart-list-total');
         for (let i = 0; i < cartSumHtml.length; i++){
             cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
@@ -378,6 +377,7 @@ function initiateCheckoutPage() {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
             updateCartItems(itemID, 0);
+            updateCartItemsAsObj(itemID, 0);
             updateItemDisplay(itemID);
             initializeCart();
             initiateCartPage();
