@@ -36,7 +36,7 @@
             </div>
             <div class="account-wrapper">
                 <div class="acc-svg">
-                    <a class="text-decoration-none text-dark" href="">
+                    <a class="text-decoration-none text-dark" href="javascript:void(0)">
                         <img src="img/account.svg" alt="">
                         <span>Account</span>
                     </a>

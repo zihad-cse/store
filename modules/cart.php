@@ -28,6 +28,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div id="updateBtnsWrapper" class="mt-2 ms-2 d-none">
+                    <button id="updateCartBtn" style="float: right; border-radius: 15px" class="btn-primary">Update Cart</button>
+                </div>
                 <div class="cart-list-bottom-portion">
                     <div class="cart-list-pricing-wrapper">
                         <div class="cart-list-pricing-inner-wrapper">

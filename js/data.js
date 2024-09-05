@@ -22,7 +22,7 @@ function checkoutSumPrice(price, qty) {
 function updateCartItemsAsObj(itemID, itemDetails) {
     if (itemDetails.quantity > 0) {
         const existingItem = cartItemsAsObj[itemID];
-        if(existingItem){
+        if (existingItem) {
             existingItem.quantity = itemDetails.quantity;
             cartItemsAsObj[itemID] = existingItem;
         } else {
@@ -252,7 +252,7 @@ function initiateCartPage() {
         nothingInCart.classList.remove('d-flex');
         cartDetailViewCont.classList.remove('d-none');
         cartDetailViewCont.classList.add('d-block');
-        
+
         for (const key in cartItemsAsObj) {
             cartItemDetail = cartItemsAsObj[key];
             qty = cartItemDetail.quantity;
@@ -260,12 +260,13 @@ function initiateCartPage() {
             const value = parseInt(qty)
             amount += value;
             price = cartItemDetail.price;
+            totalPrice = price * qty;
             const cartItemTr = document.createElement('tr');
             cartItemTr.innerHTML =
                 `
                     <td><input checked type="checkbox"></td>
                     <td>
-                        <div class="cart-list-tbody-prod-title">
+                        <div class="cart-list-tbody-prod-title" data-prod-id=${key}>
                             <div class="cart-list-tbody-prod-title-img">
                                 <img style="height: 50px;" src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/${key}.jpeg" alt="">
                             </div>
@@ -275,23 +276,87 @@ function initiateCartPage() {
                         </div>
                     </td>
                     <td>
-                        <div>
-                            <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
-                            <input id="cartQty" class="product-desc-cart-qnty text-center" type="number" value="${qty}" min="0">
-                            <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
+                        <div class='qnty-wrapper'>
+                            <div class='qnty-decrement'>
+                                -
+                            </div>
+                            <div>
+                                <input class='product-desc-cart-qnty' type="number" min='0' value='${qty}'>
+                            </div>
+                            <div class='qnty-increment'>
+                                +
+                            </div>
                         </div>
                     </td>
-                    <td>${price}৳ </td>
+                    <td>${totalPrice}৳ </td>
                     <td><i data-prod-id="${key}" class="cart-list-remove-item fa-solid fa-xmark"></i></td>
                 `;
             cartWrapper.appendChild(cartItemTr);
         }
         const itemTotalPrice = checkoutSumPrice(price, amount);
         let cartSumHtml = document.querySelectorAll('.cart-list-total');
-        for (let i = 0; i < cartSumHtml.length; i++){
+        for (let i = 0; i < cartSumHtml.length; i++) {
             cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
         }
     }
+
+
+    const updateButton = document.getElementById('updateBtnsWrapper');
+    let hasChanged = false;
+    cartWrapper.addEventListener('click', (event) => {
+        const target = event.target;
+        const input = target.closest('.qnty-wrapper').querySelector('.product-desc-cart-qnty');
+
+        if (target.classList.contains('qnty-increment') || target.classList.contains('qnty-decrement')){
+            if(target.matches('.qnty-increment, .qnty-decrement')){
+                event.preventDefault();
+    
+                hasChanged = true;
+                updateButton.classList.remove('d-none');
+                updateButton.classList.add('d-block');
+            }
+        }
+    })
+
+    cartWrapper.removeEventListener('click', handleQtyChange);
+
+    function handleQtyChange(event){
+        
+        const target = event.target;
+        const input = target.closest('.qnty-wrapper').querySelector('.product-desc-cart-qnty')
+    
+        if (target.classList.contains('qnty-increment')) {
+            input.stepUp();
+        } else if (target.classList.contains('qnty-decrement') && input.value > 0) {
+            input.stepDown();
+        }
+    }
+
+    cartWrapper.addEventListener('click', handleQtyChange);
+
+    updateButton.addEventListener('click', () => {
+        if (hasChanged) {
+            const cartItemsTr = cartWrapper.querySelectorAll('tr');
+
+            for (const cartItemTr of cartItemsTr) {
+                const quantityInput = cartItemTr.querySelector('.product-desc-cart-qnty');
+                const itemId = cartItemTr.querySelector('.cart-list-tbody-prod-title').getAttribute('data-prod-id');
+
+                const newQnty = quantityInput.value;
+
+                const newQntyObj = {
+                    quantity: newQnty
+                }
+
+                updateCartItems(itemId, newQnty);
+                updateCartItemsAsObj(itemId, newQntyObj);
+                updateItemDisplay(itemId);
+            }
+            hasChanged = false;
+            updateButton.classList.remove('d-block');
+            updateButton.classList.add('d-none');
+        }
+    })
     document.querySelectorAll('.cart-list-remove-item').forEach(button => {
         button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
@@ -311,7 +376,6 @@ function initiateCartPage() {
     });
 };
 
-
 let totalCartPrice = 0;
 function initiateCheckoutPage() {
     const cartItemListWrapper = document.querySelector('.checkout-cart-items-list');
@@ -322,11 +386,11 @@ function initiateCheckoutPage() {
     } else {
         let amount = 0
         let price = 0
-            for (const key in cartItemsAsObj) {
+        for (const key in cartItemsAsObj) {
             const cartItemDetail = cartItemsAsObj[key];
             const qty = cartItemDetail.quantity;
             const value = parseInt(qty)
-             price = cartItemDetail.price;
+            price = cartItemDetail.price;
             amount += value;
         }
         for (const key in cartItemsAsObj) {
@@ -361,7 +425,7 @@ function initiateCheckoutPage() {
         const itemTotalPrice = checkoutSumPrice(price, amount);
         totalCartPrice = itemTotalPrice;
         let sumInnerHtml = document.querySelectorAll('.checkoutSumTotal');
-        for (let i = 0; i < sumInnerHtml.length; i++){
+        for (let i = 0; i < sumInnerHtml.length; i++) {
             sumInnerHtml[i].innerHTML = '৳' + itemTotalPrice;
         }
 
