@@ -48,10 +48,10 @@
                 <p>This is an average non-special detail section for this item. This item is fake, do not look too much into it. This is written as an example only.</p>
             </div>
             <div class="mx-1 product-desc-cart">
-                <div>
-                    <button class="qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
-                    <input id="cartQty" class="product-desc-cart-qnty text-center" type="number" value="1" min="1">
-                    <button class="qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
+                <div class="d-flex">
+                    <button class="product-qnty-decrement" aria-label="Decrease Value" onclick="cartQty.stepDown()">-</button>
+                    <input id="cartQty" class="product-page-desc-cart-qnty text-center" type="number" value="1" min="1">
+                    <button class="product-qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
                 </div>
                 <div class="product-desc-cart-btn">
                     <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>

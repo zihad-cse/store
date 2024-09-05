@@ -188,6 +188,10 @@
     flex-direction: row-reverse;
 }
 
+.flex-column-reverse{
+    flex-direction: column-reverse;
+}
+
 .flex-end {
     justify-content: flex-end;
 }
@@ -1897,7 +1901,7 @@ body {
 }
 
 .login-form-header {
-    padding: 5px;
+    padding: 2px;
 }
 
 .modal-dismiss-btn:hover {
@@ -1922,6 +1926,9 @@ body {
 
 .reg-page-switch-btn {
     color: var(--secondary-color);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .reg-page-switch-btn:hover {
@@ -1930,6 +1937,9 @@ body {
 }
 .login-page-switch-btn {
     color: var(--secondary-color);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .login-page-switch-btn:hover {
@@ -1952,3 +1962,59 @@ body {
     width: 300px;
 }
 
+.product-qnty-increment {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    border-top: 1px var(--primary-color) solid;
+    border-bottom: 1px var(--primary-color) solid;
+    border-right: 1px var(--primary-color) solid;
+    border-left: 1px var(--primary-color) solid;
+    border-radius: 0 10px 10px 0;
+    padding: 8px 0px;
+    width: 40px;
+    transition: var(--fast-transition);
+    text-align: center;
+}
+
+.product-qnty-increment:hover {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.product-qnty-decrement {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    border-top: 1px var(--primary-color) solid;
+    border-bottom: 1px var(--primary-color) solid;
+    border-left: 1px var(--primary-color) solid;
+    border-right: 1px var(--primary-color) solid;
+    border-radius: 10px 0 0 10px;
+    padding: 8px 0px;
+    width: 40px;
+    transition: var(--fast-transition);
+    text-align: center;
+}
+
+.product-qnty-decrement:hover {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.product-page-desc-cart-qnty {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    height: auto;
+    padding: 8px 5px;
+    width: 40px;
+    border-top: 1px var(--primary-color) solid;
+    border-bottom: 1px var(--primary-color) solid;
+    border-right: none;
+    border-left: none;
+    text-align: center;
+    outline: none;
+}
