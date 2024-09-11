@@ -188,7 +188,7 @@
     flex-direction: row-reverse;
 }
 
-.flex-column-reverse{
+.flex-column-reverse {
     flex-direction: column-reverse;
 }
 
@@ -1935,6 +1935,7 @@ body {
     cursor: pointer;
     color: var(--primary-color);
 }
+
 .login-page-switch-btn {
     color: var(--secondary-color);
     user-select: none;
@@ -2017,4 +2018,16 @@ body {
     border-left: none;
     text-align: center;
     outline: none;
+}
+
+#paymentOption {
+    background: none;
+    background-color: var(--tertiary-color);
+    box-shadow: none;
+    outline: none;
+    border: none;
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    padding: 10px 10px;
+
 }

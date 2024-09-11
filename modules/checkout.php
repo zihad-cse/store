@@ -57,25 +57,6 @@
                         <h3>Your Cart:</h3>
                     </div>
                     <div class="checkout-cart-items-list">
-                        <!-- <div class="cart-item-wrapper">
-                            <div class="cart-item-img">
-                                <img src="https://daccastore.erp.place/erp/companies/daccastore/part_pics/1.jpeg" alt="">
-                            </div>
-                            <div class="cart-item-desc">
-                                <div class="cart-item-title">
-                                    <p>USB Cable A</p>
-                                </div>
-                                <div class="cart-item-price">
-                                    <p>৳250</p>
-                                    <p>x1</p>
-                                </div>
-                                <div class="cart-item-qty">
-                                </div>
-                            </div>
-                            <div class="cart-item-remove" data-prod-id="1">
-                                <img src="img/remove-button.svg" alt="">
-                            </div>
-                        </div> -->
                     </div>
                     <hr style="color: #ececec;">
                     <div class="checkout-cart-prices">
