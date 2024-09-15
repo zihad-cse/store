@@ -421,8 +421,56 @@ function switchToReg (){
 
 document.querySelector('.login-page-switch-btn').addEventListener('click', switchToReg);
 
-// if (view830px.matches){
-//     document.getElementById('formIllustWrapper').style.display = 'none';
-// } else {
-//     document.getElementById('formIllustWrapper').style.display = 'flex';
-// }
+const paymentOptionSelect = document.getElementById('paymentOption');
+
+let selectedPaymentOption;
+
+paymentOptionSelect.addEventListener('change', function(){
+    selectedPaymentOption = paymentOptionSelect.value;
+})
+
+const billSameShip = document.getElementById('billSameShip');
+
+billSameShip.checked = true;
+let billSameShipChecked = billSameShip.checked;
+
+console.log(billSameShipChecked);
+
+billSameShip.addEventListener('change', function(){
+    billSameShipChecked = billSameShip.checked;
+    console.log(billSameShipChecked);
+})
+
+const paymentProceedBtn = document.getElementById('checkoutCartPayment');
+
+paymentProceedBtn.addEventListener('click', function(){
+    if (selectedPaymentOption == '1'){
+        console.log('Card');
+        document.querySelector('.payment-page-card-section').classList.remove('d-none');
+        document.querySelector('.payment-page-wrapper').classList.remove('d-none');
+        if(!document.querySelector('.payment-page-mobile-wallet-section').classList.contains('d-none')){
+            document.querySelector('.payment-page-mobile-wallet-section').classList.add('d-none');
+        }
+    } else if (selectedPaymentOption == '2') {
+        console.log('Mobile Wallet');
+        document.querySelector('.payment-page-mobile-wallet-section').classList.remove('d-none');
+        document.querySelector('.payment-page-wrapper').classList.remove('d-none');
+        if(!document.querySelector('.payment-page-card-section').classList.contains('d-none')){
+            document.querySelector('.payment-page-card-section').classList.add('d-none');
+        }
+    } else if (selectedPaymentOption == '3') {
+        console.log('CoD');
+        console.log(billSameShipChecked);
+    } else {
+        console.log('invalid choice.');
+    }
+
+    const addFName = document.getElementById('fullName');
+    const addDelivArea = document.getElementById('delivArea');
+    const addDelivAddress = document.getElementById('deliveryAddress');
+
+    if(addFName.value === '' || addDelivArea.value === '' || addDelivAddress.value === ''){
+        console.log('not all fields filled.')
+    }
+})
+

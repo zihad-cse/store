@@ -10,7 +10,7 @@
         </div>
         <div class="checkout-main-section d-flex">
             <div class="checkout-form-wrapper">
-                <h3>Billing Details</h3>
+                <h3>Shipping Details</h3>
                 <div class="checkout-billing-form-container">
                     <form class="checkout-billing-form-container d-flex" action="">
                         <div class="billing-form-name d-flex flex-column">
@@ -76,9 +76,25 @@
                         <span class="checkoutSumTotal"></span>
                     </div>
                     <hr style="color: #ececec;">
+                    <div style="background-color: #FFF; margin: 10px 0px;" class="payment-page-payment-section">
+                        <div style="padding: 20px 0px;" class="payment-section-container">
+                            <h3>Select a Payment Method:</h3>
+                            <select name="paymentOption" id="paymentOption">
+                                <option selected value="none">Select an Option</option>
+                                <option value="1">Card</option>
+                                <option value="2">Mobile Wallet (e.g. Bkash, Nagad, Rocket)</option>
+                                <option value="3">Cash On Delivery</option>
+                            </select>
+                            <div style="margin: 10px 0px;">
+                                <input id="billSameShip" type="checkbox">
+                                <label for="billSameShip">Billing address same as shipping address</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="color: #ececec;">
                     <div class="checkout-cart-buttons">
                         <div class="checkout-cart-payment">
-                            <button>Proceed to Payment</button>
+                            <button id="checkoutCartPayment">Proceed</button>
                         </div>
                         <div onclick="editCartFromCheckout()" class="checkout-back-to-cart">
                             <button class="checkout-back-to-cart-btn">Edit Cart</button>
