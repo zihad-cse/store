@@ -315,7 +315,7 @@ body {
 @media screen and (min-width: 1214px) {
 
     .checkout-form-wrapper {
-        max-width: 55%;
+        max-width: 85%;
     }
 }
 
@@ -1791,7 +1791,7 @@ body {
     background-color: var(--light-color);
     padding: 20px;
     width: auto;
-    flex: 0 0 55%;
+    flex: 0 0 85%;
 }
 
 .checkout-cart-wrapper {
