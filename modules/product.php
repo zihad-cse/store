@@ -53,8 +53,11 @@
                     <input id="cartQty" class="product-page-desc-cart-qnty text-center" type="number" value="1" min="1">
                     <button class="product-qnty-increment" aria-label="Increase Value" onclick="cartQty.stepUp()">+</button>
                 </div>
-                <div class="product-desc-cart-btn">
-                    <button><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                <div class="">
+                    <button class="product-desc-cart-btn"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                </div>
+                <div class="in-cart-warning d-none flex-row">
+                    <button onclick="openCartDetails(); initiateCartPage()" style="padding: 15px;" class="btn btn-primary-outline">Edit Cart</button>
                 </div>
             </div>
         </div>

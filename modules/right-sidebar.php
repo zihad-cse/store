@@ -1,4 +1,4 @@
-<div class="right-sidebar-cart-wrapper d-none">
+<div class="right-sidebar-cart-wrapper" style="height: 0%; opacity: 0; visibility: hidden;">
     <div class="right-sidebar-cart-dismiss">
         <div class="total-items-in-cart"></div>
         <div onclick="cartDisappear()" class="right-sidebar-cart-dismiss-btn">
@@ -22,7 +22,7 @@
             Checkout
         </button>
     </div>
-    <div class="right-sidebar-cart-view d-flex flex-center d-none">
+    <div class="right-sidebar-cart-view d-flex flex-center">
         <button onclick="openCartDetails(); cartDisappear(); initiateCartPage();">
             View Cart
         </button>

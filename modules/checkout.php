@@ -131,7 +131,7 @@
                             </select> -->
                             <div style="margin: 10px 0px;">
                                 <input id="billSameShip" type="checkbox">
-                                <label for="billSameShip">Billing address same as shipping address</label>
+                                <label style="user-select: none;" for="billSameShip">Billing address same as shipping address</label>
                             </div>
                         </div>
                     </div>

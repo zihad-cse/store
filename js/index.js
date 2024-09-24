@@ -39,7 +39,7 @@ function closeNav() {
     document.getElementById("productWrapper").style.marginRight = "0px";
     document.getElementById("cart-detail-view-wrap").style.marginLeft = "0px";
     document.querySelector(".checkout-view-wrapper").style.marginLeft = "0px";
-    document.querySelector(".checkout-view-wrapper").style.marginRight  = "0px";
+    document.querySelector(".checkout-view-wrapper").style.marginRight = "0px";
     document.querySelector(".left-sidebar-burger").setAttribute("onclick", "openNav()");
 }
 
@@ -163,7 +163,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         event.preventDefault();
 
         const item = event.target.closest('.item');
-        
+
         const itemDataAttributes = item.dataset;
 
         const storedData = {
@@ -194,12 +194,27 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         productDetails.classList.remove('d-none');
         adSidebar.classList.add('d-none');
 
+
+        for (const key in cartItemsAsObj) {
+            if (key === itemID) {
+                let qtyFromCartItems = cartItemsAsObj[key].quantity;
+                document.querySelector('.in-cart-warning').classList.remove('d-none');
+                document.querySelector('.in-cart-warning').classList.add('d-flex');
+                document.querySelector('.product-desc-cart-btn').classList.add('product-desc-cart-btn-disabled');
+                document.querySelector('.product-desc-cart-btn').innerHTML = 'Item In Cart';
+                document.querySelector('.product-page-desc-cart-qnty').value = qtyFromCartItems;
+            }
+        }
+
         document.querySelector('.product-img').src = imageSrc;
         document.querySelector('.product-img-thumbnail img').src = imageSrc;
         document.querySelector('.product-desc-title h2').innerHTML = `${itemName}`;
         document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${categoryName}</a>`;
         document.querySelector('.product-page-path-cat').innerHTML = categoryName;
         document.querySelector('.product-page-path-cat').setAttribute('data-cat', itemCat);
+        document.querySelector('.product-container').setAttribute('data-id', itemID);
+        document.querySelector('.product-container').setAttribute('data-price', itemPrice);
+        document.querySelector('.product-container').setAttribute('data-name', itemName);
         document.querySelector('.product-page-path-name').innerHTML = itemName;
         document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
         scrollToTop();
@@ -213,7 +228,22 @@ document.querySelector('.product-wrapper').addEventListener('click', function (e
         document.querySelector('.product-wrapper').classList.add('d-none');
         document.querySelector('.right-sidebar').classList.remove('d-none');
     }
+    if (event.target && event.target.closest('.product-desc-cart-btn')) {
+        cartItemQty = document.querySelector('.product-page-desc-cart-qnty').value;
+        productId = document.querySelector('.product-container').dataset.id;
+        productPrice = document.querySelector('.product-container').dataset.price;
+        productName = document.querySelector('.product-container').dataset.name;
+        const newCartItem = {
+            name: productName,
+            price: productPrice,
+            quantity: cartItemQty
+        }
+        updateCartItems(productId, cartItemQty);
+        updateCartItemsAsObj(productId, newCartItem);
+    }
 })
+
+
 
 //Cart Actions
 
@@ -223,8 +253,9 @@ function cartAppear() {
     var cartSidebar = document.querySelector('.right-sidebar-cart-wrapper');
     var cartIcon = document.querySelector('.cart-wrapper');
     var itemsInCart = document.querySelector('.items-in-cart');
-    cartSidebar.classList.remove('d-none');
-    cartSidebar.classList.add('d-block');
+    cartSidebar.style.height = "75%";
+    cartSidebar.style.opacity = "1";
+    cartSidebar.style.visibility = "visible";
     cartIcon.setAttribute('onclick', 'cartDisappear()');
 
     if (!itemsInCart.classList.contains('d-block')) {
@@ -235,16 +266,6 @@ function cartAppear() {
         cartCheckoutButton.classList.remove('d-flex');
         cartCheckoutButton.classList.add('d-none');
     }
-    // else if (itemsInCart.classList.contains('d-block')) {
-    //     var cartViewButton = cartSidebar.querySelector('.right-sidebar-cart-view');
-    //     var cartCheckoutButton = cartSidebar.querySelector('.right-sidebar-cart-checkout');
-    //     if (cartViewButton.classList.contains('d-none') && cartCheckoutButton.classList.contains('d-none')) {
-    //         cartViewButton.classList.remove('d-none');
-    //         cartViewButton.classList.add('d-flex');
-    //         cartCheckoutButton.classList.remove('d-none');
-    //         cartCheckoutButton.classList.add('d-flex');
-    //     }
-    // }
 }
 
 // Cart Preview Close
@@ -252,8 +273,9 @@ function cartAppear() {
 function cartDisappear() {
     var cartSidebar = document.querySelector('.right-sidebar-cart-wrapper');
     var cartIcon = document.querySelector('.cart-wrapper');
-    cartSidebar.classList.remove('d-block');
-    cartSidebar.classList.add('d-none');
+    cartSidebar.style.height = "0%";
+    cartSidebar.style.opacity = "0";
+    cartSidebar.style.visibility = "hidden";
     cartIcon.setAttribute('onclick', 'cartAppear()');
 }
 
@@ -267,9 +289,13 @@ function openCartDetails() {
     listWrapper.classList.add('d-none');
     cartDetails.classList.remove('d-none');
     cartDetails.classList.add('d-block');
-    if(checkoutView.classList.contains('d-block')){
+    if (checkoutView.classList.contains('d-block')) {
         checkoutView.classList.remove('d-block');
         checkoutView.classList.add('d-none');
+    }
+    if(!document.querySelector('.product-wrapper').classList.contains('d-none')){
+        document.querySelector('.product-wrapper').classList.add('d-none');
+        document.querySelector('.right-sidebar').classList.remove('d-none');
     }
 }
 
@@ -302,7 +328,7 @@ function checkoutViewOpen() {
 }
 
 
-function editCartFromCheckout(){
+function editCartFromCheckout() {
     const checkoutView = document.querySelector('.checkout-view-wrapper');
     const cartDetails = document.getElementById('cart-detail-view-wrap');
     cartDetails.classList.remove('d-none');
@@ -358,7 +384,7 @@ function countCart() {
     }
     if (totalSum == 0) {
         cartCounter.classList.add('d-invisible');
-        localStorage.removeItem('cartItems'); 
+        localStorage.removeItem('cartItems');
     }
     if (totalSum == 1) {
         if (cartCounter.classList.contains('d-invisible')) {
@@ -397,7 +423,7 @@ function closeModal() {
 
 document.getElementById('modalDismiss').addEventListener('click', closeModal);
 
-function switchToLogin (){
+function switchToLogin() {
     const regSection = document.querySelector('.registration-form-main-content');
     const loginSection = document.querySelector('.login-form-main-content');
 
@@ -409,7 +435,7 @@ function switchToLogin (){
 
 document.querySelector('.reg-page-switch-btn').addEventListener('click', switchToLogin);
 
-function switchToReg (){
+function switchToReg() {
     const regSection = document.querySelector('.registration-form-main-content');
     const loginSection = document.querySelector('.login-form-main-content');
 
@@ -434,16 +460,14 @@ const billSameShip = document.getElementById('billSameShip');
 billSameShip.checked = true;
 let billSameShipChecked = billSameShip.checked;
 
-console.log(billSameShipChecked);
-
-billSameShip.addEventListener('change', function(){
+billSameShip.addEventListener('change', function () {
     billSameShipChecked = billSameShip.checked;
     console.log(billSameShipChecked);
-    if(billSameShipChecked == false){
+    if (billSameShipChecked == false) {
         document.getElementById('billingDetailsForm').classList.add('d-block');
         document.getElementById('billingDetailsForm').classList.remove('d-none');
     }
-    if(billSameShipChecked == true){
+    if (billSameShipChecked == true) {
         document.getElementById('billingDetailsForm').classList.add('d-none');
         document.getElementById('billingDetailsForm').classList.remove('d-block');
     }
