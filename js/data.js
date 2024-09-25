@@ -262,6 +262,11 @@ function initiateCartPage() {
             price = cartItemDetail.price;
             totalPrice = price * qty;
             const cartItemTr = document.createElement('tr');
+            const itemTotalPrice = checkoutSumPrice(price, amount);
+            let cartSumHtml = document.querySelectorAll('.cart-list-total');
+            for (let i = 0; i < cartSumHtml.length; i++) {
+                cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
+            }
             cartItemTr.innerHTML =
                 `
                     <td><input checked type="checkbox"></td>
@@ -293,11 +298,7 @@ function initiateCartPage() {
                 `;
             cartWrapper.appendChild(cartItemTr);
         }
-        const itemTotalPrice = checkoutSumPrice(price, amount);
-        let cartSumHtml = document.querySelectorAll('.cart-list-total');
-        for (let i = 0; i < cartSumHtml.length; i++) {
-            cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
-        }
+
     }
 
 
@@ -307,31 +308,28 @@ function initiateCartPage() {
         const target = event.target;
         const input = target.closest('.qnty-wrapper').querySelector('.product-desc-cart-qnty');
 
-        if (target.classList.contains('qnty-increment') || target.classList.contains('qnty-decrement')){
-            if(target.matches('.qnty-increment, .qnty-decrement')){
+        if (target.classList.contains('qnty-increment') || target.classList.contains('qnty-decrement')) {
+            if (target.matches('.qnty-increment, .qnty-decrement')) {
                 event.preventDefault();
-    
                 hasChanged = true;
                 updateButton.classList.remove('d-none');
                 updateButton.classList.add('d-block');
             }
         }
+
     })
 
-    cartWrapper.removeEventListener('click', handleQtyChange);
-
-    function handleQtyChange(event){
-        
+    function handleQtyChange(event) {
         const target = event.target;
         const input = target.closest('.qnty-wrapper').querySelector('.product-desc-cart-qnty')
-    
         if (target.classList.contains('qnty-increment')) {
             input.stepUp();
         } else if (target.classList.contains('qnty-decrement') && input.value > 0) {
             input.stepDown();
         }
     }
-
+    
+    cartWrapper.removeEventListener('click', handleQtyChange);
     cartWrapper.addEventListener('click', handleQtyChange);
 
     updateButton.addEventListener('click', () => {

@@ -194,15 +194,24 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         productDetails.classList.remove('d-none');
         adSidebar.classList.add('d-none');
 
+        if (cartItems) {
+            for (const key in cartItemsAsObj) {
+                if (key === itemID) {
+                    let qtyFromCartItems = cartItemsAsObj[key].quantity;
+                    document.querySelector('.in-cart-warning').classList.remove('d-none');
+                    document.querySelector('.in-cart-warning').classList.add('d-flex');
+                    document.querySelector('.product-desc-cart-btn').classList.add('product-desc-cart-btn-disabled');
+                    document.querySelector('.product-desc-cart-btn').innerHTML = 'Item In Cart';
+                    document.querySelector('.product-page-desc-cart-qnty').value = qtyFromCartItems;
+                    break;
+                } else {
+                    document.querySelector('.in-cart-warning').classList.add('d-none');
+                    document.querySelector('.in-cart-warning').classList.remove('d-flex');
+                    document.querySelector('.product-desc-cart-btn').classList.remove('product-desc-cart-btn-disabled');
+                    document.querySelector('.product-desc-cart-btn').innerHTML = '<i class="fa-solid fa-cart-plus"></i> Add to Cart';
+                    document.querySelector('.product-page-desc-cart-qnty').value = "1";
 
-        for (const key in cartItemsAsObj) {
-            if (key === itemID) {
-                let qtyFromCartItems = cartItemsAsObj[key].quantity;
-                document.querySelector('.in-cart-warning').classList.remove('d-none');
-                document.querySelector('.in-cart-warning').classList.add('d-flex');
-                document.querySelector('.product-desc-cart-btn').classList.add('product-desc-cart-btn-disabled');
-                document.querySelector('.product-desc-cart-btn').innerHTML = 'Item In Cart';
-                document.querySelector('.product-page-desc-cart-qnty').value = qtyFromCartItems;
+                }
             }
         }
 
@@ -240,6 +249,29 @@ document.querySelector('.product-wrapper').addEventListener('click', function (e
         }
         updateCartItems(productId, cartItemQty);
         updateCartItemsAsObj(productId, newCartItem);
+        updateItemDisplay(productId);
+        initializeCart();
+        countCart();
+        if (cartItems) {
+            for (const key in cartItemsAsObj) {
+                if (key === productId) {
+                    let qtyFromCartItems = cartItemsAsObj[key].quantity;
+                    document.querySelector('.in-cart-warning').classList.remove('d-none');
+                    document.querySelector('.in-cart-warning').classList.add('d-flex');
+                    document.querySelector('.product-desc-cart-btn').classList.add('product-desc-cart-btn-disabled');
+                    document.querySelector('.product-desc-cart-btn').innerHTML = 'Item In Cart';
+                    document.querySelector('.product-page-desc-cart-qnty').value = qtyFromCartItems;
+                    break;
+                } else {
+                    document.querySelector('.in-cart-warning').classList.add('d-none');
+                    document.querySelector('.in-cart-warning').classList.remove('d-flex');
+                    document.querySelector('.product-desc-cart-btn').classList.remove('product-desc-cart-btn-disabled');
+                    document.querySelector('.product-desc-cart-btn').innerHTML = '<i class="fa-solid fa-cart-plus"></i> Add to Cart';
+                    document.querySelector('.product-page-desc-cart-qnty').value = "1";
+
+                }
+            }
+        }
     }
 })
 
@@ -293,7 +325,7 @@ function openCartDetails() {
         checkoutView.classList.remove('d-block');
         checkoutView.classList.add('d-none');
     }
-    if(!document.querySelector('.product-wrapper').classList.contains('d-none')){
+    if (!document.querySelector('.product-wrapper').classList.contains('d-none')) {
         document.querySelector('.product-wrapper').classList.add('d-none');
         document.querySelector('.right-sidebar').classList.remove('d-none');
     }

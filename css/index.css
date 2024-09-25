@@ -425,6 +425,10 @@ body {
         display: flex;
     }
 
+
+    .address-details-width {
+        width: 85%;
+    }
 }
 
 @media screen and (max-width: 830px) {
@@ -438,8 +442,7 @@ body {
         padding: 10px;
     }
 
-
-
+    
     .right-sidebar {
         display: none;
     }
@@ -2048,5 +2051,5 @@ body {
     border: 1px solid var(--secondary-color);
     border-radius: 10px;
     padding: 10px 10px;
-    outline: none; 
+    outline: none;
 }

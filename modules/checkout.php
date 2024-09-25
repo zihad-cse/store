@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="checkout-main-section d-flex">
-            <div style="width: 85%;">
+            <div class="address-details-width">
                 <div class="checkout-form-wrapper">
                     <h3>Shipping Details</h3>
                     <div class="checkout-billing-form-container">
