@@ -449,6 +449,7 @@ function initiateCheckoutPage() {
 }
 function updateItemDisplay(itemID) {
     const item = document.querySelector(`.item[data-prod-id='${itemID}'`);
+    console.log('Update Item Display')
     if (item) {
         const addCartBtn = item.querySelector('.item-desc-add');
         const cartItemQty = item.querySelector('.in-cart-qty');

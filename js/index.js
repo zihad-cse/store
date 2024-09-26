@@ -203,6 +203,9 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
                     document.querySelector('.product-desc-cart-btn').classList.add('product-desc-cart-btn-disabled');
                     document.querySelector('.product-desc-cart-btn').innerHTML = 'Item In Cart';
                     document.querySelector('.product-page-desc-cart-qnty').value = qtyFromCartItems;
+                    document.querySelector('.product-qnty-increment').classList.add('product-qnty-disabled');
+                    document.querySelector('.product-qnty-decrement').classList.add('product-qnty-disabled');
+                    document.getElementById('cartQty').disabled = true;
                     break;
                 } else {
                     document.querySelector('.in-cart-warning').classList.add('d-none');
@@ -432,6 +435,8 @@ function countCart() {
     }
 }
 
+// Login Registration Modal actions start
+
 function openLoginRegModal() {
     const modal = document.getElementById('loginRegModal');
     modal.style.display = 'block';
@@ -479,13 +484,7 @@ function switchToReg() {
 
 document.querySelector('.login-page-switch-btn').addEventListener('click', switchToReg);
 
-// const paymentOptionSelect = document.getElementById('paymentOption');
-
-// let selectedPaymentOption;
-
-// paymentOptionSelect.addEventListener('change', function(){
-//     selectedPaymentOption = paymentOptionSelect.value;
-// })
+// Login Registration Modal Actions end
 
 const billSameShip = document.getElementById('billSameShip');
 
@@ -504,42 +503,3 @@ billSameShip.addEventListener('change', function () {
         document.getElementById('billingDetailsForm').classList.remove('d-block');
     }
 })
-
-// const paymentProceedBtn = document.getElementById('checkoutCartPayment');
-
-// paymentProceedBtn.addEventListener('click', function(){
-//     if (selectedPaymentOption == '1'){
-//         console.log('Card');
-//         document.querySelector('.payment-page-card-section').classList.remove('d-none');
-//         document.querySelector('.payment-page-wrapper').classList.remove('d-none');
-//         if(!document.querySelector('.payment-page-mobile-wallet-section').classList.contains('d-none')){
-//             document.querySelector('.payment-page-mobile-wallet-section').classList.add('d-none');
-//         }
-//     } else if (selectedPaymentOption == '2') {
-//         console.log('Mobile Wallet');
-//         document.querySelector('.payment-page-mobile-wallet-section').classList.remove('d-none');
-//         document.querySelector('.payment-page-wrapper').classList.remove('d-none');
-//         if(!document.querySelector('.payment-page-card-section').classList.contains('d-none')){
-//             document.querySelector('.payment-page-card-section').classList.add('d-none');
-//         }
-//     } else if (selectedPaymentOption == '3') {
-//         console.log('CoD');
-//         console.log(billSameShipChecked);
-//     } else {
-//         console.log('invalid choice.');
-//     }
-
-//     const addFName = document.getElementById('fullName');
-//     const addDelivArea = document.getElementById('delivArea');
-//     const addDelivAddress = document.getElementById('deliveryAddress');
-
-//     if(addFName.value === '' || addDelivArea.value === '' || addDelivAddress.value === ''){
-//         console.log('not all fields filled.')
-//     }
-
-//     document.getElementById('paymentSectionDiv').scrollIntoView({
-//         behavior: 'smooth',
-//         block: 'center'
-//     })
-// })
-
