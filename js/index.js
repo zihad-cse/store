@@ -516,3 +516,59 @@ billSameShip.addEventListener('change', function () {
         document.getElementById('billingDetailsForm').classList.remove('d-block');
     }
 })
+
+// Carousel Actions Start
+
+const carouselItems = document.querySelectorAll(".homepage-carousel-item");
+var currentItem = 0;
+
+const carouselPrevButton = document.querySelector(".carousel-nav-prev");
+const carouselNextButton = document.querySelector(".carousel-nav-next");
+
+carouselPrevButton.addEventListener("click", () => {
+    currentItem = (currentItem - 1 + carouselItems.length) % carouselItems.length;
+    updateCarousel();
+});
+
+carouselNextButton.addEventListener("click", () => {
+    currentItem = (currentItem + 1) % carouselItems.length;
+    updateCarousel();
+});
+
+function updateCarousel() {
+    carouselItems.forEach((item, index) => {
+        item.style.transform = `translateX(-${currentItem * 100}%)`;
+    });
+};
+
+let intervalId;
+let isPaused = false;
+
+function startInterval() {
+    intervalId = setInterval(() => {
+        carouselItems.forEach((item, index) => {
+            item.style.transform = `translateX(-${currentItem * 100}%)`;
+        });
+        currentItem = (currentItem + 1) % carouselItems.length;
+    }, 5000);
+}
+
+function pauseInterval() {
+    clearInterval(intervalId);
+    isPaused = true;
+}
+
+function resumeInterval() {
+    if (isPaused) {
+        startInterval();
+        isPaused = false;
+    }
+}
+
+startInterval();
+carouselItems.forEach(item => {
+    item.addEventListener('mouseover', pauseInterval);
+    item.addEventListener('mouseout', resumeInterval);
+});
+
+// Carousel Actions End
