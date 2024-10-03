@@ -372,6 +372,7 @@ function initiateCartPage() {
             updateItemDisplay(itemID)
         });
     });
+    bannerVisNone();
 };
 
 let totalCartPrice = 0;

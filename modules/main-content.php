@@ -1,6 +1,8 @@
+<!-- Home Page Banner -->
+
+
 <!-- Products list -->
-<div style="height: 380px; background-color:black; margin: 0px 350px 10px 350px">
-</div>
+
 <div id="content-wrapper-div" class="content-wrapper d-grid"></div>
 
 <!-- Cart section -->

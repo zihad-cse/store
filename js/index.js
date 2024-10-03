@@ -9,6 +9,8 @@ function scrollToTop() {
 
 var view830px = window.matchMedia("(max-width: 830px)");
 
+//Navbar Open and Close start
+
 function openNav() {
     const sidebar = document.getElementById("sidenav");
     sidebar.style.width = "300px";
@@ -60,7 +62,12 @@ view830px.addEventListener("change", function () {
     navButtonAction(view830px);
 });
 
+// Homepage Banner Disappearance 
 
+function bannerVisNone(){
+   const homePageBanner = document.getElementById('homePageBanner');
+   homePageBanner.classList.add('d-none');
+}
 
 //Sidenav button dropdowns
 
@@ -86,6 +93,7 @@ for (i = 0; i < dropdown.length; i++) {
         this.classList.toggle('active')
         dropdownContent.classList.toggle("visible");
         dropdownCaret.classList.toggle("expanded-rotate");
+        bannerVisNone();
     });
 }
 
@@ -230,8 +238,11 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         document.querySelector('.product-page-path-name').innerHTML = itemName;
         document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
         scrollToTop();
+        bannerVisNone();
     };
 });
+
+// Actions within Product Page
 
 document.querySelector('.product-wrapper').addEventListener('click', function (event) {
     if (event.target && event.target.closest('.product-back-button')) {
@@ -332,6 +343,7 @@ function openCartDetails() {
         document.querySelector('.product-wrapper').classList.add('d-none');
         document.querySelector('.right-sidebar').classList.remove('d-none');
     }
+    bannerVisNone();
 }
 
 // Cart Page Close
@@ -345,7 +357,7 @@ function closeCartDetails() {
     cartDetails.classList.add('d-none');
 }
 
-// Checkout page Close
+// Checkout page Open
 
 function checkoutViewOpen() {
     const listWrapper = document.querySelector('.content-wrapper');
@@ -360,6 +372,7 @@ function checkoutViewOpen() {
     }
     checkoutView.classList.remove('d-none');
     checkoutView.classList.add('d-block');
+    bannerVisNone();
 }
 
 
