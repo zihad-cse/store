@@ -429,6 +429,14 @@ body {
     .address-details-width {
         width: 85%;
     }
+
+    .homepage-banner {
+        margin: 0px 350px 10px 350px;
+    }
+
+    .homepage-carousel-item {
+        height: 360px;
+    }
 }
 
 @media screen and (max-width: 830px) {
@@ -551,6 +559,14 @@ body {
 
     #formIllustWrapper {
         display: none;
+    }
+
+    .homepage-banner {
+        margin: 0px 50px 10px 50px;
+    }
+
+    .homepage-carousel-item {
+        height: 200px;
     }
 
 }
@@ -2072,6 +2088,15 @@ body {
     outline: none;
 }
 
+.homepage-banner {
+    background-color: white;
+    transition: var(--slow-transition)
+}
+
+.homepage-carousel-container {
+    position: relative;
+}
+
 .homepage-carousel-items {
     overflow: hidden;
     flex-wrap: nowrap;
@@ -2080,7 +2105,6 @@ body {
 .homepage-carousel-item {
     position: relative;
     min-width: 100%;
-    height: 360px;
     transition: all 0.5s linear;
     background-repeat: no-repeat;
     background-size: cover;
@@ -2103,7 +2127,7 @@ body {
 .carousel-nav-prev,
 .carousel-nav-next {
     position: absolute;
-    top: 45%;
+    top: 50%;
     transform: translateY(-50%);
     padding: 20px 10px;
     background-color: #F3FBFB;
@@ -2113,8 +2137,7 @@ body {
 }
 
 .carousel-nav-prev {
-    left: 330px;
-    border-right: none;
+    left: -40px;
     border-radius: 5px 0px 0px 5px;
 }
 
@@ -2128,23 +2151,30 @@ body {
 }
 
 .carousel-nav-next {
-    right: 330px;
-    border-left: none;
+    right: -40px;
     border-radius: 0px 5px 5px 0px;
 }
 
 .item_1 {
-    background-color: red;
+    background-image: url(/store/img/2022-11-21_03_50_26.jpeg);
+    background-size: cover;
+    background-position: center;
 }
 
 .item_2 {
-    background-color: green;
+    background-image: url(/store/img/2024-08-07_14_16_56.jpg);
+    background-size: cover;
+    background-position: center
 }
 
 .item_3 {
-    background-color: orange;
+    background-image: url(/store/assets/freepik_assets/globe-digital-grid-futuristic-background.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 .item_4 {
-    background-color: purple;
+    background-image: url(/store/assets/freepik_assets/flat-lay-arrangement-cookies-line.jpg);
+    background-size: cover;
+    background-position: center;
 }

@@ -26,6 +26,7 @@ function openNav() {
         document.getElementById("cart-detail-view-wrap").style.marginLeft = "300px";
         document.querySelector(".checkout-view-wrapper").style.marginRight = "300px";
         document.querySelector(".checkout-view-wrapper").style.marginLeft = "300px";
+        document.querySelector(".homepage-banner").removeAttribute('style');
     }
     document.querySelector(".left-sidebar-burger").setAttribute("onclick", "closeNav()");
 }
@@ -42,6 +43,7 @@ function closeNav() {
     document.getElementById("cart-detail-view-wrap").style.marginLeft = "0px";
     document.querySelector(".checkout-view-wrapper").style.marginLeft = "0px";
     document.querySelector(".checkout-view-wrapper").style.marginRight = "0px";
+    document.querySelector(".homepage-banner").style.marginLeft = "150px";
     document.querySelector(".left-sidebar-burger").setAttribute("onclick", "openNav()");
 }
 
