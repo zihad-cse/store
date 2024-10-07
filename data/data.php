@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 
 // handles product list data collection
 
@@ -9,5 +9,6 @@ $prods = [];
 for ($i = 1; $i <= $numOfProds; $i++) {
     $prods[] = $baseUrl . $i . ".jpeg";
 }
+
 echo json_encode($prods);
 ?>

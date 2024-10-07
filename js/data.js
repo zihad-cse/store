@@ -15,7 +15,8 @@ function updateCartItems(itemID, quantity) {
 // Attempting a Sum system.
 
 function checkoutSumPrice(price, qty) {
-    return sum = price * qty;
+     sum = price * qty;
+     return sum = sum.toFixed(2);
 }
 
 
@@ -36,23 +37,25 @@ function updateCartItemsAsObj(itemID, itemDetails) {
 
 function fetchData() {
     $.ajax({
-        url: 'data/data.php',
+        url: 'data/datafetch.php',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
             let content = '';
-            let itemID = 1;
+            // let itemID = 1;
             data.forEach(function (prod) {
-                const randomCategoryNum = Math.floor(Math.random() * 10);
-                const randomNameNum = Math.floor(Math.random() * itemNamesLength);
-                const randomPrice = Math.floor(Math.random() * 500);
-                const randomCatName = catNames[randomCategoryNum];
-                const randomName = itemNames[randomNameNum];
+                const randomCategoryNum = prod.category_id;
+                const imgurl = prod.img;
+                // const randomNameNum = ;
+                const randomPrice = prod.webprice;
+                const randomCatName = prod.category;
+                const randomName = prod.description;
+                const itemID = prod.stockid;
                 content += `
                     <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}'>
                         <div class="item-viewing-trigger">
                             <div class="item-picture">
-                                <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${prod}" alt="">
+                                <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${imgurl}" alt="">
                             </div>
                             <div class="item-desc text-start">
                                 <div id='itemCategoryDiv' class="item-desc-category">
@@ -86,7 +89,7 @@ function fetchData() {
                         </div>
                     </div>
                 `;
-                itemID++;
+                // itemID++;
             });
             $('#content-wrapper-div').html(content);
 
@@ -261,8 +264,10 @@ function initiateCartPage() {
             amount += value;
             price = cartItemDetail.price;
             totalPrice = price * qty;
+            totalPrice = totalPrice.toFixed(2);
             const cartItemTr = document.createElement('tr');
             const itemTotalPrice = checkoutSumPrice(price, amount);
+            // itemtotalPrice = itemTotalPrice.toFixed(2);
             let cartSumHtml = document.querySelectorAll('.cart-list-total');
             for (let i = 0; i < cartSumHtml.length; i++) {
                 cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
