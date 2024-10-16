@@ -180,15 +180,19 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
             name: itemDataAttributes.prodName,
             id: itemDataAttributes.prodId,
             category: itemDataAttributes.category,
+            categoryName: itemDataAttributes.categoryName,
             price: itemDataAttributes.prodPrice
         }
 
+        console.log(storedData);
+
         const itemID = storedData.id;
         const itemCat = storedData.category;
+        const itemCatName = storedData.categoryName;
         const itemName = storedData.name;
         const itemPrice = storedData.price;
 
-        const categoryName = catNames[itemCat];
+        // const categoryName = catNames[itemCat];
 
         const imageSection = item.querySelector('.item-picture');
         const itemDesc = item.querySelector('.item-desc');
@@ -231,8 +235,8 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         document.querySelector('.product-img').src = imageSrc;
         document.querySelector('.product-img-thumbnail img').src = imageSrc;
         document.querySelector('.product-desc-title h2').innerHTML = `${itemName}`;
-        document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${categoryName}</a>`;
-        document.querySelector('.product-page-path-cat').innerHTML = categoryName;
+        document.querySelector('.product-desc-category').innerHTML = `<a class="text-decoration-none" href="">${itemCatName}</a>`;
+        document.querySelector('.product-page-path-cat').innerHTML = itemCatName;
         document.querySelector('.product-page-path-cat').setAttribute('data-cat', itemCat);
         document.querySelector('.product-container').setAttribute('data-id', itemID);
         document.querySelector('.product-container').setAttribute('data-price', itemPrice);

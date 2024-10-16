@@ -1,6 +1,8 @@
 <?php
-// error_reporting(E_ALL);
+error_reporting(E_ALL);
 // include_once('data/datafetch.php');
+include_once('data/curlTesting.php');
+
 
 // (
 //     [stockid] => 1

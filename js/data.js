@@ -1,6 +1,3 @@
-const catNames = ['Advanced Kits', 'Antennas', 'Appliance', 'Audio', 'Automatic Light', 'Automatic Switch', 'AVR Microcontroller', 'Battery', 'Biometrics', 'Bluetooth'];
-const itemNames = ['USB Cable A to B', 'ZIF Socket (40 Pin)', 'ZIF Socket (28 Pin)', 'Power Cable 2 Pin', 'USB Connector B Type', 'DC Socket', 'IC Rail', 'Female Header Connector Single Row', 'IC Base 14pin', 'IC Base 8pin', 'IC Base 16pin', 'IC Base 40pin', 'IC Base 18pin', 'DC Socket - small', 'DC Socket - Round'];
-const itemNamesLength = itemNames.length;
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? {};
 let cartItemsAsObj = JSON.parse(localStorage.getItem('cartItemsAsObj')) ?? {};
 function updateCartItems(itemID, quantity) {
@@ -16,9 +13,15 @@ function updateCartItems(itemID, quantity) {
 
 function checkoutSumPrice(price, qty) {
      sum = price * qty;
-     return sum = sum.toFixed(2);
+
 }
 
+function updateCartTotal (amount){
+    const cartTotalElements = document.querySelectorAll('.cart-list-total');
+    cartTotalElements.forEach(element => {
+        element.textContent = `${amount.toFixed(2)}`;
+    })
+}
 
 function updateCartItemsAsObj(itemID, itemDetails) {
     if (itemDetails.quantity > 0) {
@@ -52,7 +55,7 @@ function fetchData() {
                 const randomName = prod.description;
                 const itemID = prod.stockid;
                 content += `
-                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}'>
+                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category-name='${randomCatName}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}'>
                         <div class="item-viewing-trigger">
                             <div class="item-picture">
                                 <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${imgurl}" alt="">
@@ -216,6 +219,8 @@ function initializeCart() {
             cartWrapper.appendChild(cartItemWrapper);
         }
     }
+
+
     document.querySelectorAll('.cart-item-remove').forEach(button => {
         button.addEventListener('click', function () {
             const itemID = this.getAttribute('data-prod-id');
@@ -240,8 +245,10 @@ function initiateCartPage() {
     const cartDetailViewCont = document.querySelector('.cart-detail-view-container');
     const nothingInCart = document.querySelector('.no-items-in-cart-wrapper');
 
+    const cartTotalElement = document.querySelector('.cart-list-total');
+    let amount = 0;
+
     cartWrapper.innerHTML = ``;
-    let amount = 0
     const isEmptyCart = Object.keys(cartItems).length === 0;
 
     if (isEmptyCart) {
@@ -249,6 +256,7 @@ function initiateCartPage() {
         nothingInCart.classList.remove('d-none');
         cartDetailViewCont.classList.remove('d-block');
         cartDetailViewCont.classList.add('d-none');
+        cartTotalElement.textContent = "0";
     } else {
 
         nothingInCart.classList.add('d-none');
@@ -257,21 +265,22 @@ function initiateCartPage() {
         cartDetailViewCont.classList.add('d-block');
 
         for (const key in cartItemsAsObj) {
-            cartItemDetail = cartItemsAsObj[key];
-            qty = cartItemDetail.quantity;
-            itemName = cartItemDetail.name;
-            const value = parseInt(qty)
-            amount += value;
-            price = cartItemDetail.price;
-            totalPrice = price * qty;
-            totalPrice = totalPrice.toFixed(2);
+            const cartItemDetail = cartItemsAsObj[key];
+            const qty = parseInt(cartItemDetail.quantity);
+            const itemName = cartItemDetail.name;
+            const price = cartItemDetail.price;
+
+            const itemTotalPrice = qty * price;
+            amount += itemTotalPrice;
+
             const cartItemTr = document.createElement('tr');
-            const itemTotalPrice = checkoutSumPrice(price, amount);
+            // const itemTotalPrice = checkoutSumPrice(price, amount);
+
             // itemtotalPrice = itemTotalPrice.toFixed(2);
-            let cartSumHtml = document.querySelectorAll('.cart-list-total');
-            for (let i = 0; i < cartSumHtml.length; i++) {
-                cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
-            }
+            
+            // for (let i = 0; i < cartSumHtml.length; i++) {
+            //     cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
+            // }
             cartItemTr.innerHTML =
                 `
                     <td><input checked type="checkbox"></td>
@@ -298,17 +307,17 @@ function initiateCartPage() {
                             </div>
                         </div>
                     </td>
-                    <td>${totalPrice}৳ </td>
+                    <td>${itemTotalPrice.toFixed(2)}৳ </td>
                     <td><i data-prod-id="${key}" class="cart-list-remove-item fa-solid fa-xmark"></i></td>
                 `;
             cartWrapper.appendChild(cartItemTr);
         }
-
+        updateCartTotal(amount);
     }
-
 
     const updateButton = document.getElementById('updateBtnsWrapper');
     let hasChanged = false;
+
     cartWrapper.addEventListener('click', (event) => {
         const target = event.target;
         const input = target.closest('.qnty-wrapper').querySelector('.product-desc-cart-qnty');
@@ -381,27 +390,39 @@ function initiateCartPage() {
 };
 
 let totalCartPrice = 0;
+
+function updateCheckoutTotal(amount){
+    const sumInnerHtml = document.querySelectorAll('.checkoutSumTotal');
+    sumInnerHtml.forEach(element => {
+        element.innerHTML = amount.toFixed(2);
+    })
+}
+
 function initiateCheckoutPage() {
     const cartItemListWrapper = document.querySelector('.checkout-cart-items-list');
     cartItemListWrapper.innerHTML = ``;
+
     const isEmptyCart = Object.keys(cartItems).length === 0;
     if (isEmptyCart) {
         console.log('No Cart Items');
+        updateCheckoutTotal(0);
     } else {
-        let amount = 0
-        let price = 0
-        for (const key in cartItemsAsObj) {
-            const cartItemDetail = cartItemsAsObj[key];
-            const qty = cartItemDetail.quantity;
-            const value = parseInt(qty)
-            price = cartItemDetail.price;
-            amount += value;
-        }
+        let totalAmount = 0;
+        // let amount = 0
+        // let price = 0
+        // for (const key in cartItemsAsObj) {
+        //     const cartItemDetail = cartItemsAsObj[key];
+        //     price = cartItemDetail.price;
+        //     amount += value;
+        // }
         for (const key in cartItemsAsObj) {
             const cartItemDetail = cartItemsAsObj[key];
             const itemName = cartItemDetail.name;
             const qty = cartItemDetail.quantity;
             const price = cartItemDetail.price;
+            const itemTotal = qty * price;
+            totalAmount += itemTotal;
+
             const cartListItem = document.createElement('div');
             cartListItem.classList.add('cart-item-wrapper', 'mt-2', 'mb-2');
             cartListItem.innerHTML =
@@ -426,12 +447,15 @@ function initiateCheckoutPage() {
                         `;
             cartItemListWrapper.appendChild(cartListItem);
         }
-        const itemTotalPrice = checkoutSumPrice(price, amount);
-        totalCartPrice = itemTotalPrice;
-        let sumInnerHtml = document.querySelectorAll('.checkoutSumTotal');
-        for (let i = 0; i < sumInnerHtml.length; i++) {
-            sumInnerHtml[i].innerHTML = '৳' + itemTotalPrice;
-        }
+        updateCheckoutTotal(totalAmount);
+        totalCartPrice = totalAmount;
+
+        // const itemTotalPrice = checkoutSumPrice(price, amount);
+        // totalCartPrice = itemTotalPrice;
+        // let sumInnerHtml = document.querySelectorAll('.checkoutSumTotal');
+        // for (let i = 0; i < sumInnerHtml.length; i++) {
+        //     sumInnerHtml[i].innerHTML = '৳' + itemTotalPrice;
+        // }
 
     }
     document.querySelectorAll('.cart-item-remove').forEach(button => {
