@@ -40,7 +40,7 @@ function updateCartItemsAsObj(itemID, itemDetails) {
 
 function fetchData() {
     $.ajax({
-        url: 'data/datafetch.php',
+        url: 'data/product-data-fetch.php',
         type: 'GET',
         dataType: 'json',
         success: function (data) {

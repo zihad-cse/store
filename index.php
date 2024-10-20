@@ -1,9 +1,7 @@
 <?php
 error_reporting(E_ALL);
 // include_once('data/datafetch.php');
-include_once('data/curlTesting.php');
-
-
+include_once('data/search-result-fetch.php');
 // (
 //     [stockid] => 1
 //     [description] => USB Cable A to B
@@ -14,7 +12,7 @@ include_once('data/curlTesting.php');
 // </div><div class="content-section">
 //                         <p></p><p><span style="font-family: verdana, geneva; font-size: small;">Length : 1.5M</span></p><p><span style="font-family: verdana, geneva; font-size: small; font-weight: bold;"><br></span></p><p><span style="font-family: verdana, geneva; font-size: small; font-weight: bold;">Note: This item's color/ appearance may differ.<br></span></p><p></p>
 //                     </div>
-                
+
 //     [units] => pc
 //     [discountcategory] => 
 //     [taxcatid] => 5
@@ -85,6 +83,24 @@ include_once('data/curlTesting.php');
     </footer>
     <!-- Footer Ends Here -->
     <script src="js/index.js"></script>
+    <script>
+        document.getElementById('searchBarInput').addEventListener('input', function() {
+            const query = this.value;
+
+            if (query.length > 2) {
+                fetch(`data/search-result-fetch.php?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => displayResults(data))
+                    .catch(error => console.error("Error: ", error));
+            } else {
+                console.log('nothing in it');
+            }
+        })
+
+        function displayResults(data) {
+            console.log(data);
+        }
+    </script>
 
 </body>
 

@@ -18,7 +18,7 @@
         <div class="top-nav-search">
             <div class="search-wrapper">
                 <form class="search-bar-1" method="post" action="">
-                    <input class="search-bar-input" type="text" placeholder="Search for items">
+                    <input id="searchBarInput" class="search-bar-input" type="text" placeholder="Search for items">
                     <span>
                         <img src="img/search.svg" alt="">
                     </span>
@@ -47,7 +47,7 @@
     <div class="top-nav-search-mobile">
         <div class="search-wrapper-mobile">
             <form class="search-bar-2" method="post" action="">
-                <input class="search-bar-input" type="text" placeholder="Search for items">
+                <input id="searchBarInput" class="search-bar-input" type="text" placeholder="Search for items">
                 <span>
                     <img src="img/search.svg" alt="">
                 </span>
