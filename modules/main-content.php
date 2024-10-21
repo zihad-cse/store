@@ -4,7 +4,9 @@
 <!-- Products list -->
 
 <div id="content-wrapper-div" class="content-wrapper d-grid"></div>
-
+<div class="btn btn-primary load-more-button">
+    <p>Skib</p>
+</div>
 <!-- Cart section -->
 
 <?php include_once "cart.php"; ?>

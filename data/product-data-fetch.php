@@ -5,8 +5,10 @@ include_once('apiendpoint.php');
 
 $curl = curl_init();
 
+$productGridLimit = 20;
+
 curl_setopt_array($curl, array(
-    CURLOPT_URL => APIENDPOINT . "product.php?limit=20",
+    CURLOPT_URL => APIENDPOINT . "product.php?limit=". $productGridLimit,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,

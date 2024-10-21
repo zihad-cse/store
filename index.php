@@ -1,7 +1,6 @@
 <?php
-error_reporting(E_ALL);
+// error_reporting(E_ALL);
 // include_once('data/datafetch.php');
-include_once('data/search-result-fetch.php');
 // (
 //     [stockid] => 1
 //     [description] => USB Cable A to B
@@ -25,6 +24,37 @@ include_once('data/search-result-fetch.php');
 //     [oldPrice] => 
 //     [product_status] => 1
 // )
+
+include_once('data/apiendpoint.php');
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_URL => APIENDPOINT . "category.php",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+        "Authorization:" . APIKEY,
+        "cache-control: no-cache"
+    ),
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+    echo "cURL Error #:" . $err;
+} else {
+    $category = json_decode($response);
+    $categoryData = $category->data->category;
+    // echo '<pre>';
+    // print_r($categoryData);
+    // echo '</pre>';
+}
 
 ?>
 
@@ -83,24 +113,6 @@ include_once('data/search-result-fetch.php');
     </footer>
     <!-- Footer Ends Here -->
     <script src="js/index.js"></script>
-    <script>
-        document.getElementById('searchBarInput').addEventListener('input', function() {
-            const query = this.value;
-
-            if (query.length > 2) {
-                fetch(`data/search-result-fetch.php?query=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => displayResults(data))
-                    .catch(error => console.error("Error: ", error));
-            } else {
-                console.log('nothing in it');
-            }
-        })
-
-        function displayResults(data) {
-            console.log(data);
-        }
-    </script>
 
 </body>
 

@@ -11,6 +11,7 @@ var view830px = window.matchMedia("(max-width: 830px)");
 
 //Navbar Open and Close start
 
+
 function openNav() {
     const sidebar = document.getElementById("sidenav");
     sidebar.style.width = "300px";
@@ -69,6 +70,11 @@ view830px.addEventListener("change", function () {
 function bannerVisNone(){
    const homePageBanner = document.getElementById('homePageBanner');
    homePageBanner.classList.add('d-none');
+}
+
+function bannerVis(){
+    const homePageBanner = document.getElementById('homePageBanner');
+    homePageBanner.classList.remove('d-none');
 }
 
 //Sidenav button dropdowns
@@ -577,4 +583,32 @@ carouselItems.forEach(item => {
     item.addEventListener('mouseout', resumeInterval);
 });
 
+
+
+function displayResults(data) {
+    console.log(data);
+}
 // Carousel Actions End
+
+// Live Search Actions
+
+document.querySelector('.search-bar-input').addEventListener('input',liveSearch);
+let dataFetchUrl = `data/product-data-fetch.php`;
+function liveSearch() {
+    const query = this.value;
+    if (query.length > 2) {
+        // fetch(`data/search-result-fetch.php?query=${encodeURIComponent(query)}`)
+        //     .then(response => response.json())
+        //     .then(data => displayResults(data))
+        //     .catch(error => console.error("Error: ", error));
+        dataFetchUrl = `data/search-result-fetch.php?query=${encodeURIComponent(query)}`;
+        bannerVisNone();
+    } else if (query.length == 0){
+        dataFetchUrl = `data/product-data-fetch.php`;
+        bannerVis();
+    } else {
+        dataFetchUrl = `data/product-data-fetch.php`;
+        bannerVis();
+    }
+    fetchData();
+}

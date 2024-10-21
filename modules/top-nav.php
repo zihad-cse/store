@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div class="top-nav-search-mobile">
+    <!-- <div class="top-nav-search-mobile">
         <div class="search-wrapper-mobile">
             <form class="search-bar-2" method="post" action="">
                 <input id="searchBarInput" class="search-bar-input" type="text" placeholder="Search for items">
@@ -53,5 +53,5 @@
                 </span>
             </form>
         </div>
-    </div>
+    </div> -->
 </div>

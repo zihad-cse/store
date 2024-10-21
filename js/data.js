@@ -38,9 +38,12 @@ function updateCartItemsAsObj(itemID, itemDetails) {
     localStorage.setItem('cartItemsAsObj', JSON.stringify(cartItemsAsObj));
 }
 
+// let dataFetchUrl = 'data/product-data-fetch.php';
+
+
 function fetchData() {
     $.ajax({
-        url: 'data/product-data-fetch.php',
+        url: dataFetchUrl,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -498,6 +501,23 @@ function updateItemDisplay(itemID) {
     }
 }
 
+let limit = 20;
+
+document.querySelector(".load-more-button").addEventListener('click', function(){
+    limit += 10;
+    loadMoreProducts(limit);
+})
+
+function loadMoreProducts(currentLimit){
+    $.ajax({
+        url:'product-data-fetch.php',
+        method: 'POST',
+        data: { limit: currentLimit},
+        success: function(response){
+            
+        }
+    })
+}
 
 
 $(document).ready(function () {
@@ -520,4 +540,3 @@ $(document).ready(function () {
         const selectedCat = $(this).data('category')
     })
 })
-
