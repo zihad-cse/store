@@ -39,20 +39,18 @@ function updateCartItemsAsObj(itemID, itemDetails) {
 }
 
 // let dataFetchUrl = 'data/product-data-fetch.php';
+let currentLimit = 20;
 
-
-function fetchData() {
+function fetchData(limit = currentLimit) {
     $.ajax({
-        url: dataFetchUrl,
+        url: `${dataFetchUrl}?limit=${limit}`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
             let content = '';
-            // let itemID = 1;
             data.forEach(function (prod) {
                 const randomCategoryNum = prod.category_id;
                 const imgurl = prod.img;
-                // const randomNameNum = ;
                 const randomPrice = prod.webprice;
                 const randomCatName = prod.category;
                 const randomName = prod.description;
@@ -168,7 +166,13 @@ function fetchData() {
         }
     })
 }
+// Function to load more items into the home page.
 
+function loadMoreFunction(){
+    currentLimit += 20;
+    fetchData(currentLimit);
+
+}
 
 function initializeCart() {
     const cartWrapper = document.querySelector('.cart-items-list');
@@ -503,18 +507,14 @@ function updateItemDisplay(itemID) {
 
 let limit = 20;
 
-document.querySelector(".load-more-button").addEventListener('click', function(){
-    limit += 10;
-    loadMoreProducts(limit);
-})
-
 function loadMoreProducts(currentLimit){
     $.ajax({
-        url:'product-data-fetch.php',
+        url:'./data/product-data-fetch.php',
         method: 'POST',
         data: { limit: currentLimit},
         success: function(response){
-            
+            console.log(currentLimit);
+            console.log(JSON.parse(response));
         }
     })
 }

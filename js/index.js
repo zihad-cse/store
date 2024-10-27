@@ -612,3 +612,7 @@ function liveSearch() {
     }
     fetchData();
 }
+
+//Load more button action
+
+document.querySelector(".load-more-button").addEventListener('click', loadMoreFunction);

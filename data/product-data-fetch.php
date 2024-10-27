@@ -5,7 +5,11 @@ include_once('apiendpoint.php');
 
 $curl = curl_init();
 
-$productGridLimit = 20;
+if(isset($_GET['limit'])){
+    $productGridLimit = $_GET['limit'];
+} else {
+    $productGridLimit = 20;
+}
 
 curl_setopt_array($curl, array(
     CURLOPT_URL => APIENDPOINT . "product.php?limit=". $productGridLimit,
