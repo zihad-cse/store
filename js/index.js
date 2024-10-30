@@ -89,11 +89,11 @@ for (i = 0; i < dropdown.length; i++) {
     dropdown[i].addEventListener("click", function () {
         for (j = 0; j < dropdown.length; j++) {
             if (dropdown[j] !== this) {
-                let otherDropdownContent = dropdown[j].nextElementSibling;
-                let otherDropdownCaret = dropdown[j].querySelector(".fa-caret-down");
+                // let otherDropdownContent = dropdown[j].nextElementSibling;
+                // let otherDropdownCaret = dropdown[j].querySelector(".fa-caret-down");
                 dropdown[j].classList.remove('active');
-                otherDropdownCaret.classList.remove('.expanded-rotate');
-                otherDropdownContent.classList.remove('visible');
+                // otherDropdownCaret.classList.remove('.expanded-rotate');
+                // otherDropdownContent.classList.remove('visible');
             }
         }
         var dropdownContent = this.nextElementSibling;
@@ -591,6 +591,8 @@ function displayResults(data) {
 // Carousel Actions End
 
 // Live Search Actions
+let noSearchQuery = true;
+let defaultLimit = true;
 
 document.querySelector('.search-bar-input').addEventListener('input',liveSearch);
 let dataFetchUrl = `data/product-data-fetch.php`;
@@ -603,11 +605,14 @@ function liveSearch() {
         //     .catch(error => console.error("Error: ", error));
         dataFetchUrl = `data/search-result-fetch.php?query=${encodeURIComponent(query)}`;
         bannerVisNone();
+        noSearchQuery = false;
     } else if (query.length == 0){
         dataFetchUrl = `data/product-data-fetch.php`;
+        noSearchQuery = true;
         bannerVis();
     } else {
         dataFetchUrl = `data/product-data-fetch.php`;
+        noSearchQuery = true;
         bannerVis();
     }
     fetchData();

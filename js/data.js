@@ -42,8 +42,19 @@ function updateCartItemsAsObj(itemID, itemDetails) {
 let currentLimit = 20;
 
 function fetchData(limit = currentLimit) {
+    if (noSearchQuery == true) {
+        if (defaultLimit == true) {
+            dataFetchUrl = dataFetchUrl+`?limit=${limit}`;
+        } else {
+            dataFetchUrl = dataFetchUrl;
+        }
+
+        console.log(limit)
+    } else {
+        dataFetchUrl = dataFetchUrl;
+    }
     $.ajax({
-        url: `${dataFetchUrl}?limit=${limit}`,
+        url: `${dataFetchUrl}`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -165,13 +176,14 @@ function fetchData(limit = currentLimit) {
             console.error('AJAX request failed', status, error);
         }
     })
+    console.log(dataFetchUrl)
 }
 // Function to load more items into the home page.
 
 function loadMoreFunction(){
     currentLimit += 20;
+    defaultLimit = false;
     fetchData(currentLimit);
-
 }
 
 function initializeCart() {
