@@ -12,11 +12,11 @@ function updateCartItems(itemID, quantity) {
 // Attempting a Sum system.
 
 function checkoutSumPrice(price, qty) {
-     sum = price * qty;
+    sum = price * qty;
 
 }
 
-function updateCartTotal (amount){
+function updateCartTotal(amount) {
     const cartTotalElements = document.querySelectorAll('.cart-list-total');
     cartTotalElements.forEach(element => {
         element.textContent = `${amount.toFixed(2)}`;
@@ -42,15 +42,9 @@ function updateCartItemsAsObj(itemID, itemDetails) {
 let currentLimit = 20;
 
 function fetchData(limit = currentLimit) {
-    if (noSearchQuery == true) {
-        if (defaultLimit == true) {
-            dataFetchUrl = dataFetchUrl+`?limit=${limit}`;
-        } else {
-            dataFetchUrl = dataFetchUrl;
-        }
-
-        console.log(limit)
-    } else {
+    if (defaultLimit == false) {
+        dataFetchUrl = dataFetchUrl + `?limit=${limit}`;
+    } else if (noSearchQuery == false){
         dataFetchUrl = dataFetchUrl;
     }
     $.ajax({
@@ -176,13 +170,12 @@ function fetchData(limit = currentLimit) {
             console.error('AJAX request failed', status, error);
         }
     })
-    console.log(dataFetchUrl)
 }
 // Function to load more items into the home page.
 
-function loadMoreFunction(){
-    currentLimit += 20;
+function loadMoreFunction() {
     defaultLimit = false;
+    currentLimit += 20;
     fetchData(currentLimit);
 }
 
@@ -296,7 +289,7 @@ function initiateCartPage() {
             // const itemTotalPrice = checkoutSumPrice(price, amount);
 
             // itemtotalPrice = itemTotalPrice.toFixed(2);
-            
+
             // for (let i = 0; i < cartSumHtml.length; i++) {
             //     cartSumHtml[i].innerHTML = '৳' + itemTotalPrice
             // }
@@ -361,7 +354,7 @@ function initiateCartPage() {
             input.stepDown();
         }
     }
-    
+
     cartWrapper.removeEventListener('click', handleQtyChange);
     cartWrapper.addEventListener('click', handleQtyChange);
 
@@ -410,7 +403,7 @@ function initiateCartPage() {
 
 let totalCartPrice = 0;
 
-function updateCheckoutTotal(amount){
+function updateCheckoutTotal(amount) {
     const sumInnerHtml = document.querySelectorAll('.checkoutSumTotal');
     sumInnerHtml.forEach(element => {
         element.innerHTML = amount.toFixed(2);
@@ -519,12 +512,12 @@ function updateItemDisplay(itemID) {
 
 let limit = 20;
 
-function loadMoreProducts(currentLimit){
+function loadMoreProducts(currentLimit) {
     $.ajax({
-        url:'./data/product-data-fetch.php',
+        url: './data/product-data-fetch.php',
         method: 'POST',
-        data: { limit: currentLimit},
-        success: function(response){
+        data: { limit: currentLimit },
+        success: function (response) {
             console.log(currentLimit);
             console.log(JSON.parse(response));
         }
