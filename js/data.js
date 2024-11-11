@@ -38,15 +38,16 @@ function updateCartItemsAsObj(itemID, itemDetails) {
     localStorage.setItem('cartItemsAsObj', JSON.stringify(cartItemsAsObj));
 }
 
-// let dataFetchUrl = 'data/product-data-fetch.php';
 let currentLimit = 20;
 
 function fetchData(limit = currentLimit) {
-    if (defaultLimit == false) {
-        dataFetchUrl = dataFetchUrl + `?limit=${limit}`;
-    } else if (noSearchQuery == false){
-        dataFetchUrl = dataFetchUrl;
-    }
+
+    dataFetchUrl = dataFetchUrl.replace(/(\?|&)limit=\d+/, '');
+
+    if (defaultLimit === false) {
+        dataFetchUrl += (dataFetchUrl.includes('?') ? '&' : '?') + `limit=${limit}`
+    } 
+    console.log(defaultLimit);
     $.ajax({
         url: `${dataFetchUrl}`,
         type: 'GET',
@@ -98,7 +99,6 @@ function fetchData(limit = currentLimit) {
                         </div>
                     </div>
                 `;
-                // itemID++;
             });
             $('#content-wrapper-div').html(content);
 
@@ -177,6 +177,7 @@ function loadMoreFunction() {
     defaultLimit = false;
     currentLimit += 20;
     fetchData(currentLimit);
+    defaultLimit = true;
 }
 
 function initializeCart() {

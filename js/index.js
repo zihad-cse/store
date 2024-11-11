@@ -599,10 +599,6 @@ let dataFetchUrl = `data/product-data-fetch.php`;
 function liveSearch() {
     const query = this.value;
     if (query.length > 2) {
-        // fetch(`data/search-result-fetch.php?query=${encodeURIComponent(query)}`)
-        //     .then(response => response.json())
-        //     .then(data => displayResults(data))
-        //     .catch(error => console.error("Error: ", error));
         dataFetchUrl = `data/search-result-fetch.php?query=${encodeURIComponent(query)}`;
         bannerVisNone();
         noSearchQuery = false;
