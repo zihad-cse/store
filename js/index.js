@@ -593,6 +593,7 @@ function displayResults(data) {
 // Live Search Actions
 let noSearchQuery = true;
 let defaultLimit = true;
+let noCatFilter = true;
 
 document.querySelector('.search-bar-input').addEventListener('input',liveSearch);
 let dataFetchUrl = `data/product-data-fetch.php`;
@@ -614,6 +615,28 @@ function liveSearch() {
     fetchData();
 }
 
+// Category Filtering with cURL
+
+function categoryFilter(categoryId){
+    // $.ajax({
+    //     url: `data/category-filter.php?categoryId=${categoryId}&check=categoryFilter`,
+    //     type: "GET",
+    //     // data: {
+    //     //     check: "categoryFilter",
+    //     //     categoryId: categoryId
+    //     // },
+    //     dataType: 'json',
+    //     success: function (data){
+            
+    //         console.log(data);
+    //     }
+    // })
+    dataFetchUrl = `data/category-filter.php?categoryId=${categoryId}&check=categoryFilter`;
+    noCatFilter = false;
+    fetchData();
+}
+
 //Load more button action
 
 document.querySelector(".load-more-button").addEventListener('click', loadMoreFunction);
+

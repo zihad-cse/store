@@ -46,8 +46,8 @@ function fetchData(limit = currentLimit) {
 
     if (defaultLimit === false) {
         dataFetchUrl += (dataFetchUrl.includes('?') ? '&' : '?') + `limit=${limit}`
-    } 
-    console.log(defaultLimit);
+    }
+    console.log(dataFetchUrl);
     $.ajax({
         url: `${dataFetchUrl}`,
         type: 'GET',
@@ -532,17 +532,6 @@ $(document).ready(function () {
     countCart();
     $('.dropdown-btn').click(function () {
         const selectedCat = $(this).data('category');
-        $('.item').each(function () {
-            const itemCat = $(this).data('category');
-            if (itemCat === selectedCat) {
-                $(this).removeClass('d-none');
-            } else {
-                $(this).addClass('d-none');
-                $(this).removeClass('d-flex');
-            }
-        });
-    });
-    $('.product-page-path-cat').click(function () {
-        const selectedCat = $(this).data('category')
+        categoryFilter(selectedCat);
     })
 })
