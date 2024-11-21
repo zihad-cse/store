@@ -98,9 +98,6 @@ if ($err) {
             <div id="main-content-div" class="main-content">
                 <?php include_once "modules/banner-carousel.php"; ?>
                 <?php include_once "modules/main-content.php"; ?>
-                <div id="loadMoreButton" class="btn btn-primary load-more-button">
-                    <p>Skib</p>
-                </div>
             </div>
             <!-- Main Content Section Ends Here -->
             <!-- Left Sidebar Starts Here -->

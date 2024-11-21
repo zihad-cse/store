@@ -69,7 +69,7 @@
             <button class="inactive">Questions</button>
         </div>
         <div class="product-full-desc-main">
-            <p>This is a standard description that is supposed to be descriptive. It is supposed to be descriptive because it knows that it should be but cannot because it actually has no free will. <br>
+            <!-- <p>This is a standard description that is supposed to be descriptive. It is supposed to be descriptive because it knows that it should be but cannot because it actually has no free will. <br>
                 <b>Specifications:</b>
             <ul>
                 <li>Length: At least 2 apples</li>
@@ -80,7 +80,8 @@
             </p>
             <h2>Packaging and Delivery</h2>
             <hr>
-            <span>This will be wrapped in tinfoil and will be contained within a Pringles Can.</span>
+            <span>This will be wrapped in tinfoil and will be contained within a Pringles Can.</span> -->
+            
         </div>
     </div>
 </div>

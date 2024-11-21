@@ -292,6 +292,25 @@
     color: var(--light-color);
 }
 
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    transition: var(--fast-transition);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.btn-secondary:active {
+    background-color: var(--primary-color);
+}
+
+
 .color-primary {
     color: var(--primary-color);
 }
@@ -2177,4 +2196,13 @@ body {
     background-image: url(/store/assets/freepik_assets/flat-lay-arrangement-cookies-line.jpg);
     background-size: cover;
     background-position: center;
+}
+
+.load-more-button {
+    text-align: center;
+    font-size: medium;
+    width: 100px;
+    margin-top: 30px;
+    margin-left: 50px;
+    padding: 0px;
 }

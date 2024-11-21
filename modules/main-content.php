@@ -4,7 +4,11 @@
 <!-- Products list -->
 
 <div id="content-wrapper-div" class="content-wrapper d-grid"></div>
-
+<div class="d-flex flex-center">
+    <div id="loadMoreButton" class="btn btn-secondary load-more-button">
+        <p>Load More</p>
+    </div>
+</div>
 <!-- Cart section -->
 
 <?php include_once "cart.php"; ?>

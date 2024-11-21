@@ -89,11 +89,7 @@ for (i = 0; i < dropdown.length; i++) {
     dropdown[i].addEventListener("click", function () {
         for (j = 0; j < dropdown.length; j++) {
             if (dropdown[j] !== this) {
-                // let otherDropdownContent = dropdown[j].nextElementSibling;
-                // let otherDropdownCaret = dropdown[j].querySelector(".fa-caret-down");
                 dropdown[j].classList.remove('active');
-                // otherDropdownCaret.classList.remove('.expanded-rotate');
-                // otherDropdownContent.classList.remove('visible');
             }
         }
         var dropdownContent = this.nextElementSibling;
@@ -181,13 +177,15 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         const item = event.target.closest('.item');
 
         const itemDataAttributes = item.dataset;
+        console.log(itemDataAttributes);
 
         const storedData = {
             name: itemDataAttributes.prodName,
             id: itemDataAttributes.prodId,
             category: itemDataAttributes.category,
             categoryName: itemDataAttributes.categoryName,
-            price: itemDataAttributes.prodPrice
+            price: itemDataAttributes.prodPrice,
+            longdesc: itemDataAttributes.prodLongdesc,
         }
 
         console.log(storedData);
@@ -197,6 +195,9 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         const itemCatName = storedData.categoryName;
         const itemName = storedData.name;
         const itemPrice = storedData.price;
+        const itemLongDesc = storedData.longdesc;
+
+        localStorage.setItem("selectedItem", itemLongDesc);
 
         // const categoryName = catNames[itemCat];
 
@@ -208,6 +209,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         const adSidebar = document.querySelector('.right-sidebar');
         const listWrapper = document.querySelector('.content-wrapper');
         const productDetails = document.querySelector('.product-wrapper');
+        const productBigDesc = document.querySelector('.product-full-desc-main');
 
         listWrapper.classList.remove('d-grid');
         listWrapper.classList.add('d-none');
@@ -249,6 +251,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         document.querySelector('.product-container').setAttribute('data-name', itemName);
         document.querySelector('.product-page-path-name').innerHTML = itemName;
         document.querySelector('.product-desc-price').innerHTML = `<span>${itemPrice}</span>`;
+        productBigDesc.innerHTML = itemLongDesc;
         scrollToTop();
         bannerVisNone();
     };

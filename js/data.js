@@ -47,13 +47,13 @@ function fetchData(limit = currentLimit) {
     if (defaultLimit === false) {
         dataFetchUrl += (dataFetchUrl.includes('?') ? '&' : '?') + `limit=${limit}`
     }
-    console.log(dataFetchUrl);
     $.ajax({
         url: `${dataFetchUrl}`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
             let content = '';
+            console.log(data);
             data.forEach(function (prod) {
                 const randomCategoryNum = prod.category_id;
                 const imgurl = prod.img;
@@ -61,8 +61,10 @@ function fetchData(limit = currentLimit) {
                 const randomCatName = prod.category;
                 const randomName = prod.description;
                 const itemID = prod.stockid;
+                const itemLongDesc = prod.longdescription;
+                
                 content += `
-                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category-name='${randomCatName}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}'>
+                    <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category-name='${randomCatName}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}' data-prod-longdesc='${itemLongDesc}'>
                         <div class="item-viewing-trigger">
                             <div class="item-picture">
                                 <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${imgurl}" alt="">
