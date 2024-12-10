@@ -9,7 +9,6 @@ function updateCartItems(itemID, quantity) {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-// Attempting a Sum system.
 
 function checkoutSumPrice(price, qty) {
     sum = price * qty;
@@ -53,7 +52,7 @@ function fetchData(limit = currentLimit) {
         dataType: 'json',
         success: function (data) {
             let content = '';
-            console.log(data);
+            // console.log(data);
             data.forEach(function (prod) {
                 const randomCategoryNum = prod.category_id;
                 const imgurl = prod.img;

@@ -1,30 +1,4 @@
 <?php
-// error_reporting(E_ALL);
-// include_once('data/datafetch.php');
-// (
-//     [stockid] => 1
-//     [description] => USB Cable A to B
-//     [category_id] => 19
-//     [category] => Cable
-//     [longdescription] =>                     <div class="content-section">
-//                         <p></p><p style="text-align: justify;"><span style="font-family: verdana,geneva; font-size: small;">This is a standard issue USB 2.0 cable. This is the most common A to B  Male/Male type peripheral cable, the kind that\'s usually used for  printers.<br></span></p>
-// </div><div class="content-section">
-//                         <p></p><p><span style="font-family: verdana, geneva; font-size: small;">Length : 1.5M</span></p><p><span style="font-family: verdana, geneva; font-size: small; font-weight: bold;"><br></span></p><p><span style="font-family: verdana, geneva; font-size: small; font-weight: bold;">Note: This item's color/ appearance may differ.<br></span></p><p></p>
-//                     </div>
-
-//     [units] => pc
-//     [discountcategory] => 
-//     [taxcatid] => 5
-//     [webprice] => 250
-//     [img] => https://daccastore.erp.place/erp/companies/daccastore/part_pics/1.jpeg
-//     [multipleImg] => Array
-//         (
-//         )
-
-//     [oldPrice] => 
-//     [product_status] => 1
-// )
-
 include_once('data/apiendpoint.php');
 $curl = curl_init();
 curl_setopt_array($curl, array(

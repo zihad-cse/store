@@ -1,3 +1,6 @@
+<?php
+include_once("data/footer-data.php");
+?>
 <div class="newsletter-container">
     <div class="newsletter">
         <div class="newsletter-inner">
@@ -16,100 +19,11 @@
         </div>
     </div>
 </div>
-<!-- <div class="footer-main">
-    <div class="footer__addr">
-        <img src="img/logo.png" class="footer__logo" alt="">
-        <h2>Contact</h2>
-        <address>
-            5534 Somewhere In. The World 22193-10212<br>
-            <a class="footer__btn" href="#">Contact Us</a>
-            <a class="footer_links" href=""><img src="img/facebook.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/instagram.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/youtube.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/twitter.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/linkedin.svg" alt=""></a>
-        </address>
-    </div>
-    
-    <ul class="footer__nav">
-        <li class="nav__item">
-            <h2 class="nav__title">Media</h2>
-    
-            <ul class="nav__ul">
-                <li>
-                    <a href="#">Online</a>
-                </li>
-    
-                <li>
-                    <a href="#">Print</a>
-                </li>
-    
-                <li>
-                    <a href="#">Alternative Ads</a>
-                </li>
-            </ul>
-        </li>
-    
-        <li class="nav__item nav__item--extra">
-            <h2 class="nav__title">Technology</h2>
-    
-            <ul class="nav__ul nav__ul--extra">
-                <li>
-                    <a href="#">Hardware Design</a>
-                </li>
-    
-                <li>
-                    <a href="#">Software Design</a>
-                </li>
-    
-                <li>
-                    <a href="#">Digital Signage</a>
-                </li>
-    
-                <li>
-                    <a href="#">Automation</a>
-                </li>
-    
-                <li>
-                    <a href="#">Artificial Intelligence</a>
-                </li>
-    
-                <li>
-                    <a href="#">IoT</a>
-                </li>
-            </ul>
-        </li>
-    
-        <li class="nav__item">
-            <h2 class="nav__title">Legal</h2>
-            <ul class="nav__ul">
-                <li>
-                    <a href="#">Privacy Policy</a>
-                </li>
-    
-                <li>
-                    <a href="#">Terms of Use</a>
-                </li>
-    
-                <li>
-                    <a href="#">Sitemap</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <div class="legal">
-        <p>&copy; 2024. All rights reserved.</p>
-    </div>
-</div> -->
-
-
 <footer class="footer-distributed">
     <div class="footer-left">
         <img src="img/logo.png" alt="" width="auto">
         <p class="footer-links">
             <a href="#">Home</a> ·
-            <a href="#">About</a> ·
-            <a href="#">Pricing</a> ·
             <a href="#">About</a> ·
             <a href="#">Faq</a> ·
             <a href="#">Contact</a>
@@ -119,15 +33,16 @@
     <div class="footer-center">
         <div>
             <i class="fa fa-map-marker"></i>
-            <p><span>32 Shahjalal Ave, Sector 4</span> Uttara, Dhaka</p>
+            <!-- <p><span>32 Shahjalal Ave, Sector 4</span> Uttara, Dhaka</p> -->
+            <span><?php echo $footer_corporateArr['0']->details; ?></span>
         </div>
         <div>
             <i class="fa fa-phone"></i>
-            <p>911</p>
+            <strong><?php echo $footer_callusArr['0']->heading; ?>: </strong><span><?php echo $footer_callusArr['0']->details; ?></span>
         </div>
         <div>
             <i class="fa fa-envelope"></i>
-            <p><a href="">support@company.com</a></p>
+            <strong><?php echo $footer_emailArr['0']->heading; ?>: </strong><span><?php echo $footer_emailArr['0']->details; ?></span>
         </div>
     </div>
     <div class="footer-right">
@@ -135,11 +50,11 @@
             <span>Contact Us:</span>
         </p>
         <div class="footer-icons">
-            <a class="footer_links" href=""><img src="img/facebook.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/instagram.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/youtube.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/twitter.svg" alt=""></a>
-            <a class="footer_links" href=""><img src="img/linkedin.svg" alt=""></a>
+            <a class="footer_links" href=" <?php echo $footer_socialArr['0']->url; ?>"><img src="img/facebook.svg" alt=""></a>
+            <a class="footer_links" href="<?php echo $footer_socialArr['2']->url; ?>"><img src="img/instagram.svg" alt=""></a>
+            <a class="footer_links" href="<?php echo $footer_socialArr['4']->url; ?>"><img src="img/youtube.svg" alt=""></a>
+            <a class="footer_links" href="<?php echo $footer_socialArr['1']->url; ?>"><img src="img/twitter.svg" alt=""></a>
+            <a class="footer_links" href="<?php echo $footer_socialArr['3']->url; ?>"><img src="img/linkedin.svg" alt=""></a>
         </div>
     </div>
 </footer>

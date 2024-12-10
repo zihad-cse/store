@@ -3,9 +3,9 @@ include_once('apiendpoint.php');
 
 
 if ($_GET['check'] == 'categoryFilter') {
-
+    $limit = "All";
     $catID = trim($_GET['categoryId']);
-    $url = "product.php?category_id=" . $catID . "&limit=All&start=1";
+    $url = "product.php?category_id=" . $catID . "&limit=". $limit ."&start=1";
 
     $curl = curl_init();
 

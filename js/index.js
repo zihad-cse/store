@@ -177,7 +177,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
         const item = event.target.closest('.item');
 
         const itemDataAttributes = item.dataset;
-        console.log(itemDataAttributes);
+        // console.log(itemDataAttributes);
 
         const storedData = {
             name: itemDataAttributes.prodName,
@@ -188,7 +188,7 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
             longdesc: itemDataAttributes.prodLongdesc,
         }
 
-        console.log(storedData);
+        // console.log(storedData);
 
         const itemID = storedData.id;
         const itemCat = storedData.category;
@@ -621,19 +621,6 @@ function liveSearch() {
 // Category Filtering with cURL
 
 function categoryFilter(categoryId){
-    // $.ajax({
-    //     url: `data/category-filter.php?categoryId=${categoryId}&check=categoryFilter`,
-    //     type: "GET",
-    //     // data: {
-    //     //     check: "categoryFilter",
-    //     //     categoryId: categoryId
-    //     // },
-    //     dataType: 'json',
-    //     success: function (data){
-            
-    //         console.log(data);
-    //     }
-    // })
     dataFetchUrl = `data/category-filter.php?categoryId=${categoryId}&check=categoryFilter`;
     noCatFilter = false;
     fetchData();
@@ -642,4 +629,10 @@ function categoryFilter(categoryId){
 //Load more button action
 
 document.querySelector(".load-more-button").addEventListener('click', loadMoreFunction);
+
+//hide load more button function
+
+function hideLoadMore(){
+    document.querySelector('.load-more-button').classList.add('d-none');
+}
 
