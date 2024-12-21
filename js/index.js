@@ -489,7 +489,7 @@ function closeModal() {
 document.getElementById('modalDismiss').addEventListener('click', closeModal);
 
 function switchToLogin() {
-    const regSection = document.querySelector('.registration-form-main-content');
+    const regSection = document.querySelector('.registration-form-otp-content');
     const loginSection = document.querySelector('.login-form-main-content');
 
     regSection.classList.remove('d-flex');
@@ -501,7 +501,7 @@ function switchToLogin() {
 document.querySelector('.reg-page-switch-btn').addEventListener('click', switchToLogin);
 
 function switchToReg() {
-    const regSection = document.querySelector('.registration-form-main-content');
+    const regSection = document.querySelector('.registration-form-otp-content');
     const loginSection = document.querySelector('.login-form-main-content');
 
     regSection.classList.remove('d-none');
@@ -636,3 +636,12 @@ function hideLoadMore(){
     document.querySelector('.load-more-button').classList.add('d-none');
 }
 
+// send otp button
+
+document.querySelector('.send-otp-code-btn').addEventListener('click', showHideOtpSection);
+document.querySelector('.send-otp-code-btn').addEventListener('click', userLogin);
+
+function showHideOtpSection(){
+    document.querySelector('.otp-section').classList.remove('d-none');
+    document.querySelector('.otp-section').classList.add('d-flex');
+}

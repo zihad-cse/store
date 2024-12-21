@@ -3,6 +3,7 @@
     --secondary-color: #0097A7;
     --secondary-dark: #253D4E;
     --tertiary-color: #F3FBFB;
+    --error-color: #FF7F7F;
     --light-color: #fff;
     --dark-color: #111;
     --box-shadow-bottom: 0 1px 3px rgba(0, 0, 0, 0.09);
@@ -2012,13 +2013,21 @@ body {
     border-radius: 5px;
 }
 
-.registration-form-main-content {
+.login-reg-positioning {
     flex-direction: column;
     align-items: center;
     padding: 20px;
     height: auto;
     width: 300px;
 }
+
+/* .registration-form-main-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: auto;
+    width: 300px;
+} */
 
 .product-qnty-increment {
     user-select: none;
@@ -2205,4 +2214,13 @@ body {
     margin-top: 30px;
     margin-left: 50px;
     padding: 0px;
+}
+
+#loginRegErr {
+    background-color: var(--error-color);
+    padding: 5px;
+    border: red solid 2px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
 }

@@ -91,3 +91,11 @@ if ($err) {
 </body>
 
 </html>
+
+<!-- <div class="heading_s1">
+    <h1 class="mb-5">Enter Your Otp</h1>
+</div>
+<div class="form-group"><input type="text" required="" id="getOtp" name="getOtp" placeholder="Enter Your OTP*" /><small class="text-danger" id="errorNumMessage"></small></div><span id="resendDiv">
+    <p id="countDown">OTP has been send! <span id="time"></span></p><a class="" id="resendField" onclick="resendOTP(' + phone + ')">Resend OTP</a>
+</span>
+<div class="form-group"><button type="submit" class="btn btn-heading btn-block hover-up" name="login" onclick="checkOTP(' + phone + ')">Log in</button></div> -->

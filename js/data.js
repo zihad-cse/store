@@ -61,7 +61,7 @@ function fetchData(limit = currentLimit) {
                 const randomName = prod.description;
                 const itemID = prod.stockid;
                 const itemLongDesc = prod.longdescription;
-                
+
                 content += `
                     <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category-name='${randomCatName}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}' data-prod-longdesc='${itemLongDesc}'>
                         <div class="item-viewing-trigger">
@@ -525,6 +525,59 @@ function loadMoreProducts(currentLimit) {
         }
     })
 }
+
+
+// user actions here
+
+var phoneReg = new RegExp(/(^(\+88|0088)?(01){1}[56789]{1}(\d){8})$/);
+function userLogin() {
+    var phoneNumber = $("#phnNumber").val();
+    if ($.isNumeric(phoneNumber)) {
+        if (!phoneReg.test(phoneNumber)) {
+            $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>")
+        } else {
+            $("#errorDivContainer").html("");
+            var curlCheck = "userPhoneNumberSend";
+            $.ajax({
+                url: "data/userActions.php",
+                type: "POST",
+                data: {
+                    phoneNumber: phoneNumber,
+                    check: curlCheck,
+                },
+                success: function (response) {
+                    console.log(response)
+                    if (!response == "success") {
+                        var phone = "'" + phoneNumber + "'";
+                        var submitOtpSegment = '<label class="mt-2 mb-2" for="otpField">Enter OTP: </label><input id="otpField" class="form-input-text mt-2 mb-2" type="text"><span>Resend</span><button class="otp-submit-btn btn-primary mt-2 mb-2">Submit</button>';
+                        $("#otpSection").html(submitOtpSegment);
+                    } else {
+                        $("#errorDivContainer").html("<div id='loginRegErr'>" + response + "</div>");
+                    }
+                }
+            })
+        }
+    } else {
+        $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>");
+    }
+}
+
+// function userSignUp() {
+//     var errFlag = 0;
+//     var regNumber = $("#regNumber").val();
+//     if ($.isNumeric(regNumber)){
+//         if(!phoneReg.test(regNumber)) {
+//             $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>");
+//             errFlag = 1;
+//         } else {
+//             $("#errorDivContainer").html("");
+//         }
+//     } else {
+//         $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>")
+//     }
+
+// }
+
 
 
 $(document).ready(function () {
