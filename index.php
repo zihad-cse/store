@@ -30,6 +30,37 @@ if ($err) {
     // echo '</pre>';
 }
 
+// $curl = curl_init();
+// curl_setopt_array($curl, array(
+//     CURLOPT_URL => APIENDPOINT . "category-find.php",
+//     CURLOPT_RETURNTRANSFER => true,
+//     CURLOPT_ENCODING => "",
+//     CURLOPT_MAXREDIRS => 10,
+//     CURLOPT_TIMEOUT => 30,
+//     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//     CURLOPT_CUSTOMREQUEST => "GET",
+//     CURLOPT_HTTPHEADER => array(
+//         "Authorization:" . APIKEY,
+//         "cache-control: no-cache"
+//     ),
+// ));
+
+// $response = curl_exec($curl);
+// $err = curl_error($curl);
+
+// curl_close($curl);
+// if ($err) {
+//     echo "cURL Error #:" . $err;
+// } else {
+//     $category = json_decode($response);
+//     $categoryItems = (array) $category->data->menu->items;
+//     $categoryMenuList = (array) $category->data->menu->parents;
+//     $menuList = $categoryMenuList[0];
+//     // echo "<pre>";
+//     // print_r($categoryItems);
+//     // echo "</pre>";
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -91,11 +122,3 @@ if ($err) {
 </body>
 
 </html>
-
-<!-- <div class="heading_s1">
-    <h1 class="mb-5">Enter Your Otp</h1>
-</div>
-<div class="form-group"><input type="text" required="" id="getOtp" name="getOtp" placeholder="Enter Your OTP*" /><small class="text-danger" id="errorNumMessage"></small></div><span id="resendDiv">
-    <p id="countDown">OTP has been send! <span id="time"></span></p><a class="" id="resendField" onclick="resendOTP(' + phone + ')">Resend OTP</a>
-</span>
-<div class="form-group"><button type="submit" class="btn btn-heading btn-block hover-up" name="login" onclick="checkOTP(' + phone + ')">Log in</button></div> -->

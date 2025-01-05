@@ -1,5 +1,6 @@
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? {};
 let cartItemsAsObj = JSON.parse(localStorage.getItem('cartItemsAsObj')) ?? {};
+console.log(cartItemsAsObj);
 function updateCartItems(itemID, quantity) {
     if (quantity > 0) {
         cartItems[itemID] = quantity;
@@ -52,6 +53,7 @@ function fetchData(limit = currentLimit) {
         dataType: 'json',
         success: function (data) {
             let content = '';
+            $('#content-wrapper-div').empty();
             // console.log(data);
             data.forEach(function (prod) {
                 const randomCategoryNum = prod.category_id;
@@ -59,6 +61,7 @@ function fetchData(limit = currentLimit) {
                 const randomPrice = prod.webprice;
                 const randomCatName = prod.category;
                 const randomName = prod.description;
+                const truncatedName = truncateStrings(randomName, 20);
                 const itemID = prod.stockid;
                 const itemLongDesc = prod.longdescription;
 
@@ -73,7 +76,7 @@ function fetchData(limit = currentLimit) {
                                     <a class="text-decoration-none item-desc-category-link" href="">${randomCatName}</a>
                                 </div>
                                 <div class="item-desc-title">
-                                    <p class="text-decoration-none item-desc-title-link" href="">${randomName} </p>
+                                    <p title="${randomName}" class="text-decoration-none item-desc-title-link" href="">${truncatedName} </p>
                                 </div>
                                 <div class="item-desc-price">
                                     <span class:"item-desc-price-inner">৳${randomPrice}</span>
@@ -105,8 +108,9 @@ function fetchData(limit = currentLimit) {
 
             $('#content-wrapper-div .item').each(function () {
                 const prodID = $(this).data('prod-id');
-                if (cartItems[prodID]) {
-                    const qty = cartItems[prodID];
+                if (cartItemsAsObj[prodID]) {
+                    const qty = cartItemsAsObj[prodID].quantity;
+                    console.log(qty);
                     $(this).find('.in-cart-qty-val-input').val(qty);
                     $(this).find('.item-desc-add').removeClass('d-block').addClass('d-none');
                     $(this).find('.in-cart-qty').removeClass('d-none').addClass('d-flex');
@@ -124,7 +128,7 @@ function fetchData(limit = currentLimit) {
                         quantity: newValue
                     }
                     updateCartItemsAsObj(itemID, newValueObj)
-                    updateCartItems(itemID, input.val());
+                    // updateCartItems(itemID, input.val());
                     initializeCart();
                     countCart();
                 }
@@ -141,11 +145,11 @@ function fetchData(limit = currentLimit) {
                             quantity: newValue
                         }
                         updateCartItemsAsObj(itemID, newValueObj);
-                        updateCartItems(itemID, input.val());
+                        // updateCartItems(itemID, input.val());
                         $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
                         $(this).closest('.item').find('.item-desc-add').removeClass('d-none').addClass('d-block');
                     } else {
-                        updateCartItems(itemID, newValue);
+                        // updateCartItems(itemID, newValue);
                     }
                     initializeCart();
                     countCart();
@@ -156,7 +160,7 @@ function fetchData(limit = currentLimit) {
                 const itemID = $(this).closest('.item').data('prod-id');
                 if (input && input.attr('type') === 'number') {
                     const newValue = input.val();
-                    updateCartItems(itemID, newValue);
+                    // updateCartItems(itemID, newValue);
                     const newValueObj = {
                         quantity: newValue
                     }
@@ -246,7 +250,7 @@ function initializeCart() {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
             updateCartItemsAsObj(itemID, 0);
-            updateCartItems(itemID, 0);
+            // updateCartItems(itemID, 0);
             updateItemDisplay(itemID);
             initializeCart();
             countCart();
@@ -374,7 +378,7 @@ function initiateCartPage() {
                     quantity: newQnty
                 }
 
-                updateCartItems(itemId, newQnty);
+                // updateCartItems(itemId, newQnty);
                 updateCartItemsAsObj(itemId, newQntyObj);
                 updateItemDisplay(itemId);
             }
@@ -393,7 +397,7 @@ function initiateCartPage() {
             } else {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
-            updateCartItems(itemID, 0);
+            // updateCartItems(itemID, 0);
             updateCartItemsAsObj(itemID, 0);
             initializeCart();
             initiateCartPage();
@@ -482,7 +486,7 @@ function initiateCheckoutPage() {
             } else {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
-            updateCartItems(itemID, 0);
+            // updateCartItems(itemID, 0);
             updateCartItemsAsObj(itemID, 0);
             updateItemDisplay(itemID);
             initializeCart();
@@ -514,22 +518,50 @@ function updateItemDisplay(itemID) {
 
 let limit = 20;
 
-function loadMoreProducts(currentLimit) {
-    $.ajax({
-        url: './data/product-data-fetch.php',
-        method: 'POST',
-        data: { limit: currentLimit },
-        success: function (response) {
-            console.log(currentLimit);
-            console.log(JSON.parse(response));
-        }
-    })
-}
+// function loadMoreProducts(currentLimit) {
+//     $.ajax({
+//         url: './data/product-data-fetch.php',
+//         method: 'POST',
+//         data: { limit: currentLimit },
+//         success: function (response) {
+//             console.log(currentLimit);
+//             console.log(JSON.parse(response));
+//         }
+//     })
+// }
 
 
 // user actions here
 
 var phoneReg = new RegExp(/(^(\+88|0088)?(01){1}[56789]{1}(\d){8})$/);
+
+function timer() {
+    var fiveMin = 60;
+    var timerDisplay = document.getElementById("resendOtpTimer");
+    startTimer(fiveMin, timerDisplay);
+}
+
+function startTimer(duration, display) {
+    var timer = duration;
+    var minutes;
+    var seconds;
+
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+
 function userLogin() {
     var phoneNumber = $("#phnNumber").val();
     if ($.isNumeric(phoneNumber)) {
@@ -547,10 +579,15 @@ function userLogin() {
                 },
                 success: function (response) {
                     console.log(response)
-                    if (!response == "success") {
+                    if (response == "Success") {
                         var phone = "'" + phoneNumber + "'";
-                        var submitOtpSegment = '<label class="mt-2 mb-2" for="otpField">Enter OTP: </label><input id="otpField" class="form-input-text mt-2 mb-2" type="text"><span>Resend</span><button class="otp-submit-btn btn-primary mt-2 mb-2">Submit</button>';
+                        var submitOtpSegment = '<label class="mt-2 mb-2" for="otpField">Enter OTP: </label><input id="otpField" class="form-input-text mt-2 mb-2" type="text"><button class="otp-submit-btn btn-primary mt-2 mb-2" onclick="checkOTP("' + phone + '")">Submit</button><div><span style="display: none;" onclick="resendOTP('+ phone +')" id="resendOtpBtn">Resend OTP</span><span class="" id="resendOtpTimer"></span></div>';
                         $("#otpSection").html(submitOtpSegment);
+                        timer();
+                        setTimeout(function () {
+                            $("#resendOtpTimer").hide();
+                            $("#resendOtpBtn").show();
+                        }, 1 * 60 * 1000);
                     } else {
                         $("#errorDivContainer").html("<div id='loginRegErr'>" + response + "</div>");
                     }
@@ -562,21 +599,77 @@ function userLogin() {
     }
 }
 
-// function userSignUp() {
-//     var errFlag = 0;
-//     var regNumber = $("#regNumber").val();
-//     if ($.isNumeric(regNumber)){
-//         if(!phoneReg.test(regNumber)) {
-//             $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>");
-//             errFlag = 1;
-//         } else {
-//             $("#errorDivContainer").html("");
-//         }
-//     } else {
-//         $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>")
-//     }
+function userSignup() {
+    var flag = 0;
+    var phoneNumber = $("#regNumber").val();
+    if ($.isNumeric(phoneNumber)){
+        if (!phoneReg.test(phoneNumber)) {
+            $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>");
+            flag = 1;
+        } else {
+            $("#errorDivContainer").html("");
+        }
+    } else {
+        $("#errorDivContainer").html("<div id='loginRegErr'>Please only enter a number.</div>");
+        flag = 1;
+    }
+    var userName = $("#regName").val();
+    var userAddress = $("#regAddress").val();
+    var email = $("#regEmail").val();
+    var emailID = $("#regGEmailID").val();
+    var media = $("#regGMedia").val();
 
-// }
+    
+}
+
+
+function resendOTP (phoneNumber) {
+    var check = "userPhoneNumberSend";
+    $.ajax({
+        url: "pages/userActions.php",
+        type: "POST",
+
+        data: {
+            phoneNumber: phoneNumber,
+            check: check,
+        },
+
+        success: function (response) {
+            if (response == "success") {
+                console.log(response); 
+            }
+        }
+    })
+}
+
+function checkOTP(phone) {
+    var otpCode = $("#otpField").val();
+    var check = "otpCheck";
+
+    if (otpCode != "") {
+        $.ajax({
+            url: "data/userActions.php",
+            type: "POST",
+
+            data: {
+                otpCode: otpCode,
+                phone: phone,
+                check: check,
+            },
+            success: function (response) {
+                console.log(response);
+
+                if (response == "Success") {
+                    location.reload();
+                } else {
+                    $("#errorDivContainer").html("<div id='loginRegErr'>" + response + "</div>");
+                }
+            }
+        });
+    } else {
+        $("#errorDivContainer").html("<div id='loginRegErr'> Please Enter OTP Number </div>")
+    }
+}
 
 
 

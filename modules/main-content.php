@@ -21,10 +21,16 @@
 
 <?php include_once "product.php"; ?>
 
+<!-- <div id="accountPageCont">
+    <div style="margin-left: 300px;">
+        
+    </div>
+</div> -->
+
 
 <!-- Featured Categories and other carousels -->
 
-<div class="main-content-categories">
+<!-- <div class="main-content-categories">
     <div class="mc-cat-wrapper" id="mc-cat-wrapper">
         <div class="mc-cat-inner">
             <div class="mc-cat-text">
@@ -45,4 +51,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

@@ -19,7 +19,7 @@
             <div class="search-wrapper">
                 <form class="search-bar-1" method="post" action="">
                     <input id="searchBarInput" class="search-bar-input" type="text" placeholder="Search for items">
-                    <span>
+                    <span style="margin-top: 5px; margin-right: 5px;">
                         <img src="img/search.svg" alt="">
                     </span>
                 </form>
