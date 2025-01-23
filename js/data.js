@@ -1,6 +1,6 @@
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? {};
 let cartItemsAsObj = JSON.parse(localStorage.getItem('cartItemsAsObj')) ?? {};
-console.log(cartItemsAsObj);
+// console.log(cartItemsAsObj);
 function updateCartItems(itemID, quantity) {
     if (quantity > 0) {
         cartItems[itemID] = quantity;
@@ -38,26 +38,139 @@ function updateCartItemsAsObj(itemID, itemDetails) {
     localStorage.setItem('cartItemsAsObj', JSON.stringify(cartItemsAsObj));
 }
 
+
+
+
+// function checkImage(url, callback) {
+//     // console.log("Sigma")
+//     const img = new Image();
+//     img.onload = () => callback(true, url); // Image loaded Successfully
+//     img.onerror = () => callback(false, url); // Image didn't load
+//     img.src = url;
+// }
+
+// function fetchData(limit = currentLimit) {
+
+//     dataFetchUrl = dataFetchUrl.replace(/(\?|&)limit=\d+/, '');
+
+//     if (defaultLimit === false) {
+//         dataFetchUrl += (dataFetchUrl.includes('?') ? '&' : '?') + `limit=${limit}`
+//     }
+//     // console.log(dataFetchUrl);
+//     $.ajax({
+//         url: `${dataFetchUrl}`,
+//         type: 'GET',
+//         dataType: 'json',
+//         success: function (data) {
+//             let content = '';
+//             $('#content-wrapper-div').empty();
+//             // console.log(data);
+//             data.forEach(function (prod) {
+//                 const randomCategoryNum = prod.category_id;
+//                 const randomPrice = prod.webprice;
+//                 const randomCatName = prod.category;
+//                 const randomName = prod.description;
+//                 const truncatedName = truncateStrings(randomName, 20);
+//                 const itemID = prod.stockid;
+//                 let imgurl = prod.img;
+//                 checkImage(imgurl, (isValid, checkedUrl) => {
+//                     if (!isValid) {
+//                         imgurl = "img/placeholder-150.png"
+//                         console.log("Placeholder: " + imgurl + " item ID: " + itemID);
+//                     }
+//                     console.log("Not placeholder. Item ID: " + itemID + " image URL: " + imgurl);
+//                 })
+//                 const itemLongDesc = prod.longdescription;
+
+//                 content += `
+//                     <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category-name='${randomCatName}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}' data-prod-longdesc='${itemLongDesc}'>
+//                         <div class="item-viewing-trigger">
+//                             <div class="item-picture">
+//                                 <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${imgurl}" alt="">
+//                             </div>
+//                             <div class="item-desc text-start">
+//                                 <div id='itemCategoryDiv' class="item-desc-category">
+//                                     <a class="text-decoration-none item-desc-category-link" href="">${randomCatName}</a>
+//                                 </div>
+//                                 <div class="item-desc-title">
+//                                     <p title="${randomName}" class="text-decoration-none item-desc-title-link" href="">${truncatedName} </p>
+//                                 </div>
+//                                 <div class="item-desc-price">
+//                                     <span class:"item-desc-price-inner">৳${randomPrice}</span>
+//                                     <span class="float-end"></span>
+//                                 </div>
+//                                 <div id='itemCatNum' style="visibility:hidden;">
+//                                     ${randomCategoryNum}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                         <div class="">
+//                             <button class='d-block item-desc-add'>Add to Cart</button>
+//                             <div class='in-cart-qty d-none'>
+//                                 <div class='in-cart-qty-dec'>
+//                                     -
+//                                 </div>
+//                                 <div class='in-cart-qty-val'>
+//                                     <input class='in-cart-qty-val-input' type="number" min='0' value='1'>
+//                                 </div>
+//                                 <div class='in-cart-qty-inc'>
+//                                     +
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `;
+//                 $('#content-wrapper-div').html(content);
+//                 initializeCartButtonEvents();
+//             });
+
+
+//         },
+//         error: function (xhr, status, error) {
+//             console.error('AJAX request failed', status, error);
+//         }
+//     })
+// }
+
 let currentLimit = 20;
 
-function fetchData(limit = currentLimit) {
+function checkImage(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve({ isValid: true, url });
+        img.onerror = () => resolve({ isValid: false, url: "img/placeholder-150.png" });
+        img.src = url;
+    });
+}
 
+function isLoading(status) {
+    let loadingSpinner = document.querySelector('.loader-gif')
+    if (status == true) {
+        loadingSpinner.classList.remove('d-none');
+    } else if (status == false) {
+        loadingSpinner.classList.add('d-none');
+    }
+}
+
+
+function fetchData(limit = currentLimit) {
     dataFetchUrl = dataFetchUrl.replace(/(\?|&)limit=\d+/, '');
 
     if (defaultLimit === false) {
-        dataFetchUrl += (dataFetchUrl.includes('?') ? '&' : '?') + `limit=${limit}`
+        dataFetchUrl += (dataFetchUrl.includes('?') ? '&' : '?') + `limit=${limit}`;
     }
+    isLoading(true);
     $.ajax({
         url: `${dataFetchUrl}`,
         type: 'GET',
         dataType: 'json',
-        success: function (data) {
+        success: async function (data) {
             let content = '';
             $('#content-wrapper-div').empty();
-            // console.log(data);
-            data.forEach(function (prod) {
+
+            console.log(data);
+            for (const prod of data) {
                 const randomCategoryNum = prod.category_id;
-                const imgurl = prod.img;
                 const randomPrice = prod.webprice;
                 const randomCatName = prod.category;
                 const randomName = prod.description;
@@ -65,11 +178,15 @@ function fetchData(limit = currentLimit) {
                 const itemID = prod.stockid;
                 const itemLongDesc = prod.longdescription;
 
+                let imgurl = prod.img;
+                const imgCheckResult = await checkImage(imgurl);
+                imgurl = imgCheckResult.url;
+
                 content += `
                     <div id="itemId" class="item d-flex flex-column" data-prod-id='${itemID}' data-category-name='${randomCatName}' data-category='${randomCategoryNum}' data-prod-name='${randomName}' data-prod-price='${randomPrice}' data-prod-longdesc='${itemLongDesc}'>
                         <div class="item-viewing-trigger">
                             <div class="item-picture">
-                                <img class="item-picture-img" style="max-height: 160px; max-width: 160px;" src="${imgurl}" alt="">
+                                <img class="item-picture-img" style="max-height: 160px; max-width: 160px; min-height: 160px; min-width: 160px;" src="${imgurl}" alt="">
                             </div>
                             <div class="item-desc text-start">
                                 <div id='itemCategoryDiv' class="item-desc-category">
@@ -103,79 +220,89 @@ function fetchData(limit = currentLimit) {
                         </div>
                     </div>
                 `;
-            });
+            }
+
             $('#content-wrapper-div').html(content);
-
-            $('#content-wrapper-div .item').each(function () {
-                const prodID = $(this).data('prod-id');
-                if (cartItemsAsObj[prodID]) {
-                    const qty = cartItemsAsObj[prodID].quantity;
-                    console.log(qty);
-                    $(this).find('.in-cart-qty-val-input').val(qty);
-                    $(this).find('.item-desc-add').removeClass('d-block').addClass('d-none');
-                    $(this).find('.in-cart-qty').removeClass('d-none').addClass('d-flex');
-                    countCart();
-                }
-            })
-
-            $('#content-wrapper-div').on('click', '.in-cart-qty-inc', function () {
-                const input = $(this).siblings('.in-cart-qty-val').find('input');
-                const itemID = $(this).closest('.item').data('prod-id');
-                if (input && input.attr('type') === 'number') {
-                    input[0].stepUp();
-                    const newValue = input.val();
-                    const newValueObj = {
-                        quantity: newValue
-                    }
-                    updateCartItemsAsObj(itemID, newValueObj)
-                    // updateCartItems(itemID, input.val());
-                    initializeCart();
-                    countCart();
-                }
-            });
-            $('#content-wrapper-div').on('click', '.in-cart-qty-dec', function () {
-                const input = $(this).siblings('.in-cart-qty-val').find('input');
-                const itemID = $(this).closest('.item').data('prod-id');
-                if (input && input.attr('type') === 'number') {
-                    input[0].stepDown();
-                    const newValue = input.val();
-                    if (newValue <= 0) {
-                        localStorage.removeItem(`${itemID}`);
-                        const newValueObj = {
-                            quantity: newValue
-                        }
-                        updateCartItemsAsObj(itemID, newValueObj);
-                        // updateCartItems(itemID, input.val());
-                        $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
-                        $(this).closest('.item').find('.item-desc-add').removeClass('d-none').addClass('d-block');
-                    } else {
-                        // updateCartItems(itemID, newValue);
-                    }
-                    initializeCart();
-                    countCart();
-                }
-            });
-            $('#content-wrapper-div').on('input', '.in-cart-qty-val-input', function () {
-                const input = $(this);
-                const itemID = $(this).closest('.item').data('prod-id');
-                if (input && input.attr('type') === 'number') {
-                    const newValue = input.val();
-                    // updateCartItems(itemID, newValue);
-                    const newValueObj = {
-                        quantity: newValue
-                    }
-                    updateCartItemsAsObj(itemID, newValueObj);
-                    initializeCart();
-                    countCart();
-                }
-            });
-
+            initializeCartButtonEvents();
+            isLoading(false);
         },
         error: function (xhr, status, error) {
             console.error('AJAX request failed', status, error);
+        },
+    });
+}
+
+
+function initializeCartButtonEvents() {
+    $('#content-wrapper-div').off();
+
+    $('#content-wrapper-div .item').each(function () {
+        const prodID = $(this).data('prod-id');
+        if (cartItemsAsObj[prodID]) {
+            const qty = cartItemsAsObj[prodID].quantity;
+            $(this).find('.in-cart-qty-val-input').val(qty);
+            $(this).find('.item-desc-add').removeClass('d-block').addClass('d-none');
+            $(this).find('.in-cart-qty').removeClass('d-none').addClass('d-flex');
+            countCart();
         }
     })
+
+
+    $('#content-wrapper-div').on('click', '.in-cart-qty-inc', function () {
+        const input = $(this).siblings('.in-cart-qty-val').find('input');
+        const itemID = $(this).closest('.item').data('prod-id');
+        if (input && input.attr('type') === 'number') {
+            input[0].stepUp();
+            const newValue = input.val();
+            const newValueObj = {
+                quantity: newValue
+            }
+            updateCartItemsAsObj(itemID, newValueObj)
+            // updateCartItems(itemID, input.val());
+            initializeCart();
+            countCart();
+        }
+    });
+
+    $('#content-wrapper-div').on('click', '.in-cart-qty-dec', function () {
+        const input = $(this).siblings('.in-cart-qty-val').find('input');
+        const itemID = $(this).closest('.item').data('prod-id');
+        if (input && input.attr('type') === 'number') {
+            input[0].stepDown();
+            const newValue = input.val();
+            if (newValue <= 0) {
+                localStorage.removeItem(`${itemID}`);
+                const newValueObj = {
+                    quantity: newValue
+                }
+                updateCartItemsAsObj(itemID, newValueObj);
+                // updateCartItems(itemID, input.val());
+                $(this).closest('.in-cart-qty').removeClass('d-flex').addClass('d-none');
+                $(this).closest('.item').find('.item-desc-add').removeClass('d-none').addClass('d-block');
+            } else {
+                // updateCartItems(itemID, newValue);
+            }
+            initializeCart();
+            countCart();
+        }
+    });
+
+    $('#content-wrapper-div').on('input', '.in-cart-qty-val-input', function () {
+        const input = $(this);
+        const itemID = $(this).closest('.item').data('prod-id');
+        if (input && input.attr('type') === 'number') {
+            const newValue = input.val();
+            // updateCartItems(itemID, newValue);
+            const newValueObj = {
+                quantity: newValue
+            }
+            updateCartItemsAsObj(itemID, newValueObj);
+            initializeCart();
+            countCart();
+        }
+    });
 }
+
 // Function to load more items into the home page.
 
 function loadMoreFunction() {
@@ -186,6 +313,7 @@ function loadMoreFunction() {
 }
 
 function initializeCart() {
+
     const cartWrapper = document.querySelector('.cart-items-list');
     const nothingInCartWrapper = document.querySelector('.no-items-in-cart');
     cartWrapper.innerHTML = '';
@@ -194,7 +322,7 @@ function initializeCart() {
         localStorage.removeItem('cartItems');
     }
 
-    const isEmptyCart = Object.keys(cartItems).length === 0;
+    const isEmptyCart = Object.keys(cartItemsAsObj).length === 0;
 
     if (isEmptyCart) {
         nothingInCartWrapper.classList.add('d-block');
@@ -267,9 +395,10 @@ function initiateCartPage() {
     let amount = 0;
 
     cartWrapper.innerHTML = ``;
-    const isEmptyCart = Object.keys(cartItems).length === 0;
+    const isEmptyCart = Object.keys(cartItemsAsObj).length === 0;
 
     if (isEmptyCart) {
+
         nothingInCart.classList.add('d-flex');
         nothingInCart.classList.remove('d-none');
         cartDetailViewCont.classList.remove('d-block');
@@ -283,7 +412,9 @@ function initiateCartPage() {
         cartDetailViewCont.classList.add('d-block');
 
         for (const key in cartItemsAsObj) {
+            console.log(cartItemsAsObj);
             const cartItemDetail = cartItemsAsObj[key];
+            console.log(cartItemDetail);
             const qty = parseInt(cartItemDetail.quantity);
             const itemName = cartItemDetail.name;
             const price = cartItemDetail.price;
@@ -419,8 +550,7 @@ function updateCheckoutTotal(amount) {
 function initiateCheckoutPage() {
     const cartItemListWrapper = document.querySelector('.checkout-cart-items-list');
     cartItemListWrapper.innerHTML = ``;
-
-    const isEmptyCart = Object.keys(cartItems).length === 0;
+    const isEmptyCart = Object.keys(cartItemsAsObj).length === 0;
     if (isEmptyCart) {
         console.log('No Cart Items');
         updateCheckoutTotal(0);
@@ -581,7 +711,7 @@ function userLogin() {
                     console.log(response)
                     if (response == "Success") {
                         var phone = "'" + phoneNumber + "'";
-                        var submitOtpSegment = '<label class="mt-2 mb-2" for="otpField">Enter OTP: </label><input id="otpField" class="form-input-text mt-2 mb-2" type="text"><button class="otp-submit-btn btn-primary mt-2 mb-2" onclick="checkOTP("' + phone + '")">Submit</button><div><span style="display: none;" onclick="resendOTP('+ phone +')" id="resendOtpBtn">Resend OTP</span><span class="" id="resendOtpTimer"></span></div>';
+                        var submitOtpSegment = '<label class="mt-2 mb-2" for="otpField">Enter OTP: </label><input id="otpField" class="form-input-text mt-2 mb-2" type="text"><button class="otp-submit-btn btn-primary mt-2 mb-2" onclick="checkOTP("' + phone + '")">Submit</button><div><span style="display: none;" onclick="resendOTP(' + phone + ')" id="resendOtpBtn">Resend OTP</span><span class="" id="resendOtpTimer"></span></div>';
                         $("#otpSection").html(submitOtpSegment);
                         timer();
                         setTimeout(function () {
@@ -602,7 +732,7 @@ function userLogin() {
 function userSignup() {
     var flag = 0;
     var phoneNumber = $("#regNumber").val();
-    if ($.isNumeric(phoneNumber)){
+    if ($.isNumeric(phoneNumber)) {
         if (!phoneReg.test(phoneNumber)) {
             $("#errorDivContainer").html("<div id='loginRegErr'>Please Enter a Valid Number</div>");
             flag = 1;
@@ -619,11 +749,11 @@ function userSignup() {
     var emailID = $("#regGEmailID").val();
     var media = $("#regGMedia").val();
 
-    
+
 }
 
 
-function resendOTP (phoneNumber) {
+function resendOTP(phoneNumber) {
     var check = "userPhoneNumberSend";
     $.ajax({
         url: "pages/userActions.php",
@@ -636,7 +766,7 @@ function resendOTP (phoneNumber) {
 
         success: function (response) {
             if (response == "success") {
-                console.log(response); 
+                console.log(response);
             }
         }
     })

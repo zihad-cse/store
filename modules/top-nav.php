@@ -27,18 +27,19 @@
         </div>
         <div class="account-actions">
             <div onclick="cartAppear()" class="cart-wrapper">
-                <div class="cart-svg">
-                    <p class="text-decoration-none text-dark" href="">
-                        <img src="img/cart.svg" alt="">
-                        <span class="cart-label">Cart</span>
-                    </p>
+                <div class="d-flex flex-row cart-svg">
+                    <!-- <p class="text-decoration-none text-dark" href="">
+                        </p> -->
+                    <img src="img/cart.svg" alt="">
+                    <!-- <p style="margin-left: 5px;" class="cart-label cart-counter-label"></p> -->
+                    <p style="margin-left: 5px;" class="cart-label empty-cart-label">Cart</p>
                 </div>
             </div>
             <div class="account-wrapper">
                 <div class="acc-svg">
-                    <a class="text-decoration-none text-dark" href="javascript:void(0)">
+                    <a class="d-flex flex-row text-decoration-none text-dark" href="javascript:void(0)">
                         <img src="img/account.svg" alt="">
-                        <span>Account</span>
+                        <p style="margin-left: 5px;">Account</p>
                     </a>
                 </div>
             </div>

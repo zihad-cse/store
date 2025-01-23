@@ -2,7 +2,12 @@
 include_once('apiendpoint.php');
 if(isset($_GET['query'])){
     $queryTerm = $_GET['query'];
-    $url = "product.php?product_name=". urlencode($queryTerm);
+    if (isset($_GET["category"])){
+        $categoryFilter = $_GET["category"];
+        $url = "product.php?product_name=". urlencode($queryTerm) . "&category=" . $categoryFilter;
+    } else {
+        $url = "product.php?product_name=". urlencode($queryTerm);
+    }
     $curl = curl_init();
     
     curl_setopt_array($curl, array(

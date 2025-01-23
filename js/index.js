@@ -363,6 +363,7 @@ function openCartDetails() {
         document.querySelector('.right-sidebar').classList.remove('d-none');
     }
     bannerVisNone();
+    hideLoadMore();
 }
 
 // Cart Page Close
@@ -374,6 +375,7 @@ function closeCartDetails() {
     listWrapper.classList.add('d-grid');
     cartDetails.classList.remove('d-block');
     cartDetails.classList.add('d-none');
+    showLoadMore();
 }
 
 // Checkout page Open
@@ -392,6 +394,7 @@ function checkoutViewOpen() {
     checkoutView.classList.remove('d-none');
     checkoutView.classList.add('d-block');
     bannerVisNone();
+    hideLoadMore();
 }
 
 
@@ -437,14 +440,13 @@ document.querySelector('.content-wrapper').addEventListener('click', function (e
 
 
 function countCart() {
-    let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? [];
+    // let cartItems = JSON.parse(localStorage.getItem('cartItems')) ?? [];
     let totalSum = 0;
     let cartCounter = document.querySelector('.total-items-in-cart');
 
-    for (let key of Object.keys(cartItems)) {
-        let value = cartItems[key];
-        let numericValue = parseFloat(value);
-
+    for (let key of Object.keys(cartItemsAsObj)) {
+        let value = cartItemsAsObj[key];
+        let numericValue = parseFloat(value.quantity);
         if (!isNaN(numericValue)) {
             totalSum += numericValue;
         }
@@ -453,18 +455,20 @@ function countCart() {
         cartCounter.classList.add('d-invisible');
         localStorage.removeItem('cartItems');
     }
-    if (totalSum == 1) {
+    if (totalSum >= 1) {
         if (cartCounter.classList.contains('d-invisible')) {
             cartCounter.classList.remove('d-invisible');
+            document.querySelector('.empty-cart-label').classList.add('d-invisible');
+            // document.querySelector('.cart-counter-label').innerHTML(totalSum + " " + "items");
         }
         cartCounter.innerHTML = `<h4>Your cart has: ${totalSum} Item</h4>`;
     }
-    if (totalSum > 1) {
-        if (cartCounter.classList.contains('d-invisible')) {
-            cartCounter.classList.remove('d-invisible');
-        }
-        cartCounter.innerHTML = `<h4>Your cart has: ${totalSum} Items</h4>`;
-    }
+    // if (totalSum > 1) {
+    //     if (cartCounter.classList.contains('d-invisible')) {
+    //         cartCounter.classList.remove('d-invisible');
+    //     }
+    //     cartCounter.innerHTML = `<h4>Your cart has: ${totalSum} Items</h4>`;
+    // }
 }
 
 // Login Registration Modal actions start
@@ -602,13 +606,30 @@ let noSearchQuery = true;
 let defaultLimit = true;
 let noCatFilter = true;
 
-document.querySelector('.search-bar-input').addEventListener('input',liveSearch);
+var liveSearchBox = document.querySelector('.search-bar-input');
+liveSearchBox.addEventListener('input',liveSearch);
 let dataFetchUrl = `data/product-data-fetch.php`;
 function liveSearch() {
     const query = this.value;
+    let activeCat = '';
+    console.log("category")
+    categoryButtons = document.querySelectorAll("#categoryTarget");
+    // for (var i = 0; i < categoryButtons.length; i++) {
+    //     console.log("Test");
+    //     if (this.classList.contains("active")){
+    //         console.log("Active");
+    //     }
+    // }
+    categoryButtons.forEach(cat => {
+        if(cat.classList.contains("active")){
+            activeCat = cat.dataset.category;
+            console.log(activeCat);
+        }
+    })
     if (query.length > 2) {
-        dataFetchUrl = `data/search-result-fetch.php?query=${encodeURIComponent(query)}`;
+        dataFetchUrl = `data/search-result-fetch.php?query=${encodeURIComponent(query)}&category=${activeCat}`;
         bannerVisNone();
+        console.log(dataFetchUrl);
         noSearchQuery = false;
     } else if (query.length == 0){
         dataFetchUrl = `data/product-data-fetch.php`;
@@ -625,8 +646,15 @@ function liveSearch() {
 // Category Filtering with cURL
 
 function categoryFilter(categoryId){
-    dataFetchUrl = `data/category-filter.php?categoryId=${categoryId}&check=categoryFilter`;
+    // console.log(dataFetchUrl);
     noCatFilter = false;
+    if (liveSearchBox.value !== ''){
+        dataFetchUrl = `data/search-result-fetch.php?query=${encodeURIComponent(liveSearchBox.value)}&category=${categoryId}`
+        console.log(dataFetchUrl);
+    } else {
+        dataFetchUrl = `data/category-filter.php?categoryId=${categoryId}&check=categoryFilter`;
+        console.log(dataFetchUrl);
+    }
     fetchData();
 }
 

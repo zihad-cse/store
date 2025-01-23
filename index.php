@@ -1,38 +1,11 @@
 <?php
 include_once('data/apiendpoint.php');
-$curl = curl_init();
-curl_setopt_array($curl, array(
-    CURLOPT_URL => APIENDPOINT . "category.php",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => array(
-        "Authorization:" . APIKEY,
-        "cache-control: no-cache"
-    ),
-));
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
-
-if ($err) {
-    echo "cURL Error #:" . $err;
-} else {
-    $category = json_decode($response);
-    $categoryData = $category->data->category;
-    // echo '<pre>';
-    // print_r($categoryData);
-    // echo '</pre>';
-}
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // $curl = curl_init();
 // curl_setopt_array($curl, array(
-//     CURLOPT_URL => APIENDPOINT . "category-find.php",
+//     CURLOPT_URL => APIENDPOINT . "category.php",
 //     CURLOPT_RETURNTRANSFER => true,
 //     CURLOPT_ENCODING => "",
 //     CURLOPT_MAXREDIRS => 10,
@@ -49,17 +22,49 @@ if ($err) {
 // $err = curl_error($curl);
 
 // curl_close($curl);
+
 // if ($err) {
 //     echo "cURL Error #:" . $err;
 // } else {
 //     $category = json_decode($response);
-//     $categoryItems = (array) $category->data->menu->items;
-//     $categoryMenuList = (array) $category->data->menu->parents;
-//     $menuList = $categoryMenuList[0];
-//     // echo "<pre>";
-//     // print_r($categoryItems);
-//     // echo "</pre>";
+//     $categoryData = $category->data->category;
+//     // echo '<pre>';
+//     // print_r($categoryData);
+//     // echo '</pre>';
 // }
+
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_URL => APIENDPOINT . "category-find.php",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+        "Authorization:" . APIKEY,
+        "cache-control: no-cache"
+    ),
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+if ($err) {
+    echo "cURL Error #:" . $err;
+} else {
+    $category = json_decode($response);
+    $categoryItems = (array) $category->data->menu->items;
+    $categoryMenuList = (array) $category->data->menu->parents;
+    $categoryMenu = (array) $category->data->menu;
+    $menuList = $categoryMenuList[0];
+
+    // echo "<pre>";
+    // print_r($categoryMenuList[3]);
+    // echo "</pre>";
+}
 
 ?>
 

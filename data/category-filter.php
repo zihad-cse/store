@@ -39,6 +39,6 @@ if ($_GET['check'] == 'categoryFilter') {
         // } else {
         //     echo json_encode(["message" => "No Products Found"]);
         // }
-        echo json_encode($categoryProduct);
+        echo json_encode($categoryData);
     }
 }
